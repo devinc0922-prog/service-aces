@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tennis Lessons Clermont FL | Serving Aces Tennis Academy</title>
+  <meta name="description" content="Private tennis lessons in Clermont, FL with PTR-certified Coach Tommy O'Donnell. 35+ years coaching juniors, adults, and families throughout Central Florida."/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; overflow: hidden;
+      background: var(--dark);
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('assets/images/coach-and-junior.jpg') center/cover no-repeat;
+      opacity: .35;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 8rem 5% 5rem 5%;
+      grid-column: 1;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      color: #fff; line-height: 1.05; margin-bottom: 1.2rem;
+    }
+    .hero h1 em { color: var(--lime); font-style: italic; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,.7);
+      line-height: 1.75; max-width: 500px; margin-bottom: 1rem;
+    }
+    .hero-creds {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      margin-bottom: 2rem;
+    }
+    .cred-pill {
+      background: rgba(181,228,92,.15); color: var(--lime);
+      border: 1px solid rgba(181,228,92,.3);
+      font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+      padding: .3rem .85rem; border-radius: 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── PROGRAMS ── */
+    .programs { background: var(--dark); }
+    .programs-header { text-align: center; margin-bottom: 3rem; }
+    .programs-header .section-title { color: #fff; }
+    .programs-header .section-sub { margin: 0 auto; color: rgba(255,255,255,.55); }
+    .programs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .prog-card {
+      border-radius: 20px; padding: 2.2rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s;
+    }
+    .prog-card:hover { transform: translateY(-5px); }
+    .prog-card.c1 { background: linear-gradient(145deg,#1e6b44,#0f3d26); }
+    .prog-card.c2 { background: linear-gradient(145deg,#c44e0a,#8a3006); }
+    .prog-card.c3 { background: linear-gradient(145deg,#1a4a7a,#0d2a4e); }
+    .prog-card.c4 { background: linear-gradient(145deg,#5a3a8a,#2d1a5c); }
+    .prog-card.c5 { background: linear-gradient(145deg,#2a6a5a,#0f3d30); }
+    .prog-card.c6 { background: linear-gradient(145deg,#6a4a1a,#3d2a0a); }
+    .prog-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .prog-title { font-family: 'Playfair Display',serif; font-size: 1.25rem; color: #fff; margin-bottom: .6rem; }
+    .prog-body { font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.7; }
+    .prog-badge {
+      display: inline-block; margin-top: 1rem;
+      background: rgba(255,255,255,.1); color: rgba(255,255,255,.75);
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .22rem .7rem; border-radius: 2rem;
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; min-height: 500px;
+    }
+    .about-photo {
+      background: url('assets/images/coach-tommy-about.jpg') center/cover no-repeat;
+      min-height: 400px;
+    }
+    .about-text-block {
+      background: var(--green);
+      padding: 5rem 8% 5rem 8%;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .about-text-block .section-title { color: #fff; margin-bottom: 1rem; }
+    .about-text-block p { color: rgba(255,255,255,.75); font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
+    .about-stats { display: flex; gap: 2.5rem; margin: 1.5rem 0 2rem; }
+    .stat-num { font-family: 'Playfair Display',serif; font-size: 2.5rem; color: var(--lime); line-height: 1; }
+    .stat-label { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: .2rem; }
+
+    /* ── PHOTO BREAK ── */
+    .photo-break {
+      height: 380px;
+      background: url('assets/images/tennis-lesson-action.jpg') center 30%/cover no-repeat;
+      position: relative;
+    }
+    .photo-break::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(15,28,16,.7) 0%, rgba(15,28,16,.2) 100%);
+    }
+    .photo-break-text {
+      position: absolute; z-index: 2;
+      top: 50%; left: 5%; transform: translateY(-50%);
+      max-width: 500px;
+    }
+    .photo-break-text h2 { font-family: 'Playfair Display',serif; font-size: clamp(1.8rem,3.5vw,2.8rem); color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+
+    /* ── SERVICE AREAS ── */
+    .areas { background: var(--cream); text-align: center; }
+    .areas-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 2rem; }
+    .area-pill {
+      background: #fff; border: 1.5px solid rgba(26,92,58,.15);
+      color: var(--green); font-weight: 600; font-size: .9rem;
+      padding: .6rem 1.4rem; border-radius: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    /* ── CTA ── */
+    .cta-band {
+      background: var(--clay);
+      padding: 5rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .cta-band h2 { font-family: 'Playfair Display',serif; font-size: clamp(1.8rem,3.5vw,2.8rem); color: #fff; max-width: 540px; line-height: 1.2; }
+    .cta-band h2 em { font-style: italic; color: #ffd4b0; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .about-strip { grid-template-columns: 1fr; }
+      .about-photo { min-height: 300px; }
+      .cta-band { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/logo.png" alt="Serving Aces logo"/>
+    <span>Serving <em>Aces</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Coach Tommy</a></li>
+    <li><a href="tommys-corner/index.html">Tommy's Corner</a></li>
+    <li><a href="contact.html" class="nav-cta">Book a Lesson</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="index.html">Home</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Coach Tommy</a>
+  <a href="tommys-corner/index.html">Tommy's Corner</a>
+  <a href="contact.html" class="mob-cta">Book a Lesson</a>
+</div>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-content">
+      <div class="label label-lime">Clermont, Florida</div>
+      <h1>Private Tennis Lessons<br/>with <em>35+ Years</em><br/>of Coaching</h1>
+      <p class="hero-sub">Serving Aces Tennis Academy helps junior and adult players improve faster through private, semi-private, and development-focused coaching tailored to every level.</p>
+      <div class="hero-creds">
+        <span class="cred-pill">PTR Certified</span>
+        <span class="cred-pill">35+ Years Experience</span>
+        <span class="cred-pill">Junior Development</span>
+        <span class="cred-pill">All Skill Levels</span>
+      </div>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn btn-primary">Book a Lesson</a>
+        <a href="about.html" class="btn btn-outline">Meet Coach Tommy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs section">
+    <div class="section-narrow">
+      <div class="programs-header">
+        <div class="label label-white">What Coach Tommy Offers</div>
+        <h2 class="section-title">Tennis Coaching Programs<br/>in Clermont, FL</h2>
+        <p class="section-sub">Private lessons, junior development, group clinics and more — structured coaching built around your goals at every skill level.</p>
+      </div>
+      <div class="programs-grid">
+        <div class="prog-card c1">
+          <div class="prog-icon">🎾</div>
+          <div class="prog-title">Private Tennis Lessons</div>
+          <div class="prog-body">One-on-one coaching focused entirely on your game. Technique, strategy, and footwork tailored to your level and pace.</div>
+          <span class="prog-badge">Most Popular</span>
+        </div>
+        <div class="prog-card c2">
+          <div class="prog-icon">👥</div>
+          <div class="prog-title">Semi-Private Lessons</div>
+          <div class="prog-body">Train with a partner or small group. Great value with focused instruction — ideal for friends or doubles partners improving together.</div>
+          <span class="prog-badge">All Levels</span>
+        </div>
+        <div class="prog-card c3">
+          <div class="prog-icon">🌱</div>
+          <div class="prog-title">Junior Tennis Development</div>
+          <div class="prog-body">Age-appropriate coaching for kids and teens. Building fundamentals, footwork, and a love for the game from the ground up.</div>
+          <span class="prog-badge">Ages 4+</span>
+        </div>
+        <div class="prog-card c4">
+          <div class="prog-icon">🏆</div>
+          <div class="prog-title">Adult Beginner to Advanced</div>
+          <div class="prog-body">Whether you're picking up a racket for the first time or refining a competitive game, Tommy meets you exactly where you are.</div>
+          <span class="prog-badge">All Ages</span>
+        </div>
+        <div class="prog-card c5">
+          <div class="prog-icon">⚡</div>
+          <div class="prog-title">Group Tennis Clinics</div>
+          <div class="prog-body">High-energy group sessions focused on drills, match play, and skill-building. Improve while competing with others at a similar level.</div>
+          <span class="prog-badge">Small Groups</span>
+        </div>
+        <div class="prog-card c6">
+          <div class="prog-icon">🧠</div>
+          <div class="prog-title">Match Strategy & Fitness</div>
+          <div class="prog-body">Game planning, mental approach, court movement, and tennis-specific conditioning. Win more by playing smarter and moving better.</div>
+          <span class="prog-badge">Intermediate+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT STRIP -->
+  <div class="about-strip">
+    <div class="about-photo"></div>
+    <div class="about-text-block">
+      <div class="label label-white">Meet Your Coach</div>
+      <h2 class="section-title">Tommy O'Donnell</h2>
+      <p>PTR-certified tennis professional with over 35 years of experience coaching juniors, adults, families, and developing athletes across Central Florida.</p>
+      <p>Tommy's approach is simple: every player is different, so every lesson is built around the player's goals, ability level, and learning style.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">35+</div>
+          <div class="stat-label">Years coaching</div>
+        </div>
+        <div>
+          <div class="stat-num">5.5</div>
+          <div class="stat-label">Personal best USTA rating</div>
+        </div>
+        <div>
+          <div class="stat-num">PTR</div>
+          <div class="stat-label">Certified professional</div>
+        </div>
+      </div>
+      <a href="about.html" class="btn btn-white">Full Bio →</a>
+    </div>
+  </div>
+
+  <!-- PHOTO BREAK -->
+  <div class="photo-break">
+    <div class="photo-break-text">
+      <h2>"Every player is different, so every lesson is built around the player."</h2>
+      <a href="contact.html" class="btn btn-primary">Book Your First Lesson</a>
+    </div>
+  </div>
+
+  <!-- SERVICE AREAS -->
+  <section class="areas section">
+    <div class="section-narrow text-center">
+      <div class="label label-green">Where We Coach</div>
+      <h2 class="section-title">Serving Central Florida</h2>
+      <p class="section-sub" style="margin: 0 auto;">Coach Tommy travels to courts throughout the greater Clermont area. No need to drive far — he comes to your community.</p>
+      <div class="areas-grid">
+        <div class="area-pill">Clermont</div>
+        <div class="area-pill">Winter Garden</div>
+        <div class="area-pill">Windermere</div>
+        <div class="area-pill">Davenport</div>
+        <div class="area-pill">Minneola</div>
+        <div class="area-pill">Horizon West</div>
+        <div class="area-pill">Central Florida</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Ready to get on the court?<br/><em>No pressure, no long-term commitment.</em></h2>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-white">Book a Lesson</a>
+      <a href="tel:4072590774" class="btn btn-outline">Call (407) 259-0774</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/images/logo.png" alt="Serving Aces"/>
+        <span>Serving Aces</span>
+      </a>
+      <div class="footer-info">
+        Clermont, FL &nbsp;·&nbsp;
+        <a href="tel:4072590774">(407) 259-0774</a> &nbsp;·&nbsp;
+        <a href="mailto:tommy@servingaces.net">tommy@servingaces.net</a>
+      </div>
+      <div class="footer-links">
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="tommys-corner/index.html">Tommy's Corner</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Serving Aces Tennis Academy · Clermont, FL</span>
+      <a href="https://www.facebook.com/Tommyisbest/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

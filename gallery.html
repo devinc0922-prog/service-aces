@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tennis Lessons Clermont FL Gallery | Serving Aces</title>
+  <meta name="description" content="Photos from real coaching sessions at Serving Aces Tennis Academy — junior lessons, family coaching, group clinics, and more in Clermont, FL."/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .gallery-hero {
+      background: linear-gradient(160deg,#0d2a4e 0%,#1a4a7a 55%,#1e6b44 100%);
+      padding: 9rem 5% 5rem; position: relative; overflow: hidden;
+    }
+    .gallery-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 80px),
+                  repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 80px);
+    }
+    .gallery-hero-inner { position: relative; z-index: 2; max-width: 700px; }
+    .gallery-hero h1 { font-size: clamp(2.2rem,5vw,3.8rem); color: #fff; margin-bottom: 1rem; }
+    .gallery-hero p { color: rgba(255,255,255,.7); font-size: 1.05rem; line-height: 1.75; }
+
+    .gallery-section { padding: 5rem 5%; }
+    .gallery-intro { max-width: 700px; margin: 0 auto 3rem; text-align: center; }
+    .gallery-intro .section-title { color: var(--dark); }
+    .gallery-intro p { color: var(--muted); font-size: 1rem; line-height: 1.75; }
+
+    /* Masonry-style grid */
+    .photo-grid {
+      columns: 3; column-gap: 1.2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .photo-item {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      border-radius: 14px; overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .photo-item:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.18); }
+    .photo-item img { width: 100%; display: block; }
+    .photo-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(15,28,16,.85));
+      color: rgba(255,255,255,.9); font-size: .8rem;
+      padding: 2rem 1rem .9rem; opacity: 0;
+      transition: opacity .3s;
+    }
+    .photo-item:hover .photo-caption { opacity: 1; }
+
+    .gallery-cta { background: var(--green); padding: 5rem 5%; text-align: center; }
+    .gallery-cta h2 { font-family: 'Playfair Display',serif; color: #fff; font-size: clamp(1.8rem,3.5vw,2.6rem); margin-bottom: 1rem; }
+    .gallery-cta p { color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto 2rem; font-size: 1rem; line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      .photo-grid { columns: 2; }
+    }
+    @media (max-width: 480px) {
+      .photo-grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/logo.png" alt="Serving Aces logo"/>
+    <span>Serving <em>Aces</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="about.html">About Coach Tommy</a></li>
+    <li><a href="tommys-corner/index.html">Tommy's Corner</a></li>
+    <li><a href="contact.html" class="nav-cta">Book a Lesson</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="index.html">Home</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Coach Tommy</a>
+  <a href="tommys-corner/index.html">Tommy's Corner</a>
+  <a href="contact.html" class="mob-cta">Book a Lesson</a>
+</div>
+
+<div class="page-wrap">
+
+  <div class="gallery-hero">
+    <div class="gallery-hero-inner">
+      <div class="label label-lime">On the Court</div>
+      <h1>Tennis Lessons in Action</h1>
+      <p>Real coaching moments with Coach Tommy — junior development, family lessons, beginner instruction, court drills, and the fun that comes with learning something new.</p>
+    </div>
+  </div>
+
+  <section class="gallery-section">
+    <div class="gallery-intro">
+      <div class="label label-green">The Gallery</div>
+      <h2 class="section-title">Every Player Has a Story</h2>
+      <p>Coach Tommy works with junior players, adult beginners, developing athletes, and families who want a fun and encouraging way to learn tennis. These photos show what a Serving Aces lesson actually looks like.</p>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-item">
+        <img src="assets/images/family-vacation-lesson.jpg" alt="Family tennis lesson with Coach Tommy in Clermont FL"/>
+        <div class="photo-caption">Family lessons — all ages welcome</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/coach-with-juniors.jpg" alt="Coach Tommy with junior tennis students"/>
+        <div class="photo-caption">Junior development group</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/tennis-smile-balls.jpg" alt="Smiley face tennis balls on a racket"/>
+        <div class="photo-caption">Making tennis fun from day one</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/bucket-heads.jpg" alt="Kids doing fun tennis drills with buckets on their heads"/>
+        <div class="photo-caption">Drills that keep juniors engaged</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/coach-tommy-group.jpg" alt="Coach Tommy leading a group tennis clinic"/>
+        <div class="photo-caption">Group clinic — Clermont, FL</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/coach-tom-forehand.jpg" alt="Coach Tommy demonstrating a forehand"/>
+        <div class="photo-caption">Hands-on technique instruction</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/tennis-lesson.jpg" alt="Tennis lesson in action at a Clermont court"/>
+        <div class="photo-caption">Focused on fundamentals and footwork</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/tennis-smiles.jpg" alt="Happy tennis students after a lesson"/>
+        <div class="photo-caption">Positive coaching creates positive results</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/conditions.jpg" alt="Tennis coaching session on a sunny Florida day"/>
+        <div class="photo-caption">Year-round coaching in Central Florida</div>
+      </div>
+      <div class="photo-item">
+        <img src="assets/images/tennis-lesson-action.jpg" alt="Action shot from a tennis lesson"/>
+        <div class="photo-caption">Building real skills, one session at a time</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gallery-cta">
+    <h2>Ready to be in the next photo?</h2>
+    <p>Private and group lessons for juniors, adults, and families throughout Clermont and Central Florida.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-primary">Book a Lesson</a>
+      <a href="tel:4072590774" class="btn btn-outline">Call (407) 259-0774</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/images/logo.png" alt="Serving Aces"/>
+        <span>Serving Aces</span>
+      </a>
+      <div class="footer-info">
+        Clermont, FL &nbsp;·&nbsp;
+        <a href="tel:4072590774">(407) 259-0774</a> &nbsp;·&nbsp;
+        <a href="mailto:tommy@servingaces.net">tommy@servingaces.net</a>
+      </div>
+      <div class="footer-links">
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="tommys-corner/index.html">Tommy's Corner</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Serving Aces Tennis Academy · Clermont, FL</span>
+      <a href="https://www.facebook.com/Tommyisbest/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

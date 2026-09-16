@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The One Serve Fix That Helps Almost Every Player | Tommy's Corner | Serving Aces</title>
+  <meta name="description" content="Inconsistent serve? After 35+ years of coaching, Clermont pro Tommy O'Donnell says the problem usually isn't your arm — it's your toss."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #1a5c3a; --lime: #b5e45c; --clay: #d4540a;
+      --cream: #f8f3ec; --dark: #0f1c10; --mid: #3a5c3e;
+      --text: #2a3a2d; --muted: #5a6e5c;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(15,28,16,0.95); backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--lime); text-decoration: none; }
+    .nav-logo span { color: #fff; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--lime); }
+    .nav-cta { background: var(--clay); color: #fff; padding: .5rem 1.3rem; border-radius: 2rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: background .25s; }
+    .nav-cta:hover { background: #b84808; }
+
+    .post-hero {
+      padding: 9rem 5% 5rem;
+      background: linear-gradient(160deg, #8a3006 0%, #c44e0a 50%, #6b2a00 100%);
+      position: relative; overflow: hidden;
+    }
+    .post-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px),
+                  repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .breadcrumb { display: flex; gap: .5rem; align-items: center; margin-bottom: 1.5rem; }
+    .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color .2s; }
+    .breadcrumb a:hover { color: var(--lime); }
+    .breadcrumb span { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    .post-cat {
+      display: inline-block; background: rgba(212,84,10,0.5); color: #ffd0b0;
+      border: 1px solid rgba(255,208,176,0.3);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem;
+    }
+    .post-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem); color: #fff; line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .post-meta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .post-meta span { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    .post-meta strong { color: rgba(255,255,255,0.85); }
+
+    .post-layout {
+      display: grid; grid-template-columns: 1fr 300px; gap: 4rem;
+      padding: 4rem 5%; align-items: start;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    article { max-width: 720px; }
+    article p { font-size: 1.05rem; line-height: 1.85; color: #3a4a3d; margin-bottom: 1.4rem; }
+    article h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--dark);
+      margin: 2.5rem 0 .8rem;
+      padding-left: 1rem;
+      border-left: 4px solid var(--clay);
+    }
+    .tip-box {
+      background: linear-gradient(135deg, rgba(212,84,10,0.07), rgba(212,84,10,0.03));
+      border: 1px solid rgba(212,84,10,0.2);
+      border-radius: 12px; padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box strong { color: var(--clay); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: .4rem; }
+    .tip-box p { margin: 0; font-size: 0.95rem !important; }
+
+    /* Toss drill visual */
+    .drill-visual {
+      background: linear-gradient(135deg, #1e6b44, #0f3d26);
+      border-radius: 16px; padding: 2rem;
+      text-align: center; margin: 2rem 0;
+      position: relative; overflow: hidden;
+    }
+    .drill-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 30px),
+                  repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 30px);
+    }
+    .drill-visual-inner { position: relative; z-index: 1; }
+    .drill-visual h4 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.1rem; margin-bottom: .5rem; }
+    .drill-visual p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+    .racket-target { font-size: 3rem; margin: 1rem 0; }
+
+    .post-divider { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 2rem 0; }
+
+    .inline-cta {
+      background: var(--green); border-radius: 16px; padding: 2rem;
+      color: #fff; margin: 3rem 0;
+    }
+    .inline-cta h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: .5rem; }
+    .inline-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1.2rem; }
+    .inline-cta a { display: inline-block; background: var(--clay); color: #fff; padding: .65rem 1.5rem; border-radius: 2rem; text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: background .2s; }
+    .inline-cta a:hover { background: #b84808; }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-block { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 1.5rem; }
+    .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 1rem; color: var(--dark); }
+    .cta-sidebar { background: var(--green); border-radius: 16px; padding: 1.5rem; color: #fff; margin-bottom: 1.5rem; }
+    .cta-sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: .5rem; }
+    .cta-sidebar p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+    .cta-btn { display: block; text-align: center; background: var(--clay); color: #fff; padding: .65rem 1rem; border-radius: 2rem; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: background .2s; }
+    .cta-btn:hover { background: #b84808; }
+    .related-post { display: block; text-decoration: none; padding: .8rem 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .related-post:last-child { border: none; }
+    .related-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1a4a7a; margin-bottom: .2rem; }
+    .related-cat.parents { color: var(--green); }
+    .related-title { font-size: 0.9rem; font-weight: 500; color: var(--dark); line-height: 1.35; transition: color .2s; }
+    .related-post:hover .related-title { color: var(--green); }
+
+    footer { background: var(--dark); color: rgba(255,255,255,0.45); padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--lime); text-decoration: none; }
+    footer p { font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Serving <span>Aces</span></a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../index.html#programs">Programs</a></li>
+    <li><a href="./index.html" class="active">Tommy's Corner</a></li>
+    <li><a href="../index.html">Reviews</a></li>
+  </ul>
+  <a href="../contact.html" class="nav-cta">Book a Lesson</a>
+</nav>
+
+<div class="post-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>/</span>
+      <a href="./index.html">Tommy's Corner</a>
+      <span>/</span>
+      <a href="#">Technique</a>
+    </div>
+    <div class="post-cat">Technique</div>
+    <h1>The One Serve Fix That Helps Almost Every Player</h1>
+    <div class="post-meta">
+      <span>By <strong>Coach Tommy O'Donnell</strong></span>
+      <span>·</span>
+      <span>September 7, 2026</span>
+      <span>·</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</div>
+
+<div style="padding-top:0;"></div>
+
+<div class="post-layout">
+  <article>
+    <p>I've been teaching tennis since 1985. In that time I've watched a lot of people try to fix their serve, and almost all of them start in the wrong place.</p>
+    <p>They think about the arm. The wrist. Whether they're "snapping" enough. They watch a video, try to copy a motion, and end up with a serve that works twice and then falls apart.</p>
+    <p>Here's what I tell them instead: <strong>your serve isn't an arm problem. It's a toss problem.</strong></p>
+
+    <h3>Why the toss is everything</h3>
+    <p>Think about what you're asking your body to do. You throw a ball into the air, and then you have to swing at it while it's moving, from a position you can't adjust once you've started.</p>
+    <p>If that ball goes to a slightly different place every time, then your swing has to be different every time to compensate. You're not really hitting a serve — you're improvising a rescue.</p>
+    <p>That's why your serve feels great in the warmup and disappears at 4-5. Under pressure, the toss gets tighter and lower and more erratic, and the swing that worked ten minutes ago no longer fits the ball.</p>
+    <p>Fix the toss and the swing gets to be the same every time. That's all consistency is.</p>
+
+    <h3>What a good toss actually looks like</h3>
+    <p>Three things. That's it.</p>
+    <p><strong>One: it goes up, not out.</strong> Most players push the ball forward, away from their body, because it feels like it's helping them hit into the court. It isn't. It pulls you off balance and drops your contact point. The ball should go almost straight up, landing slightly in front of your front foot if you let it drop.</p>
+    <p><strong>Two: your arm stays straight and lifts slowly.</strong> Don't throw it. Lift it, like you're placing a glass on a high shelf, and let the ball roll off your fingertips. A tossing arm that bends is a toss that goes somewhere new every time.</p>
+    <p><strong>Three: it's high enough that you have to wait for it.</strong> A low toss rushes you. If you feel like you're hurrying to catch up to the ball, throw it higher. Yes, higher feels wrong at first. Do it anyway.</p>
+
+    <h3>The drill I give everybody</h3>
+    <p>You don't need a court for this one. You barely need a racquet.</p>
+
+    <div class="drill-visual">
+      <div class="drill-visual-inner">
+        <h4>The Racket Landing Drill</h4>
+        <div class="racket-target">🎾 🎾</div>
+        <p>Stand in serve position. Place your racquet on the ground about a foot in front of your front foot. Toss — and don't swing. Just let the ball land. If it lands on the racquet, you tossed well.</p>
+      </div>
+    </div>
+
+    <p>Ten tosses. Count how many hit the racquet. Do this every day for a week — it takes ninety seconds — and then go serve. Most people find their serve improved without ever having practiced serving.</p>
+
+    <div class="tip-box">
+      <strong>Pro Tip</strong>
+      <p>If you use a different landing target — a towel, a cone, a specific spot — swap that in. The goal is the same: make your toss land in the same place every single time.</p>
+    </div>
+
+    <h3>What to do when it breaks down mid-match</h3>
+    <p>It will. Everybody's does.</p>
+    <p>When your serve goes in a match, don't start rebuilding your technique between points. That never works and it usually makes it worse.</p>
+    <p>Instead: <strong>catch a bad toss.</strong> You're allowed to. If the ball goes up in a spot you don't like, just let it drop or catch it, and start over. No penalty. Nobody minds.</p>
+    <p>I watch club players swing at terrible tosses constantly because they feel embarrassed to catch one. You're going to feel a lot more embarrassed double-faulting.</p>
+
+    <h3>The bigger point</h3>
+    <p>A lot of what I do as a coach is talk people out of fixing the wrong thing.</p>
+    <p>The serve is the clearest example, but it's true across the board. The forehand that "isn't working" is usually a footwork issue. The backhand that keeps going into the net is usually a preparation issue. The shot itself is rarely where the problem lives.</p>
+    <p>That's also why I don't teach from a script. What one player needs to hear is almost never what the next one needs. Find the actual cause, fix that one thing, and a lot of other things quietly get better on their own.</p>
+    <p>Go throw ten balls at your racquet.</p>
+
+    <div class="inline-cta">
+      <h4>Want to work on this in person?</h4>
+      <p>Coach Tommy offers private and small-group lessons in Clermont, Winter Garden, Windermere, and throughout Central Florida — for juniors, adults, and complete beginners.</p>
+      <a href="../contact.html">Book a Lesson</a>
+      &nbsp;&nbsp;<span style="color:rgba(255,255,255,0.6); font-size:0.9rem;">or call/text <strong style="color:#fff;">(407) 259-0774</strong></span>
+    </div>
+  </article>
+
+  <aside class="sidebar">
+    <div class="cta-sidebar">
+      <h3>Ready to get on the court?</h3>
+      <p>Private and group lessons for juniors, adults, and beginners throughout Central Florida.</p>
+      <a href="../contact.html" class="cta-btn">Book a Lesson</a>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">More Posts</div>
+      <a href="./post-us-open.html" class="related-post">
+        <div class="related-cat">Pro Game</div>
+        <div class="related-title">How to Watch the US Open Like a Coach</div>
+      </a>
+      <a href="./post-tough-match.html" class="related-post">
+        <div class="related-cat parents">For Parents</div>
+        <div class="related-title">What to Say to Your Kid After a Tough Match</div>
+      </a>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">Contact Tommy</div>
+      <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Questions about lessons? Call or text directly.</p>
+      <p style="font-size:1rem; font-weight:600; color:var(--green);">📞 (407) 259-0774</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Serving Aces</a>
+  <p>© 2026 Serving Aces Tennis. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="../about.html">About</a>
+    <a href="../index.html#programs">Programs</a>
+    <a href="./index.html">Tommy's Corner</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+/* ================================================
+   Serving Aces Tennis Academy — Global Stylesheet
+   ================================================ */
+
+:root {
+  --green:  #1a5c3a;
+  --green2: #2d7a50;
+  --lime:   #b5e45c;
+  --clay:   #d4540a;
+  --cream:  #f8f3ec;
+  --dark:   #0f1c10;
+  --text:   #2a3a2d;
+  --muted:  #5a6e5c;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.15; }
+p { line-height: 1.8; }
+a { color: var(--green); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 5%;
+  background: rgba(15,28,16,0.96);
+  backdrop-filter: blur(8px);
+  height: 70px;
+}
+.nav-logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.nav-logo img { height: 42px; width: auto; }
+.nav-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: #fff; letter-spacing: .02em;
+}
+.nav-logo span em { color: var(--lime); font-style: normal; }
+.nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+.nav-links a {
+  color: rgba(255,255,255,0.75); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500; letter-spacing: .06em;
+  text-transform: uppercase; padding: .5rem .9rem;
+  transition: color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--lime); }
+.nav-cta {
+  background: var(--clay); color: #fff !important;
+  padding: .5rem 1.2rem !important; border-radius: 2rem;
+  margin-left: .5rem;
+  transition: background .2s !important;
+}
+.nav-cta:hover { background: #b84808 !important; color: #fff !important; }
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: .5rem;
+}
+.nav-toggle span {
+  display: block; width: 24px; height: 2px;
+  background: #fff; border-radius: 2px; transition: all .3s;
+}
+.mobile-menu {
+  display: none; position: fixed; top: 70px; left: 0; right: 0;
+  background: rgba(15,28,16,0.98); padding: 1rem 0;
+  z-index: 199; flex-direction: column;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  padding: .9rem 5%; font-size: 1rem; font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: color .2s;
+}
+.mobile-menu a:hover { color: var(--lime); }
+.mobile-menu .mob-cta {
+  background: var(--clay); color: #fff !important;
+  margin: 1rem 5%; border-radius: 2rem; text-align: center;
+  border: none;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block; text-decoration: none;
+  padding: .85rem 2rem; border-radius: 2rem;
+  font-size: .95rem; font-weight: 600; transition: all .2s;
+}
+.btn-primary { background: var(--clay); color: #fff; }
+.btn-primary:hover { background: #b84808; color: #fff; transform: translateY(-2px); }
+.btn-outline { border: 2px solid rgba(255,255,255,0.5); color: #fff; }
+.btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+.btn-green { background: var(--green); color: #fff; }
+.btn-green:hover { background: var(--green2); color: #fff; transform: translateY(-2px); }
+.btn-white { background: #fff; color: var(--clay); }
+.btn-white:hover { background: var(--cream); color: var(--clay); transform: scale(1.03); }
+
+/* ── SECTION LABELS ── */
+.label {
+  display: inline-block; font-size: .7rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: .28rem .85rem; border-radius: 2rem; margin-bottom: 1rem;
+}
+.label-lime { background: var(--lime); color: var(--dark); }
+.label-green { background: rgba(26,92,58,.12); color: var(--green); }
+.label-white { background: rgba(255,255,255,.15); color: #fff; }
+.label-clay  { background: rgba(212,84,10,.12); color: var(--clay); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark); color: rgba(255,255,255,.45);
+  padding: 2.5rem 5%;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+.footer-logo img { height: 32px; }
+.footer-logo span { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--lime); }
+.footer-info { font-size: .82rem; line-height: 1.7; }
+.footer-info a { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+.footer-info a:hover { color: var(--lime); }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .82rem; transition: color .2s; }
+.footer-links a:hover { color: var(--lime); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.07);
+  margin-top: 1.5rem; padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem; font-size: .78rem;
+  max-width: 1200px; margin-left: auto; margin-right: auto;
+}
+
+/* ── UTILITIES ── */
+.page-wrap { padding-top: 70px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+.section { padding: 5rem 5%; }
+.section-narrow { max-width: 1200px; margin: 0 auto; }
+.text-center { text-align: center; }
+.section-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+.section-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 560px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .section { padding: 3.5rem 5%; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tommy's Corner | Serving Aces Tennis</title>
+  <meta name="description" content="Coach Tommy O'Donnell's tennis blog — technique tips, parent advice, and pro game breakdowns from 35+ years on the court."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #1a5c3a; --lime: #b5e45c; --clay: #d4540a;
+      --cream: #f8f3ec; --dark: #0f1c10; --mid: #3a5c3e;
+      --text: #2a3a2d; --muted: #5a6e5c;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(15,28,16,0.95); backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--lime); text-decoration: none; }
+    .nav-logo span { color: #fff; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--lime); }
+    .nav-cta { background: var(--clay); color: #fff; padding: .5rem 1.3rem; border-radius: 2rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: background .25s; }
+    .nav-cta:hover { background: #b84808; }
+
+    /* BLOG HERO */
+    .blog-hero {
+      padding: 8rem 5% 5rem;
+      background: var(--green);
+      position: relative; overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px),
+                  repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 700px; }
+    .hero-tag {
+      display: inline-block; background: var(--lime); color: var(--dark);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem;
+    }
+    .blog-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem); color: #fff; line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .blog-hero h1 em { color: var(--lime); font-style: italic; }
+    .blog-hero p { color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.7; max-width: 540px; }
+
+    /* CATEGORY FILTER */
+    .cat-bar {
+      background: var(--dark); padding: 1rem 5%;
+      display: flex; gap: .75rem; flex-wrap: wrap; align-items: center;
+    }
+    .cat-label { color: rgba(255,255,255,0.4); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; margin-right: .5rem; }
+    .cat-pill {
+      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 2rem;
+      padding: .3rem .9rem; font-size: 0.78rem; font-weight: 500;
+      text-decoration: none; transition: all .2s; cursor: pointer;
+    }
+    .cat-pill:hover, .cat-pill.active { background: var(--lime); color: var(--dark); border-color: var(--lime); }
+
+    /* POST GRID */
+    .posts-section { padding: 4rem 5%; }
+    .posts-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* FEATURED (spans 2 cols) */
+    .post-card {
+      border-radius: 20px; overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform .3s, box-shadow .3s;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+    }
+    .post-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+    .post-card.featured { grid-column: span 2; flex-direction: row; }
+
+    .card-img {
+      background: linear-gradient(135deg, var(--green) 0%, #0f3d26 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: rgba(255,255,255,0.3);
+      flex-shrink: 0;
+    }
+    .post-card:not(.featured) .card-img { height: 180px; }
+    .post-card.featured .card-img { width: 45%; min-height: 300px; font-size: 6rem; }
+
+    .card-img.clay-bg { background: linear-gradient(135deg, #c44e0a, #8a3006); }
+    .card-img.lime-bg { background: linear-gradient(135deg, #4a8a2a, var(--green)); }
+    .card-img.blue-bg { background: linear-gradient(135deg, #1a4a7a, #0d2a4e); }
+
+    .card-body { padding: 1.8rem; display: flex; flex-direction: column; flex: 1; }
+    .card-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .cat-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: .2rem .7rem; border-radius: 2rem;
+    }
+    .cat-badge.pro-game  { background: rgba(26,74,122,0.12); color: #1a4a7a; }
+    .cat-badge.technique { background: rgba(212,84,10,0.12); color: var(--clay); }
+    .cat-badge.parents   { background: rgba(26,92,58,0.12); color: var(--green); }
+    .post-date { font-size: 0.78rem; color: var(--muted); }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; line-height: 1.3; margin-bottom: .75rem;
+      color: var(--dark);
+    }
+    .post-card.featured .card-title { font-size: 1.7rem; }
+    .card-excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .read-more {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: 1.2rem; font-size: 0.85rem; font-weight: 600;
+      color: var(--green); text-decoration: none;
+    }
+    .read-more::after { content: '→'; transition: transform .2s; }
+    .post-card:hover .read-more::after { transform: translateX(4px); }
+
+    /* SIDEBAR */
+    .content-layout {
+      display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start;
+      padding: 4rem 5%;
+    }
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-block {
+      background: #fff; border-radius: 16px; padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 1.5rem;
+    }
+    .sidebar-title {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      margin-bottom: 1rem; color: var(--dark);
+    }
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .topic-list a {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .5rem .75rem; border-radius: 8px;
+      text-decoration: none; color: var(--text); font-size: 0.9rem;
+      transition: background .2s;
+    }
+    .topic-list a:hover { background: var(--cream); }
+    .topic-count {
+      background: var(--green); color: #fff;
+      font-size: 0.7rem; padding: .15rem .5rem; border-radius: 2rem;
+    }
+    .cta-sidebar {
+      background: var(--green); border-radius: 16px; padding: 1.5rem; color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .cta-sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: .5rem; }
+    .cta-sidebar p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+    .cta-btn {
+      display: block; text-align: center;
+      background: var(--clay); color: #fff;
+      padding: .65rem 1rem; border-radius: 2rem;
+      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      transition: background .2s;
+    }
+    .cta-btn:hover { background: #b84808; }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.45);
+      padding: 3rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--lime); text-decoration: none; }
+    footer p { font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .post-card.featured { flex-direction: column; }
+      .post-card.featured .card-img { width: 100%; min-height: 200px; }
+      .content-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Serving <span>Aces</span></a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../index.html#programs">Programs</a></li>
+    <li><a href="./index.html" class="active">Tommy's Corner</a></li>
+    <li><a href="../index.html">Reviews</a></li>
+  </ul>
+  <a href="../contact.html" class="nav-cta">Book a Lesson</a>
+</nav>
+
+<div class="blog-hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Coach Tommy's Blog</div>
+    <h1>Tommy's <em>Corner</em></h1>
+    <p>Coaching insights, technique breakdowns, parent guides, and pro game analysis — straight from 35+ years on the court.</p>
+  </div>
+</div>
+
+<div class="cat-bar">
+  <span class="cat-label">Browse by:</span>
+  <a class="cat-pill active" href="#">All Posts</a>
+  <a class="cat-pill" href="#">Pro Game</a>
+  <a class="cat-pill" href="#">Technique</a>
+  <a class="cat-pill" href="#">For Parents</a>
+  <a class="cat-pill" href="#">Drills</a>
+  <a class="cat-pill" href="#">Beginners</a>
+</div>
+
+<div class="content-layout">
+  <main>
+    <div class="posts-grid">
+
+      <!-- POST 1 — FEATURED -->
+      <a href="./post-us-open.html" class="post-card featured">
+        <div class="card-img blue-bg">🎾</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge pro-game">Pro Game</span>
+            <span class="post-date">Aug 24, 2026</span>
+          </div>
+          <h2 class="card-title">How to Watch the US Open Like a Coach: 5 Things That Will Make You a Better Player</h2>
+          <p class="card-excerpt">The 2026 US Open is here. Most people watch the pros the way they'd watch fireworks. Change what your eyes do for one match and you'll learn more about your game in two hours than in a month of hitting.</p>
+          <span class="read-more">Read the full post</span>
+        </div>
+      </a>
+
+      <!-- POST 2 -->
+      <a href="./post-serve-fix.html" class="post-card">
+        <div class="card-img clay-bg">🎯</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge technique">Technique</span>
+            <span class="post-date">Sep 7, 2026</span>
+          </div>
+          <h2 class="card-title">The One Serve Fix That Helps Almost Every Player</h2>
+          <p class="card-excerpt">Inconsistent serve? After 35+ years of coaching, the problem usually isn't your arm — it's your toss.</p>
+          <span class="read-more">Read the full post</span>
+        </div>
+      </a>
+
+      <!-- POST 3 -->
+      <a href="./post-tough-match.html" class="post-card">
+        <div class="card-img lime-bg">💚</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge parents">For Parents</span>
+            <span class="post-date">Sep 21, 2026</span>
+          </div>
+          <h2 class="card-title">What to Say to Your Kid After a Tough Match</h2>
+          <p class="card-excerpt">The car ride home shapes a junior tennis player more than most lessons do. A coach of 35+ years on what to say — and what not to.</p>
+          <span class="read-more">Read the full post</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="cta-sidebar">
+      <h3>Ready to get on the court?</h3>
+      <p>Private and group lessons for juniors, adults, and beginners throughout Central Florida.</p>
+      <a href="../contact.html" class="cta-btn">Book a Lesson</a>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">Topics</div>
+      <ul class="topic-list">
+        <li><a href="#">Pro Game <span class="topic-count">1</span></a></li>
+        <li><a href="#">Technique <span class="topic-count">1</span></a></li>
+        <li><a href="#">For Parents <span class="topic-count">1</span></a></li>
+        <li><a href="#">Drills <span class="topic-count">0</span></a></li>
+        <li><a href="#">Beginners <span class="topic-count">0</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">Contact Tommy</div>
+      <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Questions about lessons? Call or text directly.</p>
+      <p style="font-size:1rem; font-weight:600; color:var(--green);">📞 (407) 259-0774</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Serving Aces</a>
+  <p>© 2026 Serving Aces Tennis. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="../about.html">About</a>
+    <a href="../index.html#programs">Programs</a>
+    <a href="./index.html">Tommy's Corner</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

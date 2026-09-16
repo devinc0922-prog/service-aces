@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Watch the US Open Like a Coach | Tommy's Corner | Serving Aces</title>
+  <meta name="description" content="The 2026 US Open runs Aug 23–Sep 13. Clermont coach Tommy O'Donnell shares five things to watch for that will improve your own game."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #1a5c3a; --lime: #b5e45c; --clay: #d4540a;
+      --cream: #f8f3ec; --dark: #0f1c10; --mid: #3a5c3e;
+      --text: #2a3a2d; --muted: #5a6e5c;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(15,28,16,0.95); backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--lime); text-decoration: none; }
+    .nav-logo span { color: #fff; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--lime); }
+    .nav-cta { background: var(--clay); color: #fff; padding: .5rem 1.3rem; border-radius: 2rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: background .25s; }
+    .nav-cta:hover { background: #b84808; }
+
+    /* POST HERO */
+    .post-hero {
+      padding: 9rem 5% 5rem;
+      background: linear-gradient(160deg, #0d2a4e 0%, #1a4a7a 60%, #1e6b44 100%);
+      position: relative; overflow: hidden;
+    }
+    .post-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px),
+                  repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .breadcrumb { display: flex; gap: .5rem; align-items: center; margin-bottom: 1.5rem; }
+    .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color .2s; }
+    .breadcrumb a:hover { color: var(--lime); }
+    .breadcrumb span { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    .post-cat {
+      display: inline-block; background: rgba(26,74,122,0.6); color: #a8c8ff;
+      border: 1px solid rgba(168,200,255,0.3);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem;
+    }
+    .post-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem); color: #fff; line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .post-meta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .post-meta span { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    .post-meta strong { color: rgba(255,255,255,0.85); }
+
+    /* CONTENT LAYOUT */
+    .post-layout {
+      display: grid; grid-template-columns: 1fr 300px; gap: 4rem;
+      padding: 4rem 5%; align-items: start;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ARTICLE */
+    article { max-width: 720px; }
+    article p { font-size: 1.05rem; line-height: 1.85; color: #3a4a3d; margin-bottom: 1.4rem; }
+    article h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--dark);
+      margin: 2.5rem 0 .8rem;
+      padding-left: 1rem;
+      border-left: 4px solid var(--lime);
+    }
+    .tip-box {
+      background: linear-gradient(135deg, rgba(26,92,58,0.08), rgba(181,228,92,0.12));
+      border: 1px solid rgba(26,92,58,0.15);
+      border-radius: 12px; padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .tip-box strong { color: var(--green); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: .4rem; }
+    .tip-box p { margin: 0; font-size: 0.95rem !important; }
+    .post-divider { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 2rem 0; }
+
+    /* CTA BOX */
+    .inline-cta {
+      background: var(--green); border-radius: 16px; padding: 2rem;
+      color: #fff; margin: 3rem 0;
+    }
+    .inline-cta h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: .5rem; }
+    .inline-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1.2rem; }
+    .inline-cta a {
+      display: inline-block; background: var(--clay); color: #fff;
+      padding: .65rem 1.5rem; border-radius: 2rem;
+      text-decoration: none; font-size: 0.88rem; font-weight: 600;
+      transition: background .2s;
+    }
+    .inline-cta a:hover { background: #b84808; }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-block {
+      background: #fff; border-radius: 16px; padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 1.5rem;
+    }
+    .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 1rem; color: var(--dark); }
+    .cta-sidebar { background: var(--green); border-radius: 16px; padding: 1.5rem; color: #fff; margin-bottom: 1.5rem; }
+    .cta-sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: .5rem; }
+    .cta-sidebar p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+    .cta-btn { display: block; text-align: center; background: var(--clay); color: #fff; padding: .65rem 1rem; border-radius: 2rem; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: background .2s; }
+    .cta-btn:hover { background: #b84808; }
+    .related-post { display: block; text-decoration: none; padding: .8rem 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .related-post:last-child { border: none; }
+    .related-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); margin-bottom: .2rem; }
+    .related-title { font-size: 0.9rem; font-weight: 500; color: var(--dark); line-height: 1.35; transition: color .2s; }
+    .related-post:hover .related-title { color: var(--green); }
+
+    /* BACK LINK */
+    .back-bar {
+      background: #fff; border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: .8rem 5%; display: flex; align-items: center; gap: .5rem;
+    }
+    .back-bar a { color: var(--muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: .4rem; transition: color .2s; }
+    .back-bar a:hover { color: var(--green); }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,0.45); padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--lime); text-decoration: none; }
+    footer p { font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Serving <span>Aces</span></a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../index.html#programs">Programs</a></li>
+    <li><a href="./index.html" class="active">Tommy's Corner</a></li>
+    <li><a href="../index.html">Reviews</a></li>
+  </ul>
+  <a href="../contact.html" class="nav-cta">Book a Lesson</a>
+</nav>
+
+<div class="post-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>/</span>
+      <a href="./index.html">Tommy's Corner</a>
+      <span>/</span>
+      <a href="#">Pro Game</a>
+    </div>
+    <div class="post-cat">Pro Game</div>
+    <h1>How to Watch the US Open Like a Coach: 5 Things That Will Make You a Better Player</h1>
+    <div class="post-meta">
+      <span>By <strong>Coach Tommy O'Donnell</strong></span>
+      <span>·</span>
+      <span>August 24, 2026</span>
+      <span>·</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</div>
+
+<div class="back-bar" style="margin-top:0; padding-top: 80px;"><!-- spacer --></div>
+
+<div class="post-layout">
+  <article>
+    <p>The US Open starts this week, and for the next three weeks a lot of you are going to have tennis on in the background. I want to make a case for watching it a little differently.</p>
+    <p>Most people watch the pros the way they'd watch fireworks. Big serve, nice shot, wow. That's a fine way to enjoy it, but you're leaving something on the table. If you change what your eyes do for even one match, you'll pick up more about your own game in two hours than you would in a month of hitting.</p>
+    <p>Here's what I look for.</p>
+
+    <h3>1. Watch the feet, not the ball</h3>
+    <p>This is the hardest one, because your eyes want to follow the ball. Fight it. Pick one player and watch only their feet for a full game.</p>
+    <p>What you'll notice: they are almost never standing still. There's a small hop — the split step — right as their opponent makes contact. Then they're moving before the ball has crossed the net. And after they hit, they don't admire it. They're already recovering toward the middle.</p>
+    <p>Most of my students lose points they had no business losing because they hit a good ball and then watched it. The pros have trained that out of themselves completely.</p>
+    <div class="tip-box">
+      <strong>Steal This</strong>
+      <p>Next time you play, say "split" out loud every time your opponent hits. Feel silly for one set. You'll be a step faster by the end of it.</p>
+    </div>
+
+    <h3>2. Count how many balls they hit crosscourt</h3>
+    <p>Pick a rally. Count the shots. Then count how many went crosscourt versus down the line.</p>
+    <p>You'll find the ratio is lopsided — a lot of crosscourt, and down the line only when something specific opens up. That's not a coincidence and it's not boring. The net is lower in the middle, the court is longer on the diagonal, and hitting crosscourt keeps you in position instead of stranding you.</p>
+    <p>The pros are patient in a way that recreational players almost never are. They'll hit six crosscourt forehands waiting for one short ball.</p>
+    <div class="tip-box">
+      <strong>Steal This</strong>
+      <p>Most of my club players go down the line far too early, from a ball that doesn't justify it. That's the single most common unforced error I see. Wait one more shot.</p>
+    </div>
+
+    <h3>3. Watch the second serve, not the first</h3>
+    <p>First serves are fun. Second serves are information.</p>
+    <p>Watch where a player's second serve lands and how much it kicks up. Almost every pro is hitting a second serve with real spin that jumps toward the returner's backhand. They're not hitting a soft, flat, apologetic ball into the box and hoping.</p>
+    <p>That's what a lot of us do — hammer the first one, then patty-cake the second. Which tells your opponent exactly what's coming and invites them to step in.</p>
+    <div class="tip-box">
+      <strong>Steal This</strong>
+      <p>Spend one practice session hitting only second serves. No first serves at all. It's not glamorous and it will win you more matches than anything else on this list.</p>
+    </div>
+
+    <h3>4. Notice what happens between points</h3>
+    <p>Here's the one nobody watches, and it might matter most.</p>
+    <p>After a bad miss, watch what a top player does in the next twenty seconds. Turn to the back fence. Adjust the strings. Walk to the towel. Take a breath. Bounce the ball a set number of times.</p>
+    <p>It looks like a habit. It's a reset. They've built a routine that stops one bad point from becoming three.</p>
+    <p>Compare that to a typical junior match, where the reaction to a missed forehand is to stomp back to the baseline and immediately play the next point angry. The scoreboard tells the rest of the story.</p>
+    <div class="tip-box">
+      <strong>Steal This</strong>
+      <p>Pick a between-point routine and use it whether you won the point or lost it. Same routine either way. That's the whole trick.</p>
+    </div>
+
+    <h3>5. Watch a doubles match</h3>
+    <p>I know — everybody wants the singles finals. But if you're a recreational player, doubles is closer to the tennis you actually play, and it's a clinic in positioning.</p>
+    <p>Watch how the net player moves. They're not standing there waiting; they're shifting with every ball, poaching, faking, closing. And watch how often points end at the net rather than from the baseline.</p>
+    <p>This year the US Open also has a revamped mixed doubles championship during Fan Week, so there's more of it on early in the tournament than usual. Check the <a href="https://www.usopen.org/" target="_blank" style="color:var(--green);">official schedule</a> for exact times.</p>
+
+    <hr class="post-divider"/>
+
+    <h3>If you want to actually go</h3>
+    <p>The 2026 US Open runs <strong>August 23 through September 13</strong> at the Billie Jean King National Tennis Center in New York. Fan Week is August 23–29 — that's qualifying rounds, practice sessions, and Arthur Ashe Kids' Day on opening day — and the main draw begins August 30.</p>
+    <p>The tournament is offering more free grounds-admission days than ever, including all of Fan Week. If you've ever wanted to take a junior player to a professional event, that week is about as accessible as top-level tennis gets. Watching a qualifier practice from ten feet away does something to a kid that television can't.</p>
+
+    <hr class="post-divider"/>
+
+    <h3>One last thing</h3>
+    <p>Don't try all five of these at once. Pick one. Watch one match with one job.</p>
+    <p>Then come tell me what you noticed — I'd rather hear what you saw than tell you what to look for.</p>
+
+    <div class="inline-cta">
+      <h4>Want to work on this in person?</h4>
+      <p>Coach Tommy offers private and small-group lessons in Clermont, Winter Garden, Windermere, and throughout Central Florida — for juniors, adults, and complete beginners.</p>
+      <a href="../contact.html">Book a Lesson</a>
+      &nbsp;&nbsp;<span style="color:rgba(255,255,255,0.6); font-size:0.9rem;">or call/text <strong style="color:#fff;">(407) 259-0774</strong></span>
+    </div>
+  </article>
+
+  <aside class="sidebar">
+    <div class="cta-sidebar">
+      <h3>Ready to get on the court?</h3>
+      <p>Private and group lessons for juniors, adults, and beginners throughout Central Florida.</p>
+      <a href="../contact.html" class="cta-btn">Book a Lesson</a>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">More Posts</div>
+      <a href="./post-serve-fix.html" class="related-post">
+        <div class="related-cat">Technique</div>
+        <div class="related-title">The One Serve Fix That Helps Almost Every Player</div>
+      </a>
+      <a href="./post-tough-match.html" class="related-post">
+        <div class="related-cat">For Parents</div>
+        <div class="related-title">What to Say to Your Kid After a Tough Match</div>
+      </a>
+    </div>
+
+    <div class="sidebar-block">
+      <div class="sidebar-title">Contact Tommy</div>
+      <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Questions about lessons? Call or text directly.</p>
+      <p style="font-size:1rem; font-weight:600; color:var(--green);">📞 (407) 259-0774</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Serving Aces</a>
+  <p>© 2026 Serving Aces Tennis. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="../about.html">About</a>
+    <a href="../index.html#programs">Programs</a>
+    <a href="./index.html">Tommy's Corner</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

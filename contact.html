@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Coach Tommy | Tennis Lessons Clermont FL | Serving Aces</title>
+  <meta name="description" content="Contact Coach Tommy O'Donnell to book tennis lessons in Clermont, FL. Private, junior, family, and group lessons throughout Central Florida."/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .contact-hero {
+      background: linear-gradient(160deg,#1a5c3a 0%,#0f3d26 100%);
+      padding: 9rem 5% 5rem; position: relative; overflow: hidden;
+    }
+    .contact-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('assets/images/coach-tommy-group.jpg') center/cover no-repeat;
+      opacity: .2;
+    }
+    .contact-hero-inner { position: relative; z-index: 2; max-width: 700px; }
+    .contact-hero h1 { font-size: clamp(2.2rem,5vw,3.8rem); color: #fff; margin-bottom: 1rem; }
+    .contact-hero p { color: rgba(255,255,255,.75); font-size: 1.05rem; line-height: 1.75; }
+    .contact-hero-creds { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+
+    .contact-body { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; padding: 5rem 5%; max-width: 1200px; margin: 0 auto; align-items: start; }
+
+    /* FORM */
+    .contact-form-wrap { }
+    .contact-form-wrap h2 { font-family: 'Playfair Display',serif; font-size: 1.9rem; color: var(--dark); margin-bottom: .5rem; }
+    .contact-form-wrap > p { color: var(--muted); font-size: .95rem; line-height: 1.7; margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.2rem; }
+    .field label { font-size: .82rem; font-weight: 600; color: var(--dark); letter-spacing: .04em; text-transform: uppercase; }
+    .field input, .field select, .field textarea {
+      border: 1.5px solid rgba(0,0,0,.12); border-radius: 10px;
+      padding: .75rem 1rem; font-size: .95rem; font-family: inherit;
+      color: var(--dark); background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(26,92,58,.12);
+    }
+    .field textarea { resize: vertical; min-height: 130px; }
+    .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%235a6e5c' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; }
+    .submit-btn {
+      width: 100%; background: var(--clay); color: #fff;
+      border: none; border-radius: 2rem; padding: 1rem;
+      font-size: 1rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background .2s, transform .2s;
+      letter-spacing: .02em;
+    }
+    .submit-btn:hover { background: #b84808; transform: translateY(-2px); }
+    .form-note { font-size: .78rem; color: var(--muted); text-align: center; margin-top: .75rem; line-height: 1.5; }
+
+    /* SUCCESS / ERROR states */
+    .form-success {
+      display: none; background: rgba(26,92,58,.08);
+      border: 1.5px solid rgba(26,92,58,.25);
+      border-radius: 14px; padding: 2rem; text-align: center;
+      margin-top: 1.5rem;
+    }
+    .form-success h3 { font-family: 'Playfair Display',serif; color: var(--green); margin-bottom: .5rem; }
+    .form-success p { color: var(--muted); font-size: .92rem; }
+
+    /* SIDEBAR */
+    .contact-sidebar { }
+    .sidebar-card {
+      background: #fff; border-radius: 18px; padding: 2rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07); margin-bottom: 1.5rem;
+    }
+    .sidebar-card h3 { font-family: 'Playfair Display',serif; font-size: 1.2rem; color: var(--dark); margin-bottom: 1.2rem; }
+    .contact-method { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
+    .contact-method:last-child { margin-bottom: 0; }
+    .method-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: .1rem; }
+    .method-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+    .method-value { font-size: 1rem; font-weight: 600; color: var(--dark); }
+    .method-value a { color: var(--green); text-decoration: none; }
+    .method-value a:hover { text-decoration: underline; }
+    .method-note { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+
+    .why-card { background: var(--green); border-radius: 18px; padding: 2rem; color: #fff; margin-bottom: 1.5rem; }
+    .why-card h3 { font-family: 'Playfair Display',serif; font-size: 1.2rem; margin-bottom: 1.2rem; }
+    .why-item { display: flex; gap: .75rem; margin-bottom: .9rem; font-size: .88rem; color: rgba(255,255,255,.82); line-height: 1.5; }
+    .why-item:last-child { margin-bottom: 0; }
+    .why-check { color: var(--lime); font-weight: 700; flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .contact-body { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/images/logo.png" alt="Serving Aces logo"/>
+    <span>Serving <em>Aces</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Coach Tommy</a></li>
+    <li><a href="tommys-corner/index.html">Tommy's Corner</a></li>
+    <li><a href="contact.html" class="nav-cta active">Book a Lesson</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="index.html">Home</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Coach Tommy</a>
+  <a href="tommys-corner/index.html">Tommy's Corner</a>
+  <a href="contact.html" class="mob-cta">Book a Lesson</a>
+</div>
+
+<div class="page-wrap">
+
+  <div class="contact-hero">
+    <div class="contact-hero-inner">
+      <div class="label label-lime">Get in Touch</div>
+      <h1>Contact Coach Tommy</h1>
+      <p>Looking for tennis lessons in Clermont, FL? Reach out for private lessons, junior coaching, beginner instruction, family lessons, and availability.</p>
+      <div class="contact-hero-creds">
+        <span class="cred-pill" style="background:rgba(181,228,92,.15);color:var(--lime);border:1px solid rgba(181,228,92,.3);font-size:.73rem;font-weight:600;letter-spacing:.08em;padding:.28rem .85rem;border-radius:2rem;">PTR Certified</span>
+        <span class="cred-pill" style="background:rgba(181,228,92,.15);color:var(--lime);border:1px solid rgba(181,228,92,.3);font-size:.73rem;font-weight:600;letter-spacing:.08em;padding:.28rem .85rem;border-radius:2rem;">35+ Years Experience</span>
+        <span class="cred-pill" style="background:rgba(181,228,92,.15);color:var(--lime);border:1px solid rgba(181,228,92,.3);font-size:.73rem;font-weight:600;letter-spacing:.08em;padding:.28rem .85rem;border-radius:2rem;">All Skill Levels</span>
+        <span class="cred-pill" style="background:rgba(181,228,92,.15);color:var(--lime);border:1px solid rgba(181,228,92,.3);font-size:.73rem;font-weight:600;letter-spacing:.08em;padding:.28rem .85rem;border-radius:2rem;">Clermont, FL</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-body">
+
+    <!-- FORM -->
+    <div class="contact-form-wrap">
+      <h2>Send a Lesson Inquiry</h2>
+      <p>Tell Coach Tommy a little about the player, current experience level, and what you want to improve. He'll help you choose the best lesson option.</p>
+
+      <!-- ACTION: Replace YOUR_FORM_ID with your Formspree endpoint ID -->
+      <form action="https://formspree.io/f/xwlpedjr" method="POST" id="contact-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="first_name" required placeholder="First"/>
+          </div>
+          <div class="field">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="last_name" required placeholder="Last"/>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com"/>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(407) 000-0000"/>
+        </div>
+        <div class="field">
+          <label for="lesson_type">Lesson Type</label>
+          <select id="lesson_type" name="lesson_type">
+            <option value="">Select a lesson type…</option>
+            <option>Private Lesson</option>
+            <option>Semi-Private Lesson</option>
+            <option>Family Lesson</option>
+            <option>Junior Development</option>
+            <option>Competition Prep</option>
+            <option>Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">About the Player & Goals *</label>
+          <textarea id="message" name="message" required placeholder="Tell Coach Tommy about the player — age, current level, what you'd like to work on, and any questions you have."></textarea>
+        </div>
+        <!-- Honeypot spam trap -->
+        <input type="text" name="_gotcha" style="display:none"/>
+        <input type="hidden" name="_subject" value="New Lesson Inquiry — Serving Aces"/>
+        <button type="submit" class="submit-btn">Send Inquiry →</button>
+        <p class="form-note">No pressure. No long-term commitment. Tommy will get back to you promptly.</p>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <h3>✓ Message sent!</h3>
+        <p>Thanks for reaching out. Coach Tommy will get back to you shortly to discuss lesson options and availability.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="contact-sidebar">
+      <div class="sidebar-card">
+        <h3>Reach Out Directly</h3>
+        <div class="contact-method">
+          <div class="method-icon">📞</div>
+          <div>
+            <div class="method-label">Call or Text</div>
+            <div class="method-value"><a href="tel:4072590774">(407) 259-0774</a></div>
+            <div class="method-note">Best for quick questions and availability</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon">📧</div>
+          <div>
+            <div class="method-label">Email</div>
+            <div class="method-value"><a href="mailto:tommy@servingaces.net">tommy@servingaces.net</a></div>
+            <div class="method-note">Great for sharing details about the player and goals</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon">📍</div>
+          <div>
+            <div class="method-label">Service Area</div>
+            <div class="method-value" style="font-size:.9rem;">Clermont, Winter Garden, Windermere, Davenport & Central Florida</div>
+            <div class="method-note">Tommy travels to your court</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <h3>Why Choose Coach Tommy?</h3>
+        <div class="why-item"><span class="why-check">✓</span>Every lesson tailored to the individual player — no one-size-fits-all approach</div>
+        <div class="why-item"><span class="why-check">✓</span>PTR-certified with 35+ years of coaching experience</div>
+        <div class="why-item"><span class="why-check">✓</span>Works with all ages and levels — first-timers to competitive players</div>
+        <div class="why-item"><span class="why-check">✓</span>Patient, encouraging, and focused on long-term improvement</div>
+        <div class="why-item"><span class="why-check">✓</span>No long-term commitment required to get started</div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Not sure which lesson is right?</h3>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">That's completely fine. Tommy can help you choose the best starting point based on age, skill level, goals, and availability. Just reach out.</p>
+        <a href="tel:4072590774" class="btn btn-green" style="width:100%;text-align:center;display:block;">Call (407) 259-0774</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/images/logo.png" alt="Serving Aces"/>
+        <span>Serving Aces</span>
+      </a>
+      <div class="footer-info">
+        Clermont, FL &nbsp;·&nbsp;
+        <a href="tel:4072590774">(407) 259-0774</a> &nbsp;·&nbsp;
+        <a href="mailto:tommy@servingaces.net">tommy@servingaces.net</a>
+      </div>
+      <div class="footer-links">
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="tommys-corner/index.html">Tommy's Corner</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Serving Aces Tennis Academy · Clermont, FL</span>
+      <a href="https://www.facebook.com/Tommyisbest/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Show success message after Formspree redirect isn't needed —
+  // handle with JS for a smoother UX
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST', body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please call or text Tommy directly at (407) 259-0774.');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
