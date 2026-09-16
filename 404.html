@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found | Serving Aces Tennis Academy</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .error-page {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 5rem 5%;
+      position: relative; overflow: hidden;
+    }
+    .error-page::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 80px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 80px);
+    }
+    .error-inner { position: relative; z-index: 2; max-width: 560px; }
+    .ball {
+      font-size: 5rem; margin-bottom: 1rem;
+      display: inline-block;
+      animation: bounce 1.4s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-20px); }
+    }
+    .error-code {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 15vw, 9rem);
+      color: var(--lime); line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .error-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #fff; margin-bottom: 1rem;
+    }
+    .error-sub {
+      color: rgba(255,255,255,.55); font-size: 1rem;
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .error-links {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center;
+    }
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--lime); border-radius: 2px;
+      margin: 1.5rem auto;
+    }
+    .quick-links {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      justify-content: center; margin-top: 2.5rem;
+    }
+    .quick-link {
+      color: rgba(255,255,255,.45); text-decoration: none;
+      font-size: .82rem; padding: .3rem .8rem;
+      border: 1px solid rgba(255,255,255,.12); border-radius: 2rem;
+      transition: all .2s;
+    }
+    .quick-link:hover { color: var(--lime); border-color: var(--lime); }
+  </style>
+</head>
+<body>
+
+<div class="error-page">
+  <div class="error-inner">
+    <div class="ball">🎾</div>
+    <div class="error-code">404</div>
+    <h1 class="error-title">Out of bounds.</h1>
+    <div class="divider"></div>
+    <p class="error-sub">That page doesn't exist — looks like that shot went wide. Let's get you back on the court.</p>
+    <div class="error-links">
+      <a href="index.html" class="btn btn-primary">Back to Homepage</a>
+      <a href="contact.html" class="btn btn-outline">Book a Lesson</a>
+    </div>
+    <div class="quick-links">
+      <a href="about.html" class="quick-link">About Coach Tommy</a>
+      <a href="gallery.html" class="quick-link">Gallery</a>
+      <a href="tommys-corner/index.html" class="quick-link">Tommy's Corner</a>
+      <a href="privacy-policy.html" class="quick-link">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
