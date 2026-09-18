@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank You &mdash; Serving Aces Tennis Academy</title>
+<meta name="description" content="Thanks for reaching out to Serving Aces Tennis Academy. Coach Tommy reads every message personally and will be in touch shortly.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SERVING ACES — THANK YOU PAGE
+   Static page for GitHub Pages. Save as /thank-you/index.html
+   so the live URL is https://servingaces.net/thank-you/
+   Point the Formspree redirect at that URL.
+   ============================================================ */
+
+.sa-ty *,
+.sa-ty *::before,
+.sa-ty *::after { box-sizing: border-box; }
+
+.sa-ty {
+  --green-900: #0a3327;
+  --green-800: #0f4a35;
+  --green-700: #156146;
+  --green-600: #1d7a58;
+  --lime:      #d6f24b;
+  --lime-soft: #eef9b0;
+  --clay:      #d2622e;
+  --clay-deep: #b44f22;
+  --clay-soft: #f6d9c6;
+  --cream:     #fbf7ec;
+  --cream-2:   #f3ecda;
+  --ink:       #12241c;
+  --ink-soft:  #47584f;
+
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.sa-ty h1, .sa-ty h2, .sa-ty h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.12;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.sa-ty p { margin: 0; }
+.sa-ty a { color: inherit; }
+
+.sa-ty__wrap {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- site header ---------- */
+.sa-ty__nav {
+  background: var(--green-900);
+  border-bottom: 1px solid rgba(255,255,255,.09);
+}
+.sa-ty__nav-in {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.sa-ty__nav-mark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+.sa-ty__nav-mark span { color: var(--lime); }
+.sa-ty__nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.sa-ty__nav-links a {
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color .18s ease;
+}
+.sa-ty__nav-links a:hover { color: var(--lime); }
+
+/* ---------- entrance animation ---------- */
+.sa-ty__rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: sa-rise 0.85s cubic-bezier(.2,.75,.3,1) forwards;
+}
+.sa-ty__rise[data-d="1"] { animation-delay: .10s; }
+.sa-ty__rise[data-d="2"] { animation-delay: .22s; }
+.sa-ty__rise[data-d="3"] { animation-delay: .34s; }
+.sa-ty__rise[data-d="4"] { animation-delay: .46s; }
+.sa-ty__rise[data-d="5"] { animation-delay: .58s; }
+@keyframes sa-rise { to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.sa-ty__hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(60px, 10vw, 104px) 0 clamp(72px, 11vw, 120px);
+  background:
+    radial-gradient(900px 420px at 78% -10%, rgba(214,242,75,.20), transparent 62%),
+    radial-gradient(700px 500px at 8% 105%, rgba(210,98,46,.26), transparent 60%),
+    linear-gradient(165deg, var(--green-800) 0%, var(--green-900) 100%);
+  color: #fff;
+  text-align: center;
+}
+
+/* faint court lines */
+.sa-ty__hero::before {
+  content: "";
+  position: absolute;
+  inset: -10% -6%;
+  z-index: -2;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.085) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(255,255,255,.085) 2px, transparent 2px);
+  background-size: 190px 190px;
+  transform: perspective(700px) rotateX(46deg) scale(1.5);
+  transform-origin: center 78%;
+  mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+}
+
+/* floating ball */
+.sa-ty__ball {
+  position: absolute;
+  width: clamp(72px, 12vw, 128px);
+  z-index: -1;
+  opacity: .9;
+  animation: sa-float 7s ease-in-out infinite;
+}
+.sa-ty__ball--a { top: 12%; right: 7%; }
+.sa-ty__ball--b { bottom: 10%; left: 6%; width: clamp(46px, 7vw, 76px); opacity: .5; animation-delay: -3.2s; }
+@keyframes sa-float {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50%      { transform: translateY(-26px) rotate(12deg); }
+}
+
+/* check seal */
+.sa-ty__seal {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--lime);
+  box-shadow:
+    0 0 0 10px rgba(214,242,75,.18),
+    0 0 0 22px rgba(214,242,75,.09),
+    0 22px 44px rgba(0,0,0,.28);
+  animation: sa-pop .7s cubic-bezier(.18,.9,.3,1.35) both;
+}
+@keyframes sa-pop {
+  0%   { opacity: 0; transform: scale(.55); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.sa-ty__seal svg { width: 54px; height: 54px; display: block; }
+.sa-ty__seal path {
+  fill: none;
+  stroke: var(--green-900);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 56;
+  stroke-dashoffset: 56;
+  animation: sa-draw .5s .45s cubic-bezier(.6,.1,.3,1) forwards;
+}
+@keyframes sa-draw { to { stroke-dashoffset: 0; } }
+
+.sa-ty__eyebrow {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--lime);
+  padding: 7px 16px;
+  border: 1.5px solid rgba(214,242,75,.42);
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+
+.sa-ty__hero h1 {
+  font-size: clamp(2.1rem, 5.6vw, 3.7rem);
+  max-width: 17ch;
+  margin: 0 auto;
+}
+.sa-ty__hero h1 em {
+  font-style: normal;
+  color: var(--lime);
+  position: relative;
+  white-space: nowrap;
+}
+.sa-ty__hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: .02em;
+  height: .09em;
+  background: var(--clay);
+  border-radius: 999px;
+}
+
+.sa-ty__lede {
+  max-width: 54ch;
+  margin: 24px auto 0;
+  font-size: clamp(1.02rem, 2.1vw, 1.19rem);
+  color: rgba(255,255,255,.86);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.sa-ty__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 36px;
+}
+.sa-ty__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.sa-ty__btn--solid {
+  background: var(--clay);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(210,98,46,.36);
+}
+.sa-ty__btn--solid:hover { background: var(--clay-deep); transform: translateY(-3px); box-shadow: 0 18px 32px rgba(210,98,46,.44); }
+.sa-ty__btn--ghost {
+  border: 2px solid rgba(255,255,255,.4);
+  color: #fff;
+}
+.sa-ty__btn--ghost:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-3px); }
+.sa-ty__btn--lime {
+  background: var(--lime);
+  color: var(--green-900);
+  box-shadow: 0 12px 26px rgba(10,51,39,.22);
+}
+.sa-ty__btn--lime:hover { transform: translateY(-3px); box-shadow: 0 18px 32px rgba(10,51,39,.3); }
+
+/* ============================================================
+   NEXT STEPS
+   ============================================================ */
+.sa-ty__steps { padding: clamp(64px, 9vw, 104px) 0; background: var(--cream); }
+
+.sa-ty__head { text-align: center; max-width: 640px; margin: 0 auto clamp(40px, 6vw, 60px); }
+.sa-ty__head h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--green-900); }
+.sa-ty__head p { margin-top: 14px; color: var(--ink-soft); }
+
+.sa-ty__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 22px;
+}
+
+.sa-ty__card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 38px 28px 32px;
+  border: 1px solid var(--cream-2);
+  box-shadow: 0 2px 4px rgba(10,51,39,.04), 0 18px 34px rgba(10,51,39,.06);
+  overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.sa-ty__card:hover { transform: translateY(-5px); box-shadow: 0 6px 10px rgba(10,51,39,.05), 0 26px 46px rgba(10,51,39,.11); }
+.sa-ty__card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+}
+.sa-ty__card:nth-child(1)::before { background: var(--lime); }
+.sa-ty__card:nth-child(2)::before { background: var(--clay); }
+.sa-ty__card:nth-child(3)::before { background: var(--green-600); }
+
+.sa-ty__num {
+  width: 46px; height: 46px;
+  border-radius: 14px;
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.sa-ty__card:nth-child(1) .sa-ty__num { background: var(--lime-soft); color: var(--green-800); }
+.sa-ty__card:nth-child(2) .sa-ty__num { background: var(--clay-soft); color: var(--clay-deep); }
+.sa-ty__card:nth-child(3) .sa-ty__num { background: #d8ece2; color: var(--green-700); }
+
+.sa-ty__card h3 { font-size: 1.32rem; color: var(--green-900); margin-bottom: 10px; }
+.sa-ty__card p { color: var(--ink-soft); font-size: 16px; }
+
+/* ============================================================
+   CALL STRIP
+   ============================================================ */
+.sa-ty__call { padding: 0 0 clamp(64px, 9vw, 100px); background: var(--cream); }
+.sa-ty__panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: clamp(38px, 6vw, 58px);
+  background:
+    radial-gradient(600px 300px at 88% 0%, rgba(214,242,75,.18), transparent 60%),
+    linear-gradient(135deg, var(--green-700), var(--green-900));
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.sa-ty__panel h2 { font-size: clamp(1.6rem, 3.4vw, 2.15rem); }
+.sa-ty__panel p { margin-top: 12px; color: rgba(255,255,255,.82); max-width: 44ch; }
+.sa-ty__phone {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.9rem, 4.6vw, 2.6rem);
+  font-weight: 700;
+  color: var(--lime);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 6px;
+  border-bottom: 3px solid transparent;
+  transition: border-color .2s ease;
+}
+.sa-ty__phone:hover { border-color: var(--clay); }
+.sa-ty__panel-side { text-align: center; }
+
+/* ============================================================
+   WHILE YOU WAIT
+   ============================================================ */
+.sa-ty__wait {
+  padding: clamp(64px, 9vw, 100px) 0;
+  background: var(--cream-2);
+  border-top: 1px solid rgba(10,51,39,.07);
+}
+.sa-ty__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
+}
+.sa-ty__tile {
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 20px;
+  padding: 34px 30px;
+  border-left: 7px solid var(--clay);
+  box-shadow: 0 16px 32px rgba(10,51,39,.07);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.sa-ty__tile + .sa-ty__tile { border-left-color: var(--green-600); }
+.sa-ty__tile:hover { transform: translateY(-5px); box-shadow: 0 26px 44px rgba(10,51,39,.12); }
+.sa-ty__tile h3 { font-size: 1.3rem; color: var(--green-900); margin-bottom: 9px; }
+.sa-ty__tile p { color: var(--ink-soft); font-size: 16px; }
+.sa-ty__more {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--clay);
+}
+.sa-ty__tile:hover .sa-ty__more { text-decoration: underline; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.sa-ty__foot {
+  background: var(--green-900);
+  color: rgba(255,255,255,.7);
+  text-align: center;
+  padding: 46px 0;
+  font-size: 15px;
+}
+.sa-ty__mark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .01em;
+}
+.sa-ty__mark span { color: var(--lime); }
+.sa-ty__areas { margin-top: 10px; color: rgba(255,255,255,.58); font-size: 14.5px; }
+.sa-ty__foot a { color: var(--lime); text-decoration: none; }
+.sa-ty__foot a:hover { text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE + MOTION
+   ============================================================ */
+@media (max-width: 720px) {
+  .sa-ty__panel { flex-direction: column; text-align: center; }
+  .sa-ty__panel p { margin-left: auto; margin-right: auto; }
+  .sa-ty__btn { width: 100%; justify-content: center; }
+  .sa-ty__btns { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-ty__rise,
+  .sa-ty__seal,
+  .sa-ty__seal path,
+  .sa-ty__ball {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+</style>
+</head>
+<body style="margin:0">
+
+<div class="sa-ty">
+
+  <!-- ===================== HEADER =====================
+       Placeholder nav. Replace with the header markup from your
+       existing index.html so it matches the rest of the site.
+       ================================================== -->
+  <header class="sa-ty__nav">
+    <div class="sa-ty__nav-in">
+      <a class="sa-ty__nav-mark" href="/">Serving <span>Aces</span></a>
+      <nav class="sa-ty__nav-links">
+        <a href="/">Home</a>
+        <a href="/#programs">Programs</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="sa-ty__hero">
+
+    <svg class="sa-ty__ball sa-ty__ball--a" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="#d6f24b"/>
+      <path d="M12 22a52 52 0 0 1 0 56M88 22a52 52 0 0 0 0 56" fill="none" stroke="#fbf7ec" stroke-width="4.5" stroke-linecap="round"/>
+    </svg>
+    <svg class="sa-ty__ball sa-ty__ball--b" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="#d6f24b"/>
+      <path d="M12 22a52 52 0 0 1 0 56M88 22a52 52 0 0 0 0 56" fill="none" stroke="#fbf7ec" stroke-width="4.5" stroke-linecap="round"/>
+    </svg>
+
+    <div class="sa-ty__wrap">
+
+      <div class="sa-ty__seal" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><path d="M14 27l8.5 8.5L38 18"/></svg>
+      </div>
+
+      <span class="sa-ty__eyebrow sa-ty__rise" data-d="1">Message received</span>
+
+      <h1 class="sa-ty__rise" data-d="2">Nice shot &mdash; <em>it&rsquo;s in.</em></h1>
+
+      <p class="sa-ty__lede sa-ty__rise" data-d="3">
+        Thanks for reaching out. Your note is on its way to Coach Tommy, and he reads
+        every one himself &mdash; no front desk, no call center. Expect to hear back soon
+        about getting you or your player on the court.
+      </p>
+
+      <div class="sa-ty__btns sa-ty__rise" data-d="4">
+        <a class="sa-ty__btn sa-ty__btn--solid" href="/">Back to the home page</a>
+        <a class="sa-ty__btn sa-ty__btn--ghost" href="/#programs">See the programs</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== NEXT STEPS ===================== -->
+  <section class="sa-ty__steps">
+    <div class="sa-ty__wrap">
+
+      <div class="sa-ty__head sa-ty__rise" data-d="1">
+        <h2>What happens next</h2>
+        <p>Three short steps between here and your first swing.</p>
+      </div>
+
+      <div class="sa-ty__grid">
+
+        <article class="sa-ty__card sa-ty__rise" data-d="2">
+          <div class="sa-ty__num">1</div>
+          <h3>Tommy reads it</h3>
+          <p>Your message goes straight to Coach Tommy. Every inquiry gets a real reply from the person who&rsquo;ll actually be on court with you.</p>
+        </article>
+
+        <article class="sa-ty__card sa-ty__rise" data-d="3">
+          <div class="sa-ty__num">2</div>
+          <h3>A quick conversation</h3>
+          <p>He&rsquo;ll get in touch to talk through your goals, your experience level, and which courts around Clermont work best for your schedule.</p>
+        </article>
+
+        <article class="sa-ty__card sa-ty__rise" data-d="4">
+          <div class="sa-ty__num">3</div>
+          <h3>You&rsquo;re on the court</h3>
+          <p>Bring a racquet, water, and court shoes &mdash; that&rsquo;s it. The first lesson is about finding the one or two things that will change your game fastest.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CALL STRIP ===================== -->
+  <section class="sa-ty__call">
+    <div class="sa-ty__wrap">
+      <div class="sa-ty__panel sa-ty__rise" data-d="1">
+        <div>
+          <h2>Need to reach him sooner?</h2>
+          <p>Call or text directly &mdash; especially if you&rsquo;re trying to book something this week or you have a question before you commit.</p>
+          <a class="sa-ty__phone" href="tel:+14072590774">(407)&nbsp;259-0774</a>
+        </div>
+        <div class="sa-ty__panel-side">
+          <a class="sa-ty__btn sa-ty__btn--lime" href="tel:+14072590774">Call or text Coach Tommy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHILE YOU WAIT ===================== -->
+  <section class="sa-ty__wait">
+    <div class="sa-ty__wrap">
+
+      <div class="sa-ty__head sa-ty__rise" data-d="1">
+        <h2>While you wait</h2>
+        <p>A couple of things worth a few minutes before your first lesson.</p>
+      </div>
+
+      <div class="sa-ty__tiles">
+
+        <a class="sa-ty__tile sa-ty__rise" data-d="2" href="/#programs">
+          <h3>Have a look at the programs</h3>
+          <p>Private lessons, semi-private and family sessions, junior development, and group clinics &mdash; so you know what to ask about when Tommy calls.</p>
+          <span class="sa-ty__more">See what&rsquo;s offered &rarr;</span>
+        </a>
+
+        <a class="sa-ty__tile sa-ty__rise" data-d="3" href="https://www.facebook.com/Tommyisbest/" target="_blank" rel="noopener">
+          <h3>Follow along on Facebook</h3>
+          <p>Court updates, clinic announcements, and photos from around Clermont and Central Florida.</p>
+          <span class="sa-ty__more">Visit the page &rarr;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="sa-ty__foot">
+    <div class="sa-ty__wrap">
+      <div class="sa-ty__mark">Serving <span>Aces</span> Tennis Academy</div>
+      <p class="sa-ty__areas">Clermont &middot; Winter Garden &middot; Windermere &middot; Minneola &middot; Central Florida</p>
+      <p style="margin-top:14px"><a href="tel:+14072590774">(407) 259-0774</a></p>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
