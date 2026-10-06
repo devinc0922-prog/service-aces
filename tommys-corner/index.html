@@ -106,7 +106,7 @@
       display: flex; flex-direction: column;
     }
     .post-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
-    .post-card.featured { grid-column: span 2; flex-direction: row; }
+    .post-card.featured { grid-column: 1 / -1; flex-direction: row; }
 
     .card-img {
       background: linear-gradient(135deg, var(--green) 0%, #0f3d26 100%);
@@ -120,6 +120,7 @@
     .card-img.clay-bg { background: linear-gradient(135deg, #c44e0a, #8a3006); }
     .card-img.lime-bg { background: linear-gradient(135deg, #4a8a2a, var(--green)); }
     .card-img.blue-bg { background: linear-gradient(135deg, #1a4a7a, #0d2a4e); }
+    .card-img.green-bg { background: linear-gradient(135deg, #1e6b44, #0a2a1a); }
 
     .card-body { padding: 1.8rem; display: flex; flex-direction: column; flex: 1; }
     .card-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
@@ -130,6 +131,7 @@
     .cat-badge.pro-game  { background: rgba(26,74,122,0.12); color: #1a4a7a; }
     .cat-badge.technique { background: rgba(212,84,10,0.12); color: var(--clay); }
     .cat-badge.parents   { background: rgba(26,92,58,0.12); color: var(--green); }
+    .cat-badge.beginners { background: rgba(181,228,92,0.25); color: #3a6a12; }
     .post-date { font-size: 0.78rem; color: var(--muted); }
     .card-title {
       font-family: 'Playfair Display', serif;
@@ -245,8 +247,22 @@
   <main>
     <div class="posts-grid">
 
-      <!-- POST 1 — FEATURED -->
-      <a href="./post-us-open.html" class="post-card featured">
+      <!-- POST 4 — FEATURED (newest) -->
+      <a href="./post-first-lesson.html" class="post-card featured">
+        <div class="card-img green-bg">👋</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge beginners">Beginners</span>
+            <span class="post-date">Oct 6, 2026</span>
+          </div>
+          <h2 class="card-title">What Actually Happens in Your First Tennis Lesson</h2>
+          <p class="card-excerpt">Nervous about getting started? Here's exactly what happens the first time we get on the court together, what to bring, and why you don't need to be any good yet.</p>
+          <span class="read-more">Read the full post</span>
+        </div>
+      </a>
+
+      <!-- POST 1 -->
+      <a href="./post-us-open.html" class="post-card">
         <div class="card-img blue-bg">🎾</div>
         <div class="card-body">
           <div class="card-meta">
@@ -304,7 +320,7 @@
         <li><a href="#">Technique <span class="topic-count">1</span></a></li>
         <li><a href="#">For Parents <span class="topic-count">1</span></a></li>
         <li><a href="#">Drills <span class="topic-count">0</span></a></li>
-        <li><a href="#">Beginners <span class="topic-count">0</span></a></li>
+        <li><a href="#">Beginners <span class="topic-count">1</span></a></li>
       </ul>
     </div>
 

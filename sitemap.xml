@@ -26,25 +26,31 @@
   </url>
   <url>
     <loc>https://servingaces.net/tommys-corner/</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://servingaces.net/tommys-corner/how-to-watch-us-open-like-a-coach.html</loc>
+    <loc>https://servingaces.net/tommys-corner/post-us-open.html</loc>
     <lastmod>2026-08-24</lastmod>
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://servingaces.net/tommys-corner/one-serve-fix-that-helps-every-player.html</loc>
+    <loc>https://servingaces.net/tommys-corner/post-serve-fix.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://servingaces.net/tommys-corner/what-to-say-to-your-kid-after-a-tough-match.html</loc>
+    <loc>https://servingaces.net/tommys-corner/post-tough-match.html</loc>
     <lastmod>2026-09-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://servingaces.net/tommys-corner/post-first-lesson.html</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
