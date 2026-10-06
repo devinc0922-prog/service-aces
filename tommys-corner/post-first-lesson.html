@@ -12,14 +12,14 @@
   <meta property="og:description" content="Nervous about a first tennis lesson? Clermont coach Tommy O'Donnell on what happens, what to bring, and why you don't need to be good yet."/>
   <meta property="og:url" content="https://servingaces.net/tommys-corner/post-first-lesson.html"/>
   <meta property="og:site_name" content="Serving Aces Tennis Academy"/>
-  <meta property="og:image" content="https://servingaces.net/assets/images/coach-and-junior.jpg"/>
+  <meta property="og:image" content="https://servingaces.net/assets/images/tennis-lesson.jpg"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <!-- SEO: Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="What Actually Happens in Your First Tennis Lesson | Serving Aces"/>
   <meta name="twitter:description" content="Nervous about a first tennis lesson? Clermont coach Tommy O'Donnell on what happens, what to bring, and why you don't need to be good yet."/>
-  <meta name="twitter:image" content="https://servingaces.net/assets/images/coach-and-junior.jpg"/>
+  <meta name="twitter:image" content="https://servingaces.net/assets/images/tennis-lesson.jpg"/>
   <!-- SEO: Schema.org -->
 <script type="application/ld+json">
 {
@@ -31,7 +31,7 @@
   "datePublished": "2026-10-06",
   "author": { "@type": "Person", "name": "Tommy O'Donnell", "url": "https://servingaces.net/about.html" },
   "publisher": { "@type": "Organization", "name": "Serving Aces Tennis Academy", "url": "https://servingaces.net/" },
-  "image": "https://servingaces.net/assets/images/coach-and-junior.jpg",
+  "image": "https://servingaces.net/assets/images/tennis-lesson.jpg",
   "keywords": ["first tennis lesson", "what to expect at a tennis lesson", "beginner tennis lessons", "Clermont tennis lessons"]
 }
 </script>
@@ -243,6 +243,17 @@
     }
     @media (max-width: 640px) { .nav-links { display: none; } }
     @media (prefers-reduced-motion: reduce) { .hero-photo { animation: none; transform: none; } }
+
+    /* In-article photos, styled like the blog cards */
+    .post-figure { margin: 1.8rem 0 2.2rem; border-radius: 18px; overflow: hidden; background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.10); border-bottom: 5px solid var(--accent); }
+    .post-figure .fig-img { position: relative; overflow: hidden; }
+    .post-figure img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform .6s ease; }
+    .post-figure:hover img { transform: scale(1.04); }
+    .post-figure .fig-img::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35) 100%); }
+    .post-figure figcaption { padding: .9rem 1.2rem; font-size: .88rem; color: var(--muted); font-style: italic; }
+    @media (max-width: 640px) { .post-figure img { height: 240px; } }
   </style>
 </head>
 <body>
@@ -321,6 +332,11 @@
 
     <p>That last one matters. A lot of parents buy a racquet before the first lesson and get the wrong size. If it's too long or too heavy for a kid, tennis gets harder than it needs to be. So text me first. I'll tell you what to get, or whether to wait.</p>
 
+    <figure class="post-figure">
+      <div class="fig-img"><img src="../assets/images/stock/racquet-and-balls-on-court.jpg" alt="Tennis racquet and three balls resting on a court line" loading="lazy" style="object-position:center 55%"/></div>
+      <figcaption>Hold off on buying a racquet until we've talked about size.</figcaption>
+    </figure>
+
     <h3>The first few minutes: we talk</h3>
     <p>Before we hit anything, I want to know why you're here.</p>
     <p>Do you want to play doubles with friends? Make the high school team? Get some exercise that doesn't feel like exercise? Is your kid there because they asked, or because you're hoping they'll like it?</p>
@@ -331,8 +347,11 @@
     <p>While you're hitting, I'm not looking for mistakes. I'm looking at what you already do on your own. How you move. Where you hold the racquet when nobody's told you how. Whether you watch the ball or the person across from you.</p>
     <p>That tells me more than any question could. It's how I figure out where to start with you. I don't teach from a script, because what works for one beginner usually isn't what the next one needs.</p>
 
-    <img class="post-photo" src="../assets/images/coach-and-junior.jpg" alt="Coach Tommy working one-on-one with a junior player on the court" loading="lazy"/>
-    <p class="photo-caption">Every first lesson starts with easy balls and a lot of watching.</p>
+    <figure class="post-figure">
+      <div class="fig-img"><img src="../assets/images/coach-and-junior.jpg" alt="Coach Tommy working one-on-one with a junior player on the court" loading="lazy" style="object-position:center 30%"/></div>
+      <figcaption>Every first lesson starts with easy balls and a lot of watching.</figcaption>
+    </figure>
+
 
     <h3>We work on one thing</h3>
     <p>Not ten. One.</p>

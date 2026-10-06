@@ -227,6 +227,17 @@
     }
     @media (max-width: 640px) { .nav-links { display: none; } }
     @media (prefers-reduced-motion: reduce) { .hero-photo { animation: none; transform: none; } }
+
+    /* In-article photos, styled like the blog cards */
+    .post-figure { margin: 1.8rem 0 2.2rem; border-radius: 18px; overflow: hidden; background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.10); border-bottom: 5px solid var(--accent); }
+    .post-figure .fig-img { position: relative; overflow: hidden; }
+    .post-figure img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform .6s ease; }
+    .post-figure:hover img { transform: scale(1.04); }
+    .post-figure .fig-img::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35) 100%); }
+    .post-figure figcaption { padding: .9rem 1.2rem; font-size: .88rem; color: var(--muted); font-style: italic; }
+    @media (max-width: 640px) { .post-figure img { height: 240px; } }
   </style>
 </head>
 <body>
@@ -283,6 +294,11 @@
     <p><strong>One: it goes up, not out.</strong> Most players push the ball forward, away from their body, because it feels like it's helping them hit into the court. It isn't. It pulls you off balance and drops your contact point. The ball should go almost straight up, landing slightly in front of your front foot if you let it drop.</p>
     <p><strong>Two: your arm stays straight and lifts slowly.</strong> Don't throw it. Lift it, like you're placing a glass on a high shelf, and let the ball roll off your fingertips. A tossing arm that bends is a toss that goes somewhere new every time.</p>
     <p><strong>Three: it's high enough that you have to wait for it.</strong> A low toss rushes you. If you feel like you're hurrying to catch up to the ball, throw it higher. Yes, higher feels wrong at first. Do it anyway.</p>
+
+    <figure class="post-figure">
+      <div class="fig-img"><img src="../assets/images/stock/serve-toss-overhead.jpg" alt="A player reaching up for the toss on a serve" loading="lazy" style="object-position:center 30%"/></div>
+      <figcaption>Up, not out. The ball goes straight up and you wait for it.</figcaption>
+    </figure>
 
     <h3>The drill I give everybody</h3>
     <p>You don't need a court for this one. You barely need a racquet.</p>

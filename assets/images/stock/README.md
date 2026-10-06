@@ -10,6 +10,16 @@ Stock photos saved for upcoming blog posts. Tommy's own photos come first. Use t
 | `balls-on-racquet-clay.jpg` | Two balls balanced on a racquet face | Beginner drills, juniors, hand-eye coordination |
 | `scoreboard-5-0.jpg` | Flip scoreboard by the net | How to keep score, match play, tournaments, tough losses |
 
-`../us-open-arthur-ashe-stadium.jpg` is in use on the US Open post.
+## Already in use
+
+| File | Where |
+|---|---|
+| `../us-open-arthur-ashe-stadium.jpg` | US Open post header |
+| `serve-toss-overhead.jpg` | Serve fix post, inside the article |
+| `scoreboard-5-0.jpg` | Tough match post, inside the article |
+| `clay-court-picking-up-ball.jpg` | US Open post, inside the article |
+| `racquet-and-balls-on-court.jpg` | First lesson post, inside the article |
+
+Still unused: `balls-on-racquet-clay.jpg`. Reusing the others in a new post is fine, just not as the header of two different posts.
 
 Some of these show brand logos (Wilson, Adidas, Babolat). That's fine for a blog photo. Just don't use them in a way that suggests the brand sponsors Serving Aces.
