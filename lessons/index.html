@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-3lYythicciQxY0WfXYSYLjCtHEjyebQxzqsM5DdQ44k='; style-src 'sha256-dVeshR32+vMIuxiW79dwtgDdyqn3ImDnA0YZNX7YLsg=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ===== SETUP: paste your two values here (see SETUP.md) ===== -->
+<meta name="google-client-id" content="PASTE-YOUR-CLIENT-ID.apps.googleusercontent.com">
+<meta name="tracker-backend" content="PASTE-YOUR-WEB-APP-URL">
+<!-- ============================================================= -->
+
+<title>Serving Aces Lessons</title>
+<meta name="theme-color" content="#1F5E3B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lessons">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>:root{
+  --ground:#F3F5F0; --card:#FFFFFF; --ink:#13261B; --muted:#4F5F55; --line:#C5CEC3; --track:#E3E8E1;
+  --green:#1F5E3B; --green-d:#174A2E; --green-soft:#DDEFE3; --ok:#2E8B57;
+  --ball:#D9F24A; --warn-bg:#FCEFC7; --warn:#5E3305; --warn-bar:#D08A0E;
+  --bad-bg:#F6D9D4; --bad:#7A1F12; --bad-bar:#C2410C;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:'Figtree',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent}
+button,input,textarea{font:inherit;color:inherit}
+a{color:var(--green)}
+#app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 12px) 20px calc(env(safe-area-inset-bottom) + 20px)}
+h1{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+h1:focus{outline:none}
+h2{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:20px;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.stack-s{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:10px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grow{flex:1}
+.spacer{flex:1;min-height:16px}
+.hidden{display:none!important}
+
+/* top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;min-height:48px;margin-bottom:8px}
+.brand{font-size:15px;font-weight:600;color:var(--muted)}
+.icon-btn{width:44px;height:44px;border:0;border-radius:14px;background:var(--card);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.link-btn{background:none;border:0;padding:0 4px;min-height:44px;color:var(--green);font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+svg{flex:none}
+
+/* buttons */
+.btn{height:56px;border-radius:var(--r);border:0;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:17px;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--green);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-ball{background:var(--ball);color:var(--ink);font-weight:700}
+.btn-ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn-danger{background:none;color:var(--bad);border:1.5px solid #E7B7AE}
+.btn:disabled{opacity:.55;cursor:default}
+.sticky-bottom{position:sticky;bottom:0;padding-top:14px;padding-bottom:calc(env(safe-area-inset-bottom) + 4px);background:linear-gradient(to bottom,rgba(243,245,240,0),var(--ground) 30%)}
+
+/* banners */
+.banner{border-radius:16px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.4}
+.banner svg{margin-top:1px}
+.banner-warn{background:var(--warn-bg);color:var(--warn)}
+.banner-info{background:var(--green-soft);color:var(--green-d)}
+.banner-bad{background:var(--bad-bg);color:#5C170D}
+button.banner{border:0;width:100%;text-align:left;cursor:pointer}
+
+/* student cards */
+.list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.card{background:var(--card);border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 2px rgba(19,38,27,.08)}
+.card-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.name{font-family:'Sora',system-ui,sans-serif;font-weight:600;font-size:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{font-size:12px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.pill-warn{background:var(--warn-bg);color:var(--warn)}
+.pill-bad{background:var(--bad-bg);color:var(--bad)}
+.bar{display:block;height:8px;background:var(--track);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:99px;background:var(--ok);width:0}
+.bar.low>i{background:var(--warn-bar)}
+.bar.done>i{background:var(--bad-bar)}
+.count{font-size:15px;font-weight:600;color:var(--green)}
+.count.low{color:#6B3A06}
+.count.done{color:var(--bad)}
+.tap{width:72px;height:72px;border-radius:18px;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-weight:600;font-size:13px;cursor:pointer;flex:none}
+.tap-log{background:var(--green);color:#fff}
+.tap-paid{background:var(--ball);color:var(--ink);font-weight:700}
+.tap:active,.btn:active{transform:scale(.97)}
+.empty{background:var(--card);border-radius:20px;padding:24px;text-align:center;display:flex;flex-direction:column;gap:6px;margin-top:16px}
+
+/* forms */
+label.field,.field{display:flex;flex-direction:column;gap:6px;font-size:16px;font-weight:600}
+.input,textarea.input{height:52px;border:1.5px solid var(--line);border-radius:14px;padding:0 16px;font-size:17px;font-weight:400;background:var(--card);width:100%}
+textarea.input{height:auto;min-height:150px;padding:12px 14px;font-size:15px;line-height:1.45;resize:vertical}
+.input:focus{outline:none;border:2px solid var(--green)}
+.hint{font-size:14px;font-weight:400;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:46px;padding:0 18px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);font-weight:500;font-size:16px;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.grid4 .chip{justify-content:center;padding:0;height:54px;border-radius:14px;font-size:18px;font-weight:600}
+.panel{background:var(--card);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-title{font-size:17px;font-weight:600}
+.divider{height:1px;background:var(--track)}
+.switch{width:52px;height:32px;border:0;border-radius:99px;background:var(--line);padding:3px;display:flex;justify-content:flex-start;flex:none;cursor:pointer;transition:background .15s}
+.switch::after{content:"";width:26px;height:26px;border-radius:99px;background:#fff;display:block}
+.switch[aria-checked="true"]{background:var(--green);justify-content:flex-end}
+.stepper{display:flex;align-items:center;justify-content:space-between}
+.stepper button{width:52px;height:52px;border:1.5px solid var(--line);border-radius:16px;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.big-num{font-family:'Sora',system-ui,sans-serif;font-size:40px;font-weight:700;line-height:1;text-align:center}
+.progress{display:flex;gap:6px}
+.progress i{flex:1;height:6px;border-radius:99px;background:#D5DCD3}
+.progress i.on{background:var(--green)}
+.section-label{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+
+/* email preview */
+.preview{background:var(--card);border:1.5px solid #D5DCD3;border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.45;white-space:pre-line;color:#2E3D34}
+.preview strong{color:var(--ink)}
+
+/* status + history */
+.status{border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px}
+.status.ok{background:var(--green-soft);color:var(--green-d)}
+.status.low{background:var(--warn-bg);color:var(--warn)}
+.status.done{background:var(--bad-bg);color:#5C170D}
+.status.nopkg{background:var(--card)}
+.history{background:var(--card);border-radius:var(--r);padding:4px 16px;font-size:15px}
+.history div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--track)}
+.history div:last-child{border-bottom:0}
+.history span:last-child{color:var(--muted);flex:none}
+
+/* bottom sheet */
+.backdrop{position:fixed;inset:0;background:rgba(19,38,27,.35);z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:480px;margin:0 auto;background:#fff;border-radius:28px 28px 0 0;
+  padding:12px 20px calc(env(safe-area-inset-bottom) + 24px);display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.grabber{width:40px;height:5px;border-radius:99px;background:#D5DCD3}
+.check{width:72px;height:72px;border-radius:99px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center}
+.segs{align-self:stretch;display:flex;gap:6px}
+.segs i{flex:1;height:10px;border-radius:99px;background:var(--track)}
+.segs i.on{background:var(--green)}
+.sheet .banner{align-self:stretch;text-align:left}
+.sheet .row{align-self:stretch}
+
+/* toast + busy */
+.toast{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 90px);max-width:448px;margin:0 auto;z-index:30;background:var(--ink);color:#fff;
+  border-radius:16px;padding:14px 16px;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:up .2s ease-out}
+.toast.bad{background:#7A1F12}
+.busy{position:fixed;top:calc(env(safe-area-inset-top) + 10px);left:50%;transform:translateX(-50%);z-index:40;background:var(--ink);color:#fff;border-radius:99px;padding:8px 16px;font-size:14px;font-weight:600}
+body.is-busy button,body.is-busy .btn{pointer-events:none}
+
+/* sign-in */
+.hero{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:20px 0}
+.logo{width:84px;height:84px;border-radius:24px}
+.google-btn{background:#fff;color:#1F1F1F;border:1.5px solid #747775}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* utility hooks used by the app (no inline styles, for a strict CSP) */
+[data-s="flex1"]{flex:1}
+[data-s="flex2"]{flex:2}
+[data-s="sublabel"]{font-size:14px;font-weight:500;color:var(--muted)}
+[data-s="f15"]{font-size:15px}
+[data-s="f17"]{font-size:17px}
+[data-s="f24"]{font-size:24px}
+[data-s="fw6"]{font-weight:600}
+[data-s="gap2"]{gap:2px}
+[data-s="gap4"]{gap:4px}
+[data-s="gap8"]{gap:8px;min-width:0}
+textarea[data-s="h80"]{min-height:80px}
+textarea[data-s="h90"]{min-height:90px}
+[data-s="tc"]{text-align:center}
+[data-s="w100"]{width:100%}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<noscript>This app needs JavaScript turned on.</noscript>
+<script>(function () {
+  'use strict';
+
+  /* ---------------- config + storage ---------------- */
+  function meta(name) {
+    var el = document.querySelector('meta[name="' + name + '"]');
+    return el ? (el.getAttribute('content') || '').trim() : '';
+  }
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+    del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+  };
+
+  var CLIENT_ID = meta('google-client-id');
+  var BACKEND_RE = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/;
+  var BACKEND = meta('tracker-backend') || store.get('pt_backend') || '';
+  if (!BACKEND_RE.test(BACKEND)) BACKEND = '';
+  var REDIRECT = new URL('./', location.href).href;
+
+  var S = {
+    session: store.get('pt_session'),
+    email: store.get('pt_email') || '',
+    data: null,
+    screen: 'loading',
+    id: null,
+    history: null,
+    sheet: null,
+    setupStep: 1,
+    msg: '',
+    busy: false,
+    toast: null
+  };
+
+  var app = document.getElementById('app');
+
+  /* ---------------- helpers ---------------- */
+  function esc(v) {
+    return String(v === undefined || v === null ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function cap(w) { w = String(w || ''); return w.charAt(0).toUpperCase() + w.slice(1); }
+  function unit() { return (S.data && S.data.unit) || 'lesson'; }
+  function units() { return (S.data && S.data.units) || 'lessons'; }
+  function plural(n) { return n + ' ' + (n === 1 ? unit() : units()); }
+  function set() { return (S.data && S.data.settings) || {}; }
+  function clients() { return set().payer === 'Clients'; }
+  function person() { return clients() ? 'client' : 'student'; }
+  function people() { return clients() ? 'clients' : 'students'; }
+  function student(id) {
+    var list = (S.data && S.data.students) || [];
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  function payerName(s) {
+    if (clients()) return String(s.student || '').split(' ')[0] || 'they';
+    return s.parent || 'the parent';
+  }
+  function b64url(bytes) {
+    var str = '';
+    for (var i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
+    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function randomString() {
+    var a = new Uint8Array(32);
+    crypto.getRandomValues(a);
+    return b64url(a);
+  }
+
+  var I = {
+    plus: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    plusS: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    minus: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>',
+    check: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+    checkS: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+    checkL: '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+    back: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',
+    next: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    gear: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>',
+    refresh: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>',
+    bell: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+    mail: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+    info: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
+    flask: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg>'
+  };
+
+  /* ---------------- API ---------------- */
+  function api(action, payload, opts) {
+    opts = opts || {};
+    var body = Object.assign({ action: action }, payload || {});
+    if (action !== 'login') body.session = S.session;
+    if (!opts.quiet) setBusy(true);
+    return fetch(BACKEND, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(body),
+      cache: 'no-store',
+      credentials: 'omit',
+      referrerPolicy: 'no-referrer'
+    }).then(function (r) {
+      if (!r.ok) throw { code: 'NET', error: 'Could not reach your sheet (' + r.status + ').' };
+      return r.json();
+    }, function () {
+      throw { code: 'NET', error: 'No connection. Check your signal and try again.' };
+    }).then(function (res) {
+      setBusy(false);
+      if (!res || !res.ok) throw res || { code: 'SERVER', error: 'Something went wrong.' };
+      if (res.state) S.data = res.state;
+      return res;
+    }).catch(function (err) {
+      setBusy(false);
+      err = err || {};
+      if (err.code === 'AUTH' && action !== 'login') {
+        clearSession();
+        S.msg = 'Please sign in again.';
+        go('signin');
+      } else if (err.code === 'DENIED' || err.code === 'SLOW' || (err.code === 'AUTH' && action === 'login')) {
+        clearSession();
+        S.msg = err.error || 'Sign-in failed.';
+        go('signin');
+      } else {
+        toast(err.error || 'Something went wrong. Please try again.', true);
+      }
+      throw err;
+    });
+  }
+
+  function clearSession() {
+    S.session = null;
+    S.data = null;
+    store.del('pt_session');
+  }
+
+  /* ---------------- sign-in (Google OpenID Connect) ---------------- */
+  function startSignIn() {
+    if (!CLIENT_ID || CLIENT_ID.indexOf('PASTE') === 0) {
+      S.msg = 'This app is not finished being set up (missing Google client ID).';
+      return render();
+    }
+    var pending = { nonce: randomString(), state: randomString(), t: Date.now() };
+    store.set('pt_pending', JSON.stringify(pending));
+    var q = new URLSearchParams({
+      client_id: CLIENT_ID,
+      redirect_uri: REDIRECT,
+      response_type: 'id_token',
+      scope: 'openid email',
+      nonce: pending.nonce,
+      state: pending.state
+    });
+    if (S.email) q.set('login_hint', S.email);
+    else q.set('prompt', 'select_account');
+    location.assign('https://accounts.google.com/o/oauth2/v2/auth?' + q.toString());
+  }
+
+  function finishSignIn() {
+    var params = new URLSearchParams(location.hash.slice(1));
+    history.replaceState(null, '', location.pathname + location.search);
+    var pending = null;
+    try { pending = JSON.parse(store.get('pt_pending') || 'null'); } catch (e) {}
+    store.del('pt_pending');
+
+    if (params.get('error')) {
+      S.msg = params.get('error') === 'access_denied' ? 'Sign-in was cancelled.' : 'Google sign-in did not finish. Try again.';
+      return go('signin');
+    }
+    var idToken = params.get('id_token');
+    if (!pending || !idToken || params.get('state') !== pending.state || Date.now() - pending.t > 10 * 60 * 1000) {
+      S.msg = 'That sign-in expired. Please try again.';
+      return go('signin');
+    }
+    go('loading');
+    api('login', { idToken: idToken, nonce: pending.nonce }).then(function (res) {
+      S.session = res.session;
+      S.email = res.email;
+      store.set('pt_session', res.session);
+      store.set('pt_email', res.email);
+      S.msg = '';
+      load();
+    }, function () {});
+  }
+
+  /* ---------------- navigation ---------------- */
+  function go(screen, opts) {
+    S.screen = screen;
+    S.toast = null;
+    clearTimeout(toastTimer);
+    if (opts && opts.id !== undefined) S.id = opts.id;
+    S.sheet = null;
+    render(true);
+  }
+
+  function load() {
+    return api('state', {}, { quiet: !!S.data }).then(function () {
+      if (!S.data.settings.setupDone) { S.setupStep = S.setupStep || 1; go('setup'); }
+      else if (S.screen === 'loading' || S.screen === 'signin' || S.screen === 'setup') go('home');
+      else render();
+    }, function () { if (S.screen === 'loading') go('signin'); });
+  }
+
+  /* ---------------- rendering ---------------- */
+  function render(newScreen) {
+    var html;
+    switch (S.screen) {
+      case 'connect': html = vConnect(); break;
+      case 'signin': html = vSignin(); break;
+      case 'setup': html = vSetup(); break;
+      case 'home': html = vHome(); break;
+      case 'add': html = vStudentForm(null); break;
+      case 'edit': html = vStudentForm(student(S.id)); break;
+      case 'student': html = vStudent(); break;
+      case 'settings': html = vSettings(); break;
+      default: html = vLoading();
+    }
+    if (S.sheet) html += vSheet();
+    if (S.toast) html += '<div class="toast' + (S.toast.bad ? ' bad' : '') + '" role="status">' + esc(S.toast.text) + '</div>';
+    if (S.busy) html += '<div class="busy" role="status">Working…</div>';
+    app.innerHTML = html;
+    var bars = app.querySelectorAll('[data-pct]');
+    for (var i = 0; i < bars.length; i++) bars[i].style.width = bars[i].getAttribute('data-pct') + '%';
+    if (newScreen) {
+      window.scrollTo(0, 0);
+      var h = app.querySelector('h1');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    }
+  }
+
+  function setBusy(b) {
+    S.busy = b;
+    document.body.classList.toggle('is-busy', b);
+    var el = app.querySelector('.busy');
+    if (b && !el) app.insertAdjacentHTML('beforeend', '<div class="busy" role="status">Working…</div>');
+    if (!b && el) el.parentNode.removeChild(el);
+  }
+
+  var toastTimer;
+  function toast(text, bad) {
+    S.toast = { text: text, bad: !!bad };
+    var old = app.querySelector('.toast');
+    if (old) old.parentNode.removeChild(old);
+    app.insertAdjacentHTML('beforeend', '<div class="toast' + (bad ? ' bad' : '') + '" role="status">' + esc(text) + '</div>');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      S.toast = null;
+      var t = app.querySelector('.toast');
+      if (t) t.parentNode.removeChild(t);
+    }, bad ? 6000 : 4000);
+  }
+
+  /* ---------------- views ---------------- */
+  function vLoading() {
+    return '<div class="hero"><h1>Loading…</h1></div>';
+  }
+
+  function vConnect() {
+    return '<form class="hero" data-form="connect">' +
+      '<h1>Connect your sheet</h1>' +
+      '<p class="muted">Paste the web app link from your Google Sheet (Deploy → Web app). It ends in <strong>/exec</strong>.</p>' +
+      '<label class="field">Web app link<input class="input" name="url" inputmode="url" autocomplete="off" placeholder="https://script.google.com/macros/s/…/exec" required></label>' +
+      '<button class="btn btn-primary" type="submit">Connect</button></form>';
+  }
+
+  function vSignin() {
+    return '<div class="hero">' +
+      '<img class="logo" src="icon-192.png" alt="">' +
+      '<h1>' + esc(document.title) + '</h1>' +
+      '<p class="muted">Use the Google account that owns your tracker sheet. Only approved accounts can get in.</p>' +
+      (S.msg ? '<div class="banner banner-bad" role="alert">' + I.info + '<div>' + esc(S.msg) + '</div></div>' : '') +
+      '<button class="btn google-btn" type="button" data-act="signin">Continue with Google</button>' +
+      '<p class="small muted">You will stay signed in on this phone for 30 days.</p>' +
+      '</div>';
+  }
+
+  function progress(step) {
+    var out = '<div class="progress" aria-hidden="true">';
+    for (var i = 1; i <= 3; i++) out += '<i class="' + (i <= step ? 'on' : '') + '"></i>';
+    return out + '</div>';
+  }
+
+  function chipGroup(name, options, value, extraClass) {
+    var out = '<input type="hidden" name="' + name + '" value="' + esc(value) + '"><div class="' + (extraClass || 'chips') + '">';
+    options.forEach(function (o) {
+      var on = String(o.v) === String(value);
+      out += '<button type="button" class="chip" data-act="pick" data-field="' + name + '" data-val="' + esc(o.v) + '" aria-pressed="' + on + '">' +
+        (on && !extraClass ? I.checkS : '') + esc(o.t) + '</button>';
+    });
+    return out + '</div>';
+  }
+
+  function switchRow(name, label, on, sub) {
+    return '<div class="panel-row"><div class="stack-s" data-s="gap2"><span class="panel-title">' + esc(label) + '</span>' +
+      (sub ? '<span class="hint">' + esc(sub) + '</span>' : '') + '</div>' +
+      '<input type="hidden" name="' + name + '" value="' + (on ? '1' : '') + '">' +
+      '<button type="button" class="switch" role="switch" aria-checked="' + !!on + '" aria-label="' + esc(label) + '" data-act="toggle" data-field="' + name + '"></button></div>';
+  }
+
+  function stepper(name, value, min, max, word) {
+    return '<input type="hidden" name="' + name + '" value="' + value + '">' +
+      '<div class="stepper"><button type="button" aria-label="Fewer" data-act="step" data-field="' + name + '" data-d="-1" data-min="' + min + '" data-max="' + max + '">' + I.minus + '</button>' +
+      '<div><div class="big-num" data-show="' + name + '">' + value + '</div><div class="muted" data-s="tc">' + esc(word) + '</div></div>' +
+      '<button type="button" aria-label="More" data-act="step" data-field="' + name + '" data-d="1" data-min="' + min + '" data-max="' + max + '">' + I.plus + '</button></div>';
+  }
+
+  function vSetup() {
+    var s = set(), step = S.setupStep;
+    var head = '<div class="stack-s">' + progress(step) +
+      '<div class="between">' + (step > 1 ? '<button type="button" class="link-btn" data-act="setupBack">' + I.back + 'Back</button>' : '<span></span>') +
+      '<span class="small muted" data-s="fw6">Step ' + step + ' of 3</span></div></div>';
+
+    if (step === 1) {
+      var unitOpts = ['Lesson', 'Session', 'Class', 'Visit'];
+      var unitVal = cap(s.unit || 'Lesson');
+      var custom = unitOpts.indexOf(unitVal) === -1;
+      return '<form class="stack" data-s="flex1" data-form="setup1">' + head +
+        '<div class="stack-s"><h1>Welcome! Let’s set up your business.</h1><p class="muted">Three quick questions. You can change any of this later.</p></div>' +
+        '<label class="field">What’s your business called?<input class="input" name="business" maxlength="80" required value="' + esc(s.business) + '" autocomplete="organization"><span class="hint">This name appears on every email.</span></label>' +
+        '<label class="field">Your name, as you sign emails<input class="input" name="coach" maxlength="80" value="' + esc(s.coach) + '" placeholder="e.g. Coach Tommy"></label>' +
+        '<div class="field">What do you call each visit?' +
+        chipGroup('unit', unitOpts.map(function (u) { return { v: u, t: u }; }).concat([{ v: '__other', t: 'Other' }]), custom ? '__other' : unitVal) +
+        '<input class="input' + (custom ? '' : ' hidden') + '" name="unitOther" maxlength="20" placeholder="e.g. Training" value="' + (custom ? esc(unitVal) : '') + '"></div>' +
+        '<div class="field">Who pays for the packages?' +
+        chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'The clients themselves' }], s.payer || 'Parents') + '</div>' +
+        '<div class="spacer"></div><button class="btn btn-primary" type="submit">Continue' + I.next + '</button></form>';
+    }
+
+    if (step === 2) {
+      var payerWord = clients() ? 'clients' : 'parents';
+      return '<form class="stack" data-s="flex1" data-form="setup2">' + head +
+        '<div class="stack-s"><h1>How do ' + payerWord + ' pay you?</h1><p class="muted">Turn on everything you accept. We’ll list these in every reminder.</p></div>' +
+        payPanel('venmo', 'Venmo', 'Your Venmo handle', s.venmo, '@your-handle') +
+        payPanel('zelle', 'Zelle', 'Phone or email for Zelle', s.zelle, 'phone or email') +
+        '<div class="panel">' + switchRow('cash', 'Cash or check', s.cash) + '</div>' +
+        payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
+        '<div class="spacer"></div><button class="btn btn-primary" type="submit">Continue' + I.next + '</button></form>';
+    }
+
+    var pk = (s.packages || [4, 8, 10]).join(', ');
+    return '<form class="stack" data-s="flex1" data-form="setup3">' + head +
+      '<h1>When should we remind ' + (clients() ? 'clients' : 'parents') + '?</h1>' +
+      '<div class="panel"><div class="panel-title">Send a reminder when there are</div>' +
+      stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
+      '<div class="divider"></div>' + switchRow('finalOn', 'Also send a thank-you note after the last ' + unit(), s.finalOn) + '</div>' +
+      '<label class="field">Your usual package sizes<input class="input" name="packages" inputmode="numeric" value="' + esc(pk) + '"><span class="hint">Numbers separated by commas, like 4, 8, 10</span></label>' +
+      '<div class="stack-s"><div class="panel-title">Here’s what they’ll get</div>' + previewBox('reminder') + '</div>' +
+      '<div class="spacer"></div><button class="btn btn-primary" type="submit">Finish and add ' + people() + '</button></form>';
+  }
+
+  function payPanel(name, title, label, value, ph) {
+    var on = !!value;
+    return '<div class="panel" data-pay="' + name + '">' +
+      '<div class="panel-row"><span class="panel-title">' + esc(title) + '</span>' +
+      '<button type="button" class="switch" role="switch" aria-checked="' + on + '" aria-label="' + esc(title) + '" data-act="payToggle" data-field="' + name + '"></button></div>' +
+      '<label class="field' + (on ? '' : ' hidden') + '" data-s="sublabel">' + esc(label) +
+      '<input class="input" name="' + name + '" maxlength="' + (name === 'cardLink' ? 300 : 80) + '" value="' + esc(value) + '" placeholder="' + esc(ph) + '"' +
+      (name === 'cardLink' ? ' inputmode="url"' : '') + '></label></div>';
+  }
+
+  /* Email preview built from the server's default wording. */
+  function payLines(s) {
+    var out = [];
+    if (s.venmo) out.push('Venmo: ' + (s.venmo.charAt(0) === '@' ? s.venmo : '@' + s.venmo));
+    if (s.zelle) out.push('Zelle: ' + s.zelle);
+    if (s.cardLink) out.push('Pay by card: ' + s.cardLink);
+    if (s.cash) out.push('Cash or check at the next ' + unit());
+    return out.length ? out.join('\n') : 'Just reply to this email and we’ll sort it out.';
+  }
+  function fillTemplate(t, d) {
+    return String(t).replace(/\{(\w+)\}/g, function (m, k) { return Object.prototype.hasOwnProperty.call(d, k) ? String(d[k]) : m; });
+  }
+  function emailFor(kind, sample) {
+    var s = set(), def = (S.data && S.data.defaults) || {};
+    var left = kind === 'final' ? 0 : (s.threshold || 2);
+    var d = {
+      name: clients() ? sample.student.split(' ')[0] : sample.parent, parent: sample.parent,
+      student: sample.student, left: left, left_text: plural(left), package: sample.pkg, unit: unit(),
+      pay: payLines(s), coach: s.coach, business: s.business, phone: s.phone,
+      signature: [s.coach, s.business, s.phone].filter(function (x) { return String(x || '').trim(); }).join('\n')
+    };
+    var subj = kind === 'final' ? (s.fSubj || def.fSubj) : (s.rSubj || def.rSubj);
+    var body = kind === 'final' ? (s.fBody || def.fBody) : (s.rBody || def.rBody);
+    return { subject: fillTemplate(subj || '', d), body: fillTemplate(body || '', d) };
+  }
+  function previewBox(kind) {
+    var pk = (set().packages || [10]);
+    var m = emailFor(kind, { student: 'Jake', parent: 'Sarah', pkg: pk[pk.length - 1] || 10 });
+    return '<div class="preview"><div>From: <strong>' + esc(set().business || set().coach || 'Your business') + '</strong></div>' +
+      '<strong>' + esc(m.subject) + '</strong><div>' + esc(m.body) + '</div></div>';
+  }
+
+  function sortStudents(list) {
+    var rank = { done: 0, low: 1, ok: 2, nopkg: 3 };
+    return list.slice().sort(function (a, b) {
+      return (rank[a.status] - rank[b.status]) || (a.left - b.left) || a.student.localeCompare(b.student);
+    });
+  }
+
+  function isTestStamp(x) { return /^TEST/i.test(String(x || '')); }
+
+  function vHome() {
+    var s = set(), list = sortStudents(S.data.students || []);
+    var need = list.filter(function (x) { return x.status === 'done' || x.status === 'low'; });
+    var out = '<div class="topbar"><span class="brand">' + esc(s.business || 'Your business') + '</span>' +
+      '<div class="row"><button class="icon-btn" aria-label="Refresh" data-act="refresh">' + I.refresh + '</button>' +
+      '<button class="icon-btn" aria-label="Settings" data-act="settings">' + I.gear + '</button></div></div>' +
+      '<div class="stack"><h1>Your ' + people() + '</h1>';
+    if (s.test) {
+      out += '<button class="banner banner-info" data-act="settings">' + I.flask + '<div><strong>Test mode is on.</strong> Reminder emails go to you, not ' + (clients() ? 'clients' : 'parents') + '. Tap to turn it off when you’re ready.</div></button>';
+    }
+    if (need.length) {
+      out += '<div class="banner banner-warn">' + I.bell + '<div><strong>' + need.length + ' ' + (need.length === 1 ? person() + ' needs' : people() + ' need') + ' attention.</strong> Reminders go out automatically.</div></div>';
+    }
+    out += '</div>';
+
+    if (!list.length) {
+      out += '<div class="empty"><h2>No ' + people() + ' yet</h2><p class="muted">Add your first ' + person() + ' and their package. Then tap <strong>+ ' + esc(cap(unit())) + '</strong> after each visit.</p></div>';
+    } else {
+      out += '<div class="list">' + list.map(card).join('') + '</div>';
+    }
+    out += '<div class="spacer"></div><div class="sticky-bottom"><button class="btn btn-dark" data-act="add">' + I.plusS + 'Add a ' + person() + '</button></div>';
+    return out;
+  }
+
+  function countText(x) {
+    if (x.status === 'nopkg') return 'No package yet';
+    if (x.left < 0) return (-x.left) + ' past the package · not paid yet';
+    if (x.left === 0) return 'Package finished · ' + x.pkg + ' of ' + x.pkg + ' used';
+    return plural(x.left) + ' left of ' + x.pkg;
+  }
+
+  function pillFor(x) {
+    if (x.status === 'done') return '<span class="pill pill-bad">Needs payment</span>';
+    if (x.status === 'low') {
+      if (x.reminderSent) return '<span class="pill pill-warn">Reminder sent' + (isTestStamp(x.reminderSent) ? ' (test)' : '') + '</span>';
+      if (!x.email) return '<span class="pill pill-warn">No email</span>';
+      return '<span class="pill pill-warn">Running low</span>';
+    }
+    return '';
+  }
+
+  function card(x) {
+    var pct = x.pkg ? Math.max(0, Math.min(100, Math.round(x.left / x.pkg * 100))) : 0;
+    var cls = x.status === 'done' ? 'done' : x.status === 'low' ? 'low' : '';
+    var sub = !clients() && x.parent ? 'Parent: ' + x.parent : (x.lastVisit ? 'Last ' + unit() + ' ' + x.lastVisit : '');
+    var btn = x.status === 'done'
+      ? '<button class="tap tap-paid" data-act="open" data-id="' + esc(x.id) + '" data-focus="paid" aria-label="Record payment for ' + esc(x.student) + '">' + I.check + 'Paid</button>'
+      : '<button class="tap tap-log" data-act="log" data-id="' + esc(x.id) + '" aria-label="Log a ' + esc(unit()) + ' for ' + esc(x.student) + '">' + I.plus + esc(cap(unit())) + '</button>';
+    return '<div class="card"><button class="card-main" data-act="open" data-id="' + esc(x.id) + '">' +
+      '<span class="row" data-s="gap8"><span class="name">' + esc(x.student) + '</span>' + pillFor(x) + '</span>' +
+      (sub ? '<span class="small muted">' + esc(sub) + '</span>' : '') +
+      '<span class="bar ' + cls + '" data-s="w100"><i data-pct="' + pct + '"></i></span>' +
+      '<span class="count ' + cls + '">' + esc(countText(x)) + '</span></button>' + btn + '</div>';
+  }
+
+  function vSheet() {
+    var r = S.sheet.result || {}, x = student(S.sheet.id) || {};
+    var left = r.left, pkg = r.pkg;
+    var segs = '';
+    if (pkg && pkg <= 20) {
+      segs = '<div class="segs" aria-hidden="true">';
+      for (var i = 0; i < pkg; i++) segs += '<i class="' + (i < Math.min(r.used, pkg) ? 'on' : '') + '"></i>';
+      segs += '</div>';
+    }
+    var note = '';
+    var who = r.test ? 'you' : (r.greet || payerName(x));
+    if (r.emailed === 'reminder') {
+      note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the payment reminder went to you.' : 'We emailed ' + esc(who) + ' a payment reminder.') + '</strong> ' +
+        (r.test ? '' : (set().copyMe ? 'You’ll get a copy too. ' : '')) + 'Nothing else to do.</div></div>';
+    } else if (r.emailed === 'final') {
+      note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the final note went to you.' : 'We emailed ' + esc(who) + ' a thank-you note with how to pay.') + '</strong></div></div>';
+    } else if (r.missingEmail) {
+      note = '<div class="banner banner-bad">' + I.info + '<div><strong>No email on file</strong>, so no reminder went out. Add one from ' + esc(x.student || 'their') + '’s page.</div></div>';
+    } else if (left < 0) {
+      note = '<div class="banner banner-bad">' + I.info + '<div>This one is past the paid package. It will count toward the next one.</div></div>';
+    }
+    var line = pkg ? cap(unit()) + ' ' + r.used + ' of ' + pkg + ' · <strong>' + (left > 0 ? plural(left) + ' left' : left === 0 ? 'package finished' : (-left) + ' over') + '</strong>' : cap(unit()) + ' ' + r.used;
+    return '<div class="backdrop" data-act="closeSheet"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">' +
+      '<div class="grabber"></div><div class="check">' + I.checkL + '</div>' +
+      '<div class="stack-s"><h2 id="sheet-title" data-s="f24">' + esc(cap(unit())) + ' logged for ' + esc(r.student || x.student) + '</h2>' +
+      '<div class="muted" data-s="f17">' + line + '</div></div>' + segs + note +
+      '<div class="row"><button class="btn btn-ghost grow" data-act="undo" data-id="' + esc(S.sheet.id) + '">Undo</button>' +
+      '<button class="btn btn-primary" data-s="flex2" data-act="closeSheet">Done</button></div></div>';
+  }
+
+  function vStudentForm(x) {
+    var s = set(), isNew = !x;
+    x = x || { student: '', parent: '', email: '', pkg: '', used: 0, notes: '' };
+    var presets = (s.packages && s.packages.length ? s.packages : [4, 8, 10]).slice(0, 3);
+    var pkgVal = x.pkg ? (presets.indexOf(x.pkg) !== -1 ? x.pkg : '__other') : (presets[presets.length - 1] || '');
+    var opts = presets.map(function (n) { return { v: n, t: String(n) }; }).concat([{ v: '__other', t: 'Other' }]);
+    var nameLabel = clients() ? 'Client’s name' : 'Student’s name';
+    var emailLabel = clients() ? 'Email for reminders' : 'Parent’s email';
+    return '<div class="topbar"><button class="link-btn" data-act="' + (isNew ? 'home' : 'backStudent') + '">' + I.back + 'Cancel</button></div>' +
+      '<form class="stack" data-s="flex1" data-form="' + (isNew ? 'add' : 'edit') + '">' +
+      '<h1>' + (isNew ? 'Add a ' + person() : 'Edit ' + esc(x.student)) + '</h1>' +
+      '<label class="field">' + nameLabel + '<input class="input" name="student" maxlength="80" required autocomplete="off" value="' + esc(x.student) + '"></label>' +
+      (clients() ? '' : '<label class="field">Parent’s first name<input class="input" name="parent" maxlength="80" autocomplete="off" placeholder="e.g. Karen" value="' + esc(x.parent) + '"></label>') +
+      '<label class="field">' + emailLabel + '<input class="input" name="email" type="email" maxlength="120" autocomplete="off" inputmode="email" placeholder="name@email.com" value="' + esc(x.email) + '"><span class="hint">Reminders go here. You can add it later.</span></label>' +
+      '<div class="field">How many ' + units() + ' in the package?' + chipGroup('pkg', opts, pkgVal, 'grid4') +
+      '<input class="input' + (pkgVal === '__other' ? '' : ' hidden') + '" name="pkgOther" inputmode="numeric" pattern="[0-9]*" placeholder="Number of ' + esc(units()) + '" value="' + (pkgVal === '__other' ? esc(x.pkg) : '') + '"></div>' +
+      '<label class="field">' + (isNew ? 'Already used any? ' : cap(units()) + ' used so far') + '<input class="input" name="used" inputmode="numeric" pattern="[0-9]*" value="' + esc(x.used || 0) + '"></label>' +
+      '<label class="field">Notes (optional)<textarea class="input" name="notes" maxlength="500" data-s="h90">' + esc(x.notes) + '</textarea></label>' +
+      '<div class="banner banner-info">' + I.info + '<div>We’ll email automatically when there are ' + plural(s.threshold || 2) + ' left.</div></div>' +
+      '<div class="spacer"></div><button class="btn btn-primary" type="submit">' + (isNew ? 'Save ' + person() : 'Save changes') + '</button>' +
+      (isNew ? '' : '<button class="btn btn-danger" type="button" data-act="archive" data-id="' + esc(x.id) + '">Remove ' + person() + '</button>') +
+      '</form>';
+  }
+
+  function vStudent() {
+    var x = student(S.id);
+    if (!x) return '<div class="hero"><h1>Not found</h1><button class="btn btn-primary" data-act="home">Back</button></div>';
+    var s = set();
+    var presets = (s.packages && s.packages.length ? s.packages : [4, 8, 10]).slice(0, 3);
+    var opts = presets.map(function (n) { return { v: n, t: String(n) }; }).concat([{ v: '__other', t: 'Other' }]);
+    var defPkg = presets.indexOf(x.pkg) !== -1 ? x.pkg : (presets[presets.length - 1] || '');
+    var title, sub = [];
+    if (x.status === 'nopkg') title = 'No package yet';
+    else if (x.left < 0) title = (-x.left) + ' past the package';
+    else if (x.left === 0) title = 'Package finished';
+    else title = plural(x.left) + ' left of ' + x.pkg;
+    if (x.reminderSent) sub.push('Reminder sent ' + x.reminderSent.replace(/^TEST\s*/i, '(test) '));
+    if (x.finalSent) sub.push('Final note sent ' + x.finalSent.replace(/^TEST\s*/i, '(test) '));
+    if (!x.email) sub.push('No email on file, so reminders can’t go out.');
+    if (x.status === 'ok') sub.push('Reminder goes out at ' + plural(s.threshold || 2) + ' left.');
+
+    var paidQ = x.status === 'done' || x.status === 'nopkg'
+      ? 'Did ' + esc(payerName(x)) + ' pay for a new package?'
+      : 'Paid early for the next package?';
+    var carry = x.left > 0 ? '<span class="hint">The ' + plural(x.left) + ' left now will carry over.</span>' : '';
+
+    var hist = S.history === null ? '<div class="history"><div><span class="muted">Loading…</span></div></div>'
+      : !S.history.length ? '<div class="history"><div><span class="muted">Nothing yet</span></div></div>'
+      : '<div class="history">' + S.history.map(function (h) {
+        return '<div><span>' + esc(h.what) + (h.details && /logged|paid/i.test(h.what) ? ' · <span class="muted">' + esc(h.details) + '</span>' : '') + '</span><span>' + esc(h.when) + '</span></div>';
+      }).join('') + '</div>';
+
+    return '<div class="topbar"><button class="link-btn" data-act="home">' + I.back + cap(people()) + '</button>' +
+      '<button class="link-btn" data-act="edit" data-id="' + esc(x.id) + '">Edit</button></div>' +
+      '<div class="stack"><div class="stack-s" data-s="gap4"><h1>' + esc(x.student) + '</h1>' +
+      '<div class="muted" data-s="f15">' + esc([!clients() && x.parent ? 'Parent: ' + x.parent : '', x.email].filter(Boolean).join(' · ') || 'No contact info yet') + '</div></div>' +
+      '<div class="status ' + x.status + '"><h2>' + esc(title) + '</h2>' + (sub.length ? '<div data-s="f15">' + esc(sub.join(' ')) + '</div>' : '') + '</div>' +
+      (x.status !== 'done' && x.status !== 'nopkg' ? '<button class="btn btn-primary" data-act="log" data-id="' + esc(x.id) + '">' + I.plusS + 'Log a ' + esc(unit()) + '</button>' : '') +
+      '<form class="panel" id="paid" data-form="paid" data-id="' + esc(x.id) + '"><div class="panel-title">' + paidQ + '</div>' + carry +
+      chipGroup('pkg', opts, defPkg, 'grid4') +
+      '<input class="input hidden" name="pkgOther" inputmode="numeric" pattern="[0-9]*" placeholder="Number of ' + esc(units()) + '">' +
+      '<button class="btn btn-ball" type="submit">' + I.check + '<span data-paid-label>Paid · start ' + esc(defPkg || '') + ' new ' + esc(units()) + '</span></button></form>' +
+      '<div class="stack-s"><div class="panel-title">History</div>' + hist + '</div></div>';
+  }
+
+  function vSettings() {
+    var s = set(), def = S.data.defaults || {};
+    function text(name, label, val, extra) {
+      return '<label class="field">' + label + '<input class="input" name="' + name + '" value="' + esc(val) + '" ' + (extra || '') + '></label>';
+    }
+    return '<div class="topbar"><button class="link-btn" data-act="home">' + I.back + 'Done</button></div>' +
+      '<form class="stack" data-form="settings"><h1>Settings</h1>' +
+      '<div class="section-label">Emails</div><div class="panel">' +
+      switchRow('test', 'Test mode', s.test, 'Every email goes to you instead of ' + (clients() ? 'clients' : 'parents')) +
+      '<div class="divider"></div>' + switchRow('copyMe', 'Copy me on every email', s.copyMe) +
+      '<div class="divider"></div>' + switchRow('finalOn', 'Thank-you note after the last ' + unit(), s.finalOn) +
+      '<div class="divider"></div><div class="panel-title">Send a reminder when there are</div>' + stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
+      '</div>' +
+      '<button class="btn btn-ghost" type="button" data-act="samples">' + I.mail + 'Email me a sample of both</button>' +
+
+      '<div class="section-label">Your business</div><div class="panel">' +
+      text('business', 'Business name', s.business, 'maxlength="80" required') +
+      text('coach', 'Your name (signs emails)', s.coach, 'maxlength="80"') +
+      text('phone', 'Phone (optional)', s.phone, 'maxlength="40" inputmode="tel"') +
+      text('coachEmail', 'Your email (copies and replies)', s.coachEmail, 'type="email" maxlength="120"') +
+      text('unit', 'What you call each visit', cap(s.unit), 'maxlength="20"') +
+      '<div class="field">Who pays' + chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'Clients' }], s.payer) + '</div>' +
+      text('packages', 'Package sizes', (s.packages || []).join(', '), 'inputmode="numeric"') +
+      '</div>' +
+
+      '<div class="section-label">How you get paid</div>' +
+      payPanel('venmo', 'Venmo', 'Your Venmo handle', s.venmo, '@your-handle') +
+      payPanel('zelle', 'Zelle', 'Phone or email for Zelle', s.zelle, 'phone or email') +
+      '<div class="panel">' + switchRow('cash', 'Cash or check', s.cash) + '</div>' +
+      payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
+
+      '<div class="section-label">Email wording</div>' +
+      '<p class="small muted">Placeholders fill in automatically: {name} {student} {left_text} {package} {unit} {pay} {signature}. Clear a box to go back to the default.</p>' +
+      text('rSubj', 'Reminder subject', s.rSubj || def.rSubj, 'maxlength="200"') +
+      '<label class="field">Reminder message<textarea class="input" name="rBody" maxlength="3000">' + esc(s.rBody || def.rBody) + '</textarea></label>' +
+      text('fSubj', 'Final note subject', s.fSubj || def.fSubj, 'maxlength="200"') +
+      '<label class="field">Final note message<textarea class="input" name="fBody" maxlength="3000">' + esc(s.fBody || def.fBody) + '</textarea></label>' +
+
+      '<div class="section-label">Security</div><div class="panel">' +
+      '<label class="field">Who can sign in<textarea class="input" name="allowed" data-s="h80">' + esc((s.allowed || []).join(', ')) + '</textarea>' +
+      '<span class="hint">Google accounts, separated by commas. Remove someone and they’re signed out right away.</span></label>' +
+      '<div class="small muted">Signed in as ' + esc(S.data.me) + '</div></div>' +
+
+      '<div class="sticky-bottom"><button class="btn btn-primary" type="submit">Save settings</button></div>' +
+      '<button class="btn btn-ghost" type="button" data-act="signout">Sign out of this phone</button>' +
+      '<button class="btn btn-danger" type="button" data-act="signoutAll">Sign out all devices</button>' +
+      '</form>';
+  }
+
+  /* ---------------- form reading ---------------- */
+  function val(form, name) {
+    var el = form.elements[name];
+    return el ? String(el.value || '').trim() : '';
+  }
+  function pkgFrom(form) {
+    var v = val(form, 'pkg');
+    if (v === '__other') v = val(form, 'pkgOther');
+    return parseInt(v, 10);
+  }
+  function payValues(form) {
+    var out = {};
+    ['venmo', 'zelle', 'cardLink'].forEach(function (k) {
+      var box = form.querySelector('[data-pay="' + k + '"] .switch');
+      out[k] = box && box.getAttribute('aria-checked') === 'true' ? val(form, k) : '';
+    });
+    out.cash = !!val(form, 'cash');
+    return out;
+  }
+
+  /* ---------------- actions ---------------- */
+  var acts = {
+    signin: function () { startSignIn(); },
+    home: function () { S.history = null; go('home'); },
+    add: function () { go('add'); },
+    settings: function () { go('settings'); },
+    refresh: function () { api('state').then(function () { render(); toast('Up to date.'); }, function () {}); },
+    log: function (el) {
+      var id = el.getAttribute('data-id');
+      api('logLesson', { id: id }).then(function (res) {
+        if (S.screen === 'student') S.history = null;
+        S.screen = S.screen === 'student' ? 'student' : 'home';
+        S.sheet = { id: id, result: res.result };
+        S.toast = null;
+        render();
+        if (S.screen === 'student') loadHistory(id);
+      }, function () {});
+    },
+    undo: function (el) {
+      var id = el.getAttribute('data-id');
+      var emailed = S.sheet && S.sheet.result && S.sheet.result.emailed;
+      api('undoLesson', { id: id }).then(function () {
+        S.sheet = null;
+        render();
+        toast(emailed ? 'Undone. The email that already went out can’t be unsent.' : 'Undone.');
+        if (S.screen === 'student') loadHistory(id);
+      }, function () {});
+    },
+    closeSheet: function () { S.sheet = null; render(); },
+    open: function (el) {
+      S.history = null;
+      go('student', { id: el.getAttribute('data-id') });
+      loadHistory(S.id);
+      if (el.getAttribute('data-focus') === 'paid') {
+        var p = document.getElementById('paid');
+        if (p) p.scrollIntoView({ block: 'center' });
+      }
+    },
+    edit: function (el) { go('edit', { id: el.getAttribute('data-id') }); },
+    backStudent: function () { go('student'); loadHistory(S.id); },
+    archive: function (el) {
+      var x = student(el.getAttribute('data-id'));
+      if (!x || !window.confirm('Remove ' + x.student + '? Their row moves to the Archived tab of your sheet.')) return;
+      api('deleteStudent', { id: x.id }).then(function () { go('home'); toast(x.student + ' removed.'); }, function () {});
+    },
+    samples: function () {
+      api('sendSamples').then(function (r) { toast('Two sample emails sent to ' + r.sentTo + '.'); }, function () {});
+    },
+    signout: function () {
+      api('logout', {}, { quiet: true }).catch(function () {}).then(function () {
+        clearSession(); S.msg = ''; go('signin');
+      });
+    },
+    signoutAll: function () {
+      if (!window.confirm('Sign out every phone and computer, including this one?')) return;
+      api('logoutAll').catch(function () {}).then(function () { clearSession(); S.msg = 'Signed out everywhere.'; go('signin'); });
+    },
+    setupBack: function () { S.setupStep = Math.max(1, S.setupStep - 1); render(true); },
+
+    pick: function (el) {
+      var field = el.getAttribute('data-field'), v = el.getAttribute('data-val');
+      var form = el.closest('form');
+      form.elements[field].value = v;
+      var group = el.parentNode.querySelectorAll('.chip');
+      for (var i = 0; i < group.length; i++) {
+        var on = group[i] === el;
+        group[i].setAttribute('aria-pressed', on);
+        if (!group[i].parentNode.classList.contains('grid4')) {
+          var svg = group[i].querySelector('svg');
+          if (on && !svg) group[i].insertAdjacentHTML('afterbegin', I.checkS);
+          if (!on && svg) svg.parentNode.removeChild(svg);
+        }
+      }
+      var other = form.elements[field === 'unit' ? 'unitOther' : 'pkgOther'];
+      if (other && (field === 'unit' || field === 'pkg')) {
+        other.classList.toggle('hidden', v !== '__other');
+        if (v === '__other') other.focus();
+      }
+      var label = form.querySelector('[data-paid-label]');
+      if (label && field === 'pkg') label.textContent = v === '__other' ? 'Paid · start new package' : 'Paid · start ' + v + ' new ' + units();
+    },
+    toggle: function (el) {
+      var on = el.getAttribute('aria-checked') !== 'true';
+      el.setAttribute('aria-checked', on);
+      el.closest('form').elements[el.getAttribute('data-field')].value = on ? '1' : '';
+    },
+    payToggle: function (el) {
+      var on = el.getAttribute('aria-checked') !== 'true';
+      el.setAttribute('aria-checked', on);
+      var lab = el.closest('[data-pay]').querySelector('label');
+      lab.classList.toggle('hidden', !on);
+      if (on) lab.querySelector('input').focus();
+    },
+    step: function (el) {
+      var form = el.closest('form'), f = el.getAttribute('data-field');
+      var n = parseInt(form.elements[f].value, 10) + parseInt(el.getAttribute('data-d'), 10);
+      n = Math.max(+el.getAttribute('data-min'), Math.min(+el.getAttribute('data-max'), n));
+      form.elements[f].value = n;
+      form.querySelector('[data-show="' + f + '"]').textContent = n;
+    }
+  };
+
+  var forms = {
+    connect: function (f) {
+      var url = val(f, 'url');
+      if (!BACKEND_RE.test(url)) return toast('That link doesn’t look right. It should start with https://script.google.com/macros/s/ and end with /exec.', true);
+      BACKEND = url; store.set('pt_backend', url); go('signin');
+    },
+    setup1: function (f) {
+      var u = val(f, 'unit') === '__other' ? val(f, 'unitOther') : val(f, 'unit');
+      if (!u) return toast('Choose what you call each visit.', true);
+      api('saveSettings', { settings: { business: val(f, 'business'), coach: val(f, 'coach'), unit: u, payer: val(f, 'payer') } })
+        .then(function () { S.setupStep = 2; render(true); }, function () {});
+    },
+    setup2: function (f) {
+      api('saveSettings', { settings: payValues(f) }).then(function () { S.setupStep = 3; render(true); }, function () {});
+    },
+    setup3: function (f) {
+      api('saveSettings', { settings: {
+        threshold: parseInt(val(f, 'threshold'), 10), finalOn: !!val(f, 'finalOn'), packages: val(f, 'packages'), setupDone: true
+      } }).then(function () { go('home'); toast('All set! Test mode is on, so emails come to you first.'); }, function () {});
+    },
+    add: function (f) {
+      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes') };
+      if (!body.pkg) return toast('Choose a package size.', true);
+      api('addStudent', { student: body }).then(function (res) {
+        go('home');
+        toast(body.student + ' added.' + (res.result && res.result.emailed ? ' A reminder went out right away.' : ''));
+      }, function () {});
+    },
+    edit: function (f) {
+      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes') };
+      if (!body.pkg) return toast('Choose a package size.', true);
+      api('updateStudent', { id: S.id, student: body }).then(function () { go('student'); loadHistory(S.id); toast('Saved.'); }, function () {});
+    },
+    paid: function (f) {
+      var id = f.getAttribute('data-id'), pkg = pkgFrom(f);
+      if (!pkg) return toast('Choose a package size.', true);
+      api('markPaid', { id: id, pkg: pkg }).then(function (res) {
+        var r = res.result || {};
+        go('home');
+        toast('Payment recorded. ' + r.student + ' now has ' + plural(r.pkg - r.used) + (r.carried ? ' (including ' + r.carried + ' carried over)' : '') + '.');
+      }, function () {});
+    },
+    settings: function (f) {
+      var def = S.data.defaults || {};
+      var out = payValues(f);
+      ['business', 'coach', 'phone', 'coachEmail', 'unit', 'payer', 'packages', 'allowed'].forEach(function (k) { out[k] = val(f, k); });
+      ['test', 'copyMe', 'finalOn'].forEach(function (k) { out[k] = !!val(f, k); });
+      out.threshold = parseInt(val(f, 'threshold'), 10);
+      ['rSubj', 'rBody', 'fSubj', 'fBody'].forEach(function (k) {
+        var v = f.elements[k].value.replace(/\r\n?/g, '\n').trim();
+        out[k] = v === String(def[k] || '').trim() ? '' : v;
+      });
+      var wasTest = !!set().test;
+      api('saveSettings', { settings: out }).then(function () {
+        go('home');
+        toast(wasTest && !out.test ? 'Saved. Test mode is off: reminders now go to ' + (clients() ? 'clients' : 'parents') + '.' : 'Settings saved.');
+      }, function () {});
+    }
+  };
+
+  function loadHistory(id) {
+    api('history', { id: id }, { quiet: true }).then(function (res) {
+      if (S.screen === 'student' && S.id === id) { S.history = res.history || []; render(); }
+    }, function () {});
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-act]');
+    if (!el || !app.contains(el)) return;
+    var fn = acts[el.getAttribute('data-act')];
+    if (fn) { e.preventDefault(); fn(el); }
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    var fn = forms[f.getAttribute('data-form')];
+    if (fn) { e.preventDefault(); fn(f); }
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible' && S.session && S.data && S.screen === 'home' && !S.sheet) {
+      api('state', {}, { quiet: true }).then(function () { if (S.screen === 'home' && !S.sheet) render(); }, function () {});
+    }
+  });
+
+  /* ---------------- start ---------------- */
+  if (!BACKEND) { go('connect'); }
+  else if (/(^|&)(id_token|error)=/.test(location.hash.slice(1))) { finishSignIn(); }
+  else if (!S.session) { go('signin'); }
+  else { go('loading'); load(); }
+})();
+</script>
+</body>
+</html>
