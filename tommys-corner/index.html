@@ -29,10 +29,12 @@
       --green: #1a5c3a; --lime: #b5e45c; --clay: #d4540a;
       --cream: #f8f3ec; --dark: #0f1c10; --mid: #3a5c3e;
       --text: #2a3a2d; --muted: #5a6e5c;
+      --blue: #1a4a7a; --leaf: #3a6a12;
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
 
     /* NAV */
     nav {
@@ -49,145 +51,273 @@
     .nav-cta { background: var(--clay); color: #fff; padding: .5rem 1.3rem; border-radius: 2rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: background .25s; }
     .nav-cta:hover { background: #b84808; }
 
-    /* BLOG HERO */
+    /* HERO */
     .blog-hero {
-      padding: 8rem 5% 5rem;
-      background: var(--green);
+      padding: 8.5rem 5% 6rem;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(181,228,92,0.22), transparent 45%),
+        radial-gradient(circle at 10% 110%, rgba(212,84,10,0.35), transparent 50%),
+        linear-gradient(160deg, #1e6b44 0%, #1a5c3a 45%, #0c3320 100%);
       position: relative; overflow: hidden;
     }
-    .blog-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px),
-                  repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 80px);
+    .court-lines { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .16; pointer-events: none; }
+    .hero-grid {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
     }
-    .hero-inner { position: relative; z-index: 2; max-width: 700px; }
     .hero-tag {
-      display: inline-block; background: var(--lime); color: var(--dark);
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--lime); color: var(--dark);
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-      padding: .3rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem;
+      padding: .35rem 1rem; border-radius: 2rem; margin-bottom: 1.4rem;
     }
+    .hero-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--clay); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: .5; } }
     .blog-hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem); color: #fff; line-height: 1.1;
-      margin-bottom: 1rem;
+      font-size: clamp(3rem, 7vw, 5.4rem); color: #fff; line-height: 1;
+      margin-bottom: 1.4rem; letter-spacing: -0.01em;
     }
-    .blog-hero h1 em { color: var(--lime); font-style: italic; }
-    .blog-hero p { color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.7; max-width: 540px; }
+    .blog-hero h1 em { color: var(--lime); font-style: italic; position: relative; }
+    .blog-hero h1 em::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: .05em; height: .12em;
+      background: var(--clay); border-radius: 4px; transform: scaleX(0); transform-origin: left;
+      animation: underline 1s .6s forwards ease-out;
+    }
+    @keyframes underline { to { transform: scaleX(1); } }
+    .hero-sub { color: rgba(255,255,255,0.78); font-size: 1.12rem; line-height: 1.7; max-width: 520px; margin-bottom: 2.2rem; }
+
+    .hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .stat {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px; padding: .9rem 1.2rem; min-width: 120px;
+      backdrop-filter: blur(4px);
+    }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--lime); line-height: 1; }
+    .stat:nth-child(2) .stat-num { color: #ffb27a; }
+    .stat:nth-child(3) .stat-num { color: #fff; }
+    .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; margin-top: .35rem; }
+
+    /* Photo stack */
+    .photo-stack { position: relative; height: 420px; }
+    .polaroid {
+      position: absolute; background: #fff; padding: 10px 10px 34px; border-radius: 6px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      transition: transform .4s ease;
+    }
+    .polaroid img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; }
+    .polaroid span {
+      position: absolute; bottom: 8px; left: 0; right: 0; text-align: center;
+      font-family: 'Playfair Display', serif; font-style: italic; font-size: .85rem; color: var(--text);
+    }
+    .p1 { width: 240px; height: 290px; top: 10px; left: 4%; transform: rotate(-7deg); z-index: 1; }
+    .p2 { width: 250px; height: 300px; top: 70px; left: 38%; transform: rotate(5deg); z-index: 2; }
+    .p3 { width: 190px; height: 220px; top: 230px; left: 10%; transform: rotate(3deg); z-index: 3; }
+    .photo-stack:hover .p1 { transform: rotate(-11deg) translate(-12px, -6px); }
+    .photo-stack:hover .p2 { transform: rotate(8deg) translate(12px, -4px); }
+    .photo-stack:hover .p3 { transform: rotate(0deg) translateY(8px); }
+    .ball {
+      position: absolute; top: -6px; right: 6%; width: 54px; height: 54px; border-radius: 50%; z-index: 4;
+      background: radial-gradient(circle at 35% 30%, #e8ff8a, #c6e33a 55%, #9fbf1e);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: bounce 1.6s infinite cubic-bezier(.5,0,.5,1);
+    }
+    .ball::before, .ball::after {
+      content: ''; position: absolute; width: 54px; height: 54px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.85); top: 0;
+    }
+    .ball::before { left: -32px; } .ball::after { left: 32px; }
+    .ball { overflow: hidden; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(46px); }
+    }
 
     /* CATEGORY FILTER */
     .cat-bar {
       background: var(--dark); padding: 1rem 5%;
-      display: flex; gap: .75rem; flex-wrap: wrap; align-items: center;
+      display: flex; gap: .7rem; flex-wrap: wrap; align-items: center;
+      position: sticky; top: 64px; z-index: 50;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
-    .cat-label { color: rgba(255,255,255,0.4); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; margin-right: .5rem; }
+    .cat-label { color: rgba(255,255,255,0.45); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; margin-right: .3rem; }
     .cat-pill {
-      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65);
-      border: 1px solid rgba(255,255,255,0.12); border-radius: 2rem;
-      padding: .3rem .9rem; font-size: 0.78rem; font-weight: 500;
-      text-decoration: none; transition: all .2s; cursor: pointer;
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 2rem;
+      padding: .38rem 1rem; font-size: 0.8rem; font-weight: 500; font-family: inherit;
+      transition: all .2s; cursor: pointer;
     }
-    .cat-pill:hover, .cat-pill.active { background: var(--lime); color: var(--dark); border-color: var(--lime); }
+    .cat-pill .swatch { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--lime)); }
+    .cat-pill:hover { border-color: var(--c, var(--lime)); color: #fff; transform: translateY(-1px); }
+    .cat-pill.active { background: var(--c, var(--lime)); color: #fff; border-color: var(--c, var(--lime)); }
+    .cat-pill.active .swatch { background: #fff; }
+    .cat-pill[data-filter="all"].active { color: var(--dark); }
+    .cat-pill[data-filter="all"].active .swatch { background: var(--dark); }
 
-    /* POST GRID */
-    .posts-section { padding: 4rem 5%; }
-    .posts-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    /* FEATURED (spans 2 cols) */
-    .post-card {
-      border-radius: 20px; overflow: hidden;
-      background: #fff;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-      transition: transform .3s, box-shadow .3s;
-      text-decoration: none; color: inherit;
-      display: flex; flex-direction: column;
-    }
-    .post-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
-    .post-card.featured { grid-column: 1 / -1; flex-direction: row; }
-
-    .card-img {
-      background: linear-gradient(135deg, var(--green) 0%, #0f3d26 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4rem; color: rgba(255,255,255,0.3);
-      flex-shrink: 0;
-    }
-    .post-card:not(.featured) .card-img { height: 180px; }
-    .post-card.featured .card-img { width: 45%; min-height: 300px; font-size: 6rem; }
-
-    .card-img.clay-bg { background: linear-gradient(135deg, #c44e0a, #8a3006); }
-    .card-img.lime-bg { background: linear-gradient(135deg, #4a8a2a, var(--green)); }
-    .card-img.blue-bg { background: linear-gradient(135deg, #1a4a7a, #0d2a4e); }
-    .card-img.green-bg { background: linear-gradient(135deg, #1e6b44, #0a2a1a); }
-
-    .card-body { padding: 1.8rem; display: flex; flex-direction: column; flex: 1; }
-    .card-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
-    .cat-badge {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: .2rem .7rem; border-radius: 2rem;
-    }
-    .cat-badge.pro-game  { background: rgba(26,74,122,0.12); color: #1a4a7a; }
-    .cat-badge.technique { background: rgba(212,84,10,0.12); color: var(--clay); }
-    .cat-badge.parents   { background: rgba(26,92,58,0.12); color: var(--green); }
-    .cat-badge.beginners { background: rgba(181,228,92,0.25); color: #3a6a12; }
-    .post-date { font-size: 0.78rem; color: var(--muted); }
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem; line-height: 1.3; margin-bottom: .75rem;
-      color: var(--dark);
-    }
-    .post-card.featured .card-title { font-size: 1.7rem; }
-    .card-excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.7; flex: 1; }
-    .read-more {
-      display: inline-flex; align-items: center; gap: .4rem;
-      margin-top: 1.2rem; font-size: 0.85rem; font-weight: 600;
-      color: var(--green); text-decoration: none;
-    }
-    .read-more::after { content: '→'; transition: transform .2s; }
-    .post-card:hover .read-more::after { transform: translateX(4px); }
-
-    /* SIDEBAR */
+    /* LAYOUT */
     .content-layout {
       display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start;
-      padding: 4rem 5%;
+      padding: 4rem 5%; max-width: 1400px; margin: 0 auto;
     }
-    .sidebar { position: sticky; top: 90px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.6rem; gap: 1rem; flex-wrap: wrap; }
+    .section-head h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--dark); }
+    .section-head h2 em { color: var(--clay); }
+    .result-count { font-size: .85rem; color: var(--muted); }
+
+    /* POST GRID */
+    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .post-card {
+      --c: var(--green);
+      border-radius: 20px; overflow: hidden; background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform .35s, box-shadow .35s, opacity .35s;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      border-bottom: 5px solid var(--c);
+    }
+    .post-card:hover { transform: translateY(-8px) rotate(-.4deg); box-shadow: 0 22px 44px rgba(0,0,0,0.14); }
+    .post-card.featured { grid-column: 1 / -1; flex-direction: row; }
+    .post-card.hidden { display: none; }
+    .post-card[data-cat="beginners"] { --c: #5c9a1e; }
+    .post-card[data-cat="pro-game"]  { --c: var(--blue); }
+    .post-card[data-cat="technique"] { --c: var(--clay); }
+    .post-card[data-cat="parents"]   { --c: var(--green); }
+
+    .card-img { position: relative; overflow: hidden; flex-shrink: 0; height: 210px; background: var(--c); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .post-card:hover .card-img img { transform: scale(1.08); }
+    .card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.45) 100%),
+                  linear-gradient(135deg, color-mix(in srgb, var(--c) 45%, transparent), transparent 60%);
+    }
+    .post-card.featured .card-img { width: 52%; height: auto; min-height: 380px; }
+    .img-badge {
+      position: absolute; left: 1rem; bottom: 1rem; z-index: 2;
+      background: var(--c); color: #fff;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: .3rem .8rem; border-radius: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .new-ribbon {
+      position: absolute; top: 1.1rem; right: -2.4rem; z-index: 2;
+      background: var(--lime); color: var(--dark);
+      font-size: .7rem; font-weight: 700; letter-spacing: .18em;
+      padding: .35rem 3rem; transform: rotate(35deg);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .card-body { padding: 1.7rem; display: flex; flex-direction: column; flex: 1; }
+    .post-card.featured .card-body { padding: 2.6rem; justify-content: center; }
+    .card-meta { display: flex; align-items: center; gap: .6rem; margin-bottom: .9rem; font-size: 0.78rem; color: var(--muted); }
+    .card-meta .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--c); }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.28rem; line-height: 1.3; margin-bottom: .75rem; color: var(--dark);
+      transition: color .2s;
+    }
+    .post-card:hover .card-title { color: var(--c); }
+    .post-card.featured .card-title { font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1.15; }
+    .card-excerpt { font-size: 0.92rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .post-card.featured .card-excerpt { font-size: 1.02rem; flex: 0; }
+    .read-more {
+      display: inline-flex; align-items: center; gap: .5rem; align-self: flex-start;
+      margin-top: 1.3rem; font-size: 0.85rem; font-weight: 600; color: var(--c);
+    }
+    .read-more .arrow {
+      width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+      background: color-mix(in srgb, var(--c) 14%, transparent); transition: transform .25s, background .25s, color .25s;
+    }
+    .post-card:hover .read-more .arrow { transform: translateX(5px); background: var(--c); color: #fff; }
+    .post-card.featured .read-more {
+      background: var(--clay); color: #fff; padding: .7rem 1.4rem; border-radius: 2rem;
+    }
+    .post-card.featured .read-more .arrow { background: rgba(255,255,255,0.2); color: #fff; width: 24px; height: 24px; }
+
+    .empty-state {
+      display: none; grid-column: 1 / -1; text-align: center;
+      background: #fff; border-radius: 20px; padding: 3rem 2rem;
+      border: 2px dashed rgba(26,92,58,0.25);
+    }
+    .empty-state.show { display: block; }
+    .empty-state .big { font-size: 2.6rem; margin-bottom: .6rem; }
+    .empty-state h3 { font-family: 'Playfair Display', serif; color: var(--dark); margin-bottom: .4rem; }
+    .empty-state p { color: var(--muted); font-size: .95rem; }
+    .empty-state a { color: var(--clay); font-weight: 600; }
+
+    /* ASK TOMMY BAND */
+    .ask-band {
+      margin-top: 3rem; border-radius: 24px; overflow: hidden; position: relative;
+      background: linear-gradient(120deg, #c44e0a 0%, #d4540a 40%, #e8792c 100%);
+      color: #fff; padding: 2.6rem 2.6rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+    }
+    .ask-band::before {
+      content: '?'; position: absolute; right: 14%; top: -3.5rem;
+      font-family: 'Playfair Display', serif; font-size: 16rem; color: rgba(255,255,255,0.1); line-height: 1;
+    }
+    .ask-band h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: .5rem; position: relative; }
+    .ask-band p { color: rgba(255,255,255,0.88); line-height: 1.65; max-width: 520px; position: relative; }
+    .ask-btn {
+      position: relative; background: var(--dark); color: var(--lime); text-decoration: none;
+      padding: .9rem 1.6rem; border-radius: 2rem; font-weight: 600; font-size: .92rem; white-space: nowrap;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .ask-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.25); }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 140px; }
     .sidebar-block {
-      background: #fff; border-radius: 16px; padding: 1.5rem;
+      background: #fff; border-radius: 18px; padding: 1.5rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 1.5rem;
     }
-    .sidebar-title {
-      font-family: 'Playfair Display', serif; font-size: 1.1rem;
-      margin-bottom: 1rem; color: var(--dark);
+    .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 1rem; color: var(--dark); }
+
+    .coach-card { text-align: center; padding-top: 0; overflow: hidden; }
+    .coach-banner { height: 70px; margin: 0 -1.5rem; background: linear-gradient(120deg, var(--green), #2d8a57); position: relative; }
+    .coach-banner::after {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 40px);
     }
-    .topic-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-    .topic-list a {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: .5rem .75rem; border-radius: 8px;
-      text-decoration: none; color: var(--text); font-size: 0.9rem;
-      transition: background .2s;
+    .coach-photo {
+      width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: center 20%;
+      margin: -48px auto .8rem; border: 4px solid #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.15); position: relative;
     }
-    .topic-list a:hover { background: var(--cream); }
-    .topic-count {
-      background: var(--green); color: #fff;
-      font-size: 0.7rem; padding: .15rem .5rem; border-radius: 2rem;
+    .coach-card h4 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--dark); }
+    .coach-role { font-size: .75rem; color: var(--clay); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin: .25rem 0 .8rem; }
+    .coach-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .coach-link { font-size: .85rem; font-weight: 600; color: var(--green); text-decoration: none; }
+    .coach-link:hover { color: var(--clay); }
+
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+    .topic-list button {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: .55rem .75rem; border-radius: 10px; border: none; background: none; cursor: pointer;
+      color: var(--text); font-size: 0.9rem; font-family: inherit; text-align: left;
+      transition: background .2s, padding .2s;
     }
+    .topic-list button:hover { background: var(--cream); padding-left: 1rem; }
+    .topic-name { display: flex; align-items: center; gap: .6rem; }
+    .topic-name .swatch { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+    .topic-count { background: var(--c); color: #fff; font-size: 0.7rem; padding: .15rem .55rem; border-radius: 2rem; min-width: 24px; text-align: center; }
+
     .cta-sidebar {
-      background: var(--green); border-radius: 16px; padding: 1.5rem; color: #fff;
-      margin-bottom: 1.5rem;
+      background: linear-gradient(150deg, #1e6b44, var(--green) 60%, #0f3d26);
+      border-radius: 18px; padding: 1.6rem; color: #fff; margin-bottom: 1.5rem; position: relative; overflow: hidden;
     }
-    .cta-sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: .5rem; }
-    .cta-sidebar p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+    .cta-sidebar::after {
+      content: ''; position: absolute; width: 120px; height: 120px; border-radius: 50%;
+      right: -40px; top: -40px; background: rgba(181,228,92,0.18);
+    }
+    .cta-sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: .5rem; position: relative; }
+    .cta-sidebar p { font-size: 0.86rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 1rem; position: relative; }
     .cta-btn {
-      display: block; text-align: center;
-      background: var(--clay); color: #fff;
-      padding: .65rem 1rem; border-radius: 2rem;
-      text-decoration: none; font-size: 0.85rem; font-weight: 600;
-      transition: background .2s;
+      display: block; text-align: center; position: relative;
+      background: var(--clay); color: #fff; padding: .7rem 1rem; border-radius: 2rem;
+      text-decoration: none; font-size: 0.86rem; font-weight: 600; transition: background .2s;
     }
     .cta-btn:hover { background: #b84808; }
+    .phone-line { display: block; margin-top: .9rem; text-align: center; color: var(--lime); text-decoration: none; font-weight: 600; font-size: .95rem; position: relative; }
 
     /* FOOTER */
     footer {
@@ -202,13 +332,34 @@
     .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
     .footer-links a:hover { color: var(--lime); }
 
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 1100px) {
+      .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 900px) {
-      .posts-grid { grid-template-columns: 1fr; }
-      .post-card.featured { flex-direction: column; }
-      .post-card.featured .card-img { width: 100%; min-height: 200px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .photo-stack { height: 340px; max-width: 420px; }
+      .p1 { width: 190px; height: 230px; } .p2 { width: 200px; height: 240px; } .p3 { width: 150px; height: 175px; top: 185px; }
       .content-layout { grid-template-columns: 1fr; }
       .sidebar { position: static; }
+      .post-card.featured { flex-direction: column; }
+      .post-card.featured .card-img { width: 100%; min-height: 240px; }
+      .post-card.featured .card-body { padding: 1.8rem; }
+      .ask-band { grid-template-columns: 1fr; padding: 2rem; }
+      .cat-bar { top: 0; position: relative; }
       footer { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .blog-hero { padding: 7rem 5% 4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -225,109 +376,153 @@
   <a href="../contact.html" class="nav-cta">Book a Lesson</a>
 </nav>
 
-<div class="blog-hero">
-  <div class="hero-inner">
-    <div class="hero-tag">Coach Tommy's Blog</div>
-    <h1>Tommy's <em>Corner</em></h1>
-    <p>Coaching insights, technique breakdowns, parent guides, and pro game analysis — straight from 35+ years on the court.</p>
+<header class="blog-hero">
+  <svg class="court-lines" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#fff" stroke-width="3">
+      <rect x="120" y="60" width="960" height="480"/>
+      <line x1="120" y1="120" x2="1080" y2="120"/>
+      <line x1="120" y1="480" x2="1080" y2="480"/>
+      <line x1="600" y1="60" x2="600" y2="540" stroke-dasharray="10 8"/>
+      <line x1="360" y1="120" x2="360" y2="480"/>
+      <line x1="840" y1="120" x2="840" y2="480"/>
+      <line x1="360" y1="300" x2="840" y2="300"/>
+    </g>
+  </svg>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="hero-tag"><span class="dot"></span>Coach Tommy's Blog</div>
+      <h1>Tommy's <em>Corner</em></h1>
+      <p class="hero-sub">Tips, drills, parent advice, and a coach's take on the pro game. Most of these started as questions people asked me on the court.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">35+</div><div class="stat-label">Years coaching</div></div>
+        <div class="stat"><div class="stat-num">1985</div><div class="stat-label">First lesson taught</div></div>
+        <div class="stat"><div class="stat-num" id="postCount">4</div><div class="stat-label">Posts so far</div></div>
+      </div>
+    </div>
+    <div class="photo-stack" aria-hidden="true">
+      <div class="ball"></div>
+      <div class="polaroid p1"><img src="../assets/images/coach-tommy-about.jpg" alt=""/><span>Coach Tommy</span></div>
+      <div class="polaroid p2"><img src="../assets/images/family-vacation-lesson.jpg" alt=""/><span>Family lesson day</span></div>
+      <div class="polaroid p3"><img src="../assets/images/tennis-smile-balls.jpg" alt=""/><span>Good vibes only</span></div>
+    </div>
   </div>
-</div>
+</header>
 
-<div class="cat-bar">
-  <span class="cat-label">Browse by:</span>
-  <a class="cat-pill active" href="#">All Posts</a>
-  <a class="cat-pill" href="#">Pro Game</a>
-  <a class="cat-pill" href="#">Technique</a>
-  <a class="cat-pill" href="#">For Parents</a>
-  <a class="cat-pill" href="#">Drills</a>
-  <a class="cat-pill" href="#">Beginners</a>
+<div class="cat-bar" role="toolbar" aria-label="Filter posts by topic">
+  <span class="cat-label">Browse:</span>
+  <button class="cat-pill active" data-filter="all"><span class="swatch"></span>All Posts</button>
+  <button class="cat-pill" data-filter="beginners" style="--c:#5c9a1e"><span class="swatch"></span>Beginners</button>
+  <button class="cat-pill" data-filter="technique" style="--c:#d4540a"><span class="swatch"></span>Technique</button>
+  <button class="cat-pill" data-filter="parents" style="--c:#1a5c3a;"><span class="swatch" style="background:#2d8a57"></span>For Parents</button>
+  <button class="cat-pill" data-filter="pro-game" style="--c:#1a4a7a"><span class="swatch" style="background:#4a8ad0"></span>Pro Game</button>
+  <button class="cat-pill" data-filter="drills" style="--c:#7a3a9a"><span class="swatch" style="background:#b07ad0"></span>Drills</button>
 </div>
 
 <div class="content-layout">
   <main>
-    <div class="posts-grid">
+    <div class="section-head">
+      <h2 id="gridTitle">Latest <em>from the court</em></h2>
+      <span class="result-count" id="resultCount">4 posts</span>
+    </div>
+
+    <div class="posts-grid" id="postsGrid">
 
       <!-- POST 4 — FEATURED (newest) -->
-      <a href="./post-first-lesson.html" class="post-card featured">
-        <div class="card-img green-bg">👋</div>
+      <a href="./post-first-lesson.html" class="post-card featured reveal" data-cat="beginners">
+        <div class="card-img">
+          <img src="../assets/images/tennis-lesson.jpg" alt="Coach Tommy feeding easy balls to a young beginner"/>
+          <span class="new-ribbon">NEW</span>
+          <span class="img-badge">Beginners</span>
+        </div>
         <div class="card-body">
-          <div class="card-meta">
-            <span class="cat-badge beginners">Beginners</span>
-            <span class="post-date">Oct 6, 2026</span>
-          </div>
+          <div class="card-meta"><span>Oct 6, 2026</span><span class="sep"></span><span>4 min read</span></div>
           <h2 class="card-title">What Actually Happens in Your First Tennis Lesson</h2>
           <p class="card-excerpt">Nervous about getting started? Here's what happens the first time we get on the court, what to bring, and why you don't need to be good yet.</p>
-          <span class="read-more">Read the full post</span>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
         </div>
       </a>
 
-      <!-- POST 1 -->
-      <a href="./post-us-open.html" class="post-card">
-        <div class="card-img blue-bg">🎾</div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="cat-badge pro-game">Pro Game</span>
-            <span class="post-date">Aug 24, 2026</span>
-          </div>
-          <h2 class="card-title">How to Watch the US Open Like a Coach: 5 Things That Will Make You a Better Player</h2>
-          <p class="card-excerpt">The 2026 US Open is here. Most people watch the pros the way they'd watch fireworks. Change what your eyes do for one match and you'll learn more about your game in two hours than in a month of hitting.</p>
-          <span class="read-more">Read the full post</span>
+      <a href="./post-tough-match.html" class="post-card reveal" data-cat="parents">
+        <div class="card-img">
+          <img src="../assets/images/coach-with-juniors.jpg" alt="Coach Tommy with two junior players at the net" loading="lazy" style="object-position:center 30%"/>
+          <span class="img-badge">For Parents</span>
         </div>
-      </a>
-
-      <!-- POST 2 -->
-      <a href="./post-serve-fix.html" class="post-card">
-        <div class="card-img clay-bg">🎯</div>
         <div class="card-body">
-          <div class="card-meta">
-            <span class="cat-badge technique">Technique</span>
-            <span class="post-date">Sep 7, 2026</span>
-          </div>
-          <h2 class="card-title">The One Serve Fix That Helps Almost Every Player</h2>
-          <p class="card-excerpt">Inconsistent serve? After 35+ years of coaching, the problem usually isn't your arm — it's your toss.</p>
-          <span class="read-more">Read the full post</span>
-        </div>
-      </a>
-
-      <!-- POST 3 -->
-      <a href="./post-tough-match.html" class="post-card">
-        <div class="card-img lime-bg">💚</div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="cat-badge parents">For Parents</span>
-            <span class="post-date">Sep 16, 2026</span>
-          </div>
+          <div class="card-meta"><span>Sep 16, 2026</span><span class="sep"></span><span>6 min read</span></div>
           <h2 class="card-title">What to Say to Your Kid After a Tough Match</h2>
-          <p class="card-excerpt">The car ride home shapes a junior tennis player more than most lessons do. A coach of 35+ years on what to say — and what not to.</p>
-          <span class="read-more">Read the full post</span>
+          <p class="card-excerpt">The car ride home shapes a junior player more than most lessons do. What to say, and what not to.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
         </div>
       </a>
 
+      <a href="./post-serve-fix.html" class="post-card reveal" data-cat="technique">
+        <div class="card-img">
+          <img src="../assets/images/coach-tom-forehand.jpg" alt="Coach Tommy hitting a ball on court" loading="lazy" style="object-position:center 35%"/>
+          <span class="img-badge">Technique</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>Sep 7, 2026</span><span class="sep"></span><span>5 min read</span></div>
+          <h2 class="card-title">The One Serve Fix That Helps Almost Every Player</h2>
+          <p class="card-excerpt">Inconsistent serve? The problem usually isn't your arm. It's your toss.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <a href="./post-us-open.html" class="post-card reveal" data-cat="pro-game">
+        <div class="card-img">
+          <img src="../assets/images/conditions.jpg" alt="Junior player running a footwork drill while Coach Tommy watches" loading="lazy"/>
+          <span class="img-badge">Pro Game</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>Aug 24, 2026</span><span class="sep"></span><span>6 min read</span></div>
+          <h2 class="card-title">How to Watch the US Open Like a Coach</h2>
+          <p class="card-excerpt">Five things to watch for in the pros that will help your own game. Start with their feet, not the ball.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <div class="empty-state" id="emptyState">
+        <div class="big">🎾</div>
+        <h3>Nothing here yet</h3>
+        <p>No posts in this topic so far. Got something you want me to write about? <a href="../contact.html">Send me your question.</a></p>
+      </div>
     </div>
+
+    <section class="ask-band reveal">
+      <div>
+        <h3>Got a question for Tommy?</h3>
+        <p>Almost every post here started as something a student or parent asked me after a lesson. If you've been wondering about something, ask. It might be the next post.</p>
+      </div>
+      <a href="../contact.html" class="ask-btn">Ask a question →</a>
+    </section>
   </main>
 
   <aside class="sidebar">
+    <div class="sidebar-block coach-card">
+      <div class="coach-banner"></div>
+      <img class="coach-photo" src="../assets/images/coach-tommy-about.jpg" alt="Coach Tommy O'Donnell"/>
+      <h4>Tommy O'Donnell</h4>
+      <div class="coach-role">Head Coach · Since 1985</div>
+      <p>PTR-certified pro teaching juniors, adults, and families around Clermont and Central Florida.</p>
+      <a href="../about.html" class="coach-link">More about Tommy →</a>
+    </div>
+
     <div class="cta-sidebar">
       <h3>Ready to get on the court?</h3>
-      <p>Private and group lessons for juniors, adults, and beginners throughout Central Florida.</p>
+      <p>Private and group lessons for juniors, adults, and beginners.</p>
       <a href="../contact.html" class="cta-btn">Book a Lesson</a>
+      <a href="tel:+14072590774" class="phone-line">📞 (407) 259-0774</a>
     </div>
 
     <div class="sidebar-block">
       <div class="sidebar-title">Topics</div>
       <ul class="topic-list">
-        <li><a href="#">Pro Game <span class="topic-count">1</span></a></li>
-        <li><a href="#">Technique <span class="topic-count">1</span></a></li>
-        <li><a href="#">For Parents <span class="topic-count">1</span></a></li>
-        <li><a href="#">Drills <span class="topic-count">0</span></a></li>
-        <li><a href="#">Beginners <span class="topic-count">1</span></a></li>
+        <li><button data-filter="beginners" style="--c:#5c9a1e"><span class="topic-name"><span class="swatch"></span>Beginners</span><span class="topic-count" data-count="beginners">1</span></button></li>
+        <li><button data-filter="technique" style="--c:#d4540a"><span class="topic-name"><span class="swatch"></span>Technique</span><span class="topic-count" data-count="technique">1</span></button></li>
+        <li><button data-filter="parents" style="--c:#1a5c3a"><span class="topic-name"><span class="swatch"></span>For Parents</span><span class="topic-count" data-count="parents">1</span></button></li>
+        <li><button data-filter="pro-game" style="--c:#1a4a7a"><span class="topic-name"><span class="swatch"></span>Pro Game</span><span class="topic-count" data-count="pro-game">1</span></button></li>
+        <li><button data-filter="drills" style="--c:#7a3a9a"><span class="topic-name"><span class="swatch"></span>Drills</span><span class="topic-count" data-count="drills">0</span></button></li>
       </ul>
-    </div>
-
-    <div class="sidebar-block">
-      <div class="sidebar-title">Contact Tommy</div>
-      <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem;">Questions about lessons? Call or text directly.</p>
-      <p style="font-size:1rem; font-weight:600; color:var(--green);">📞 (407) 259-0774</p>
     </div>
   </aside>
 </div>
@@ -342,6 +537,57 @@
     <a href="../contact.html">Contact</a>
   </div>
 </footer>
+
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.post-card'));
+  var pills = document.querySelectorAll('[data-filter]');
+  var empty = document.getElementById('emptyState');
+  var countEl = document.getElementById('resultCount');
+  var titleEl = document.getElementById('gridTitle');
+  var names = { all: 'Latest <em>from the court</em>', beginners: '<em>Beginners</em>', technique: '<em>Technique</em>',
+                parents: 'For <em>Parents</em>', 'pro-game': '<em>Pro Game</em>', drills: '<em>Drills</em>' };
+
+  // Keep counts in sync with the cards on the page.
+  document.getElementById('postCount').textContent = cards.length;
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    el.textContent = cards.filter(function (c) { return c.dataset.cat === el.dataset.count; }).length;
+  });
+
+  function apply(filter) {
+    var shown = 0;
+    cards.forEach(function (c) {
+      var match = filter === 'all' || c.dataset.cat === filter;
+      c.classList.toggle('hidden', !match);
+      if (match) { shown++; c.classList.add('in'); }
+    });
+    empty.classList.toggle('show', shown === 0);
+    countEl.textContent = shown + (shown === 1 ? ' post' : ' posts');
+    titleEl.innerHTML = names[filter] || names.all;
+    document.querySelectorAll('.cat-pill').forEach(function (p) {
+      p.classList.toggle('active', p.dataset.filter === filter);
+    });
+  }
+
+  pills.forEach(function (p) {
+    p.addEventListener('click', function () {
+      apply(p.dataset.filter);
+      if (p.closest('.sidebar')) document.getElementById('gridTitle').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  // Fade cards in as they scroll into view.
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(function (el, i) { el.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+})();
+</script>
 
 </body>
 </html>
