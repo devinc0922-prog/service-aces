@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O6aKSdKbJsIAIVD1N00L4f5Y80+UtnrhZ5gNM7m8c68='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-6ljDe8uwVK26AabZOp6aXH6ZBNimz8q7uYOdKqS6kcg='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 
@@ -539,7 +539,8 @@ details.wording>*:not(summary){margin-top:14px}
       '<h1>When should we remind ' + (clients() ? 'clients' : 'parents') + '?</h1>' +
       '<div class="panel"><div class="panel-title">Send a reminder when there are</div>' +
       stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
-      '<div class="divider"></div>' + switchRow('finalOn', 'Also email when all ' + units() + ' are used', s.finalOn, 'A friendly note that payment is now due') + '</div>' +
+      '<div class="divider"></div>' + switchRow('finalOn', 'Also email when all ' + units() + ' are used', s.finalOn, 'A friendly note that payment is now due') +
+      '<div class="divider"></div>' + switchRow('paidOn', 'Email a thank-you when you record a payment', s.paidOn !== false, 'Confirms the new package and how many ' + units() + ' they have') + '</div>' +
       '<label class="field">Your usual package sizes<input class="input" name="packages" inputmode="numeric" value="' + esc(pk) + '"><span class="hint">Numbers separated by commas, like 4, 8, 10</span></label>' +
       '<div class="stack-s"><div class="panel-title">Here’s what they’ll get</div>' + previewBox('reminder', clients()) + '</div>' +
       '<div class="spacer"></div><button class="btn btn-primary" type="submit">Finish and add ' + people() + '</button></form>';
@@ -783,7 +784,9 @@ details.wording>*:not(summary){margin-top:14px}
         text('rSubj' + x, 'Reminder subject', s['rSubj' + x] || d.rSubj, 'maxlength="200"') +
         '<label class="field">Reminder message<textarea class="input" name="rBody' + x + '" maxlength="3000">' + esc(s['rBody' + x] || d.rBody) + '</textarea></label>' +
         text('fSubj' + x, 'Payment-due subject', s['fSubj' + x] || d.fSubj, 'maxlength="200"') +
-        '<label class="field">Payment-due message<textarea class="input" name="fBody' + x + '" maxlength="3000">' + esc(s['fBody' + x] || d.fBody) + '</textarea></label></details>';
+        '<label class="field">Payment-due message<textarea class="input" name="fBody' + x + '" maxlength="3000">' + esc(s['fBody' + x] || d.fBody) + '</textarea></label>' +
+        text('pSubj' + x, 'Payment-received subject', s['pSubj' + x] || d.pSubj, 'maxlength="200"') +
+        '<label class="field">Payment-received message<textarea class="input" name="pBody' + x + '" maxlength="3000">' + esc(s['pBody' + x] || d.pBody) + '</textarea></label></details>';
     }
     function text(name, label, val, extra) {
       return '<label class="field">' + label + '<input class="input" name="' + name + '" value="' + esc(val) + '" ' + (extra || '') + '></label>';
@@ -794,6 +797,7 @@ details.wording>*:not(summary){margin-top:14px}
       switchRow('test', 'Test mode', s.test, 'Every email goes to you instead of ' + (clients() ? 'clients' : 'parents')) +
       '<div class="divider"></div>' + switchRow('copyMe', 'Copy me on every email', s.copyMe) +
       '<div class="divider"></div>' + switchRow('finalOn', 'Payment-due email when all ' + units() + ' are used', s.finalOn) +
+      '<div class="divider"></div>' + switchRow('paidOn', 'Thank-you email when you record a payment', s.paidOn) +
       '<div class="divider"></div><div class="panel-title">Send a reminder when there are</div>' + stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
       '</div>' +
       '<button class="btn btn-ghost" type="button" data-act="samples">' + I.mail + 'Email me samples of every email</button>' +
@@ -816,7 +820,7 @@ details.wording>*:not(summary){margin-top:14px}
       payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
 
       '<div class="section-label">Email wording</div>' +
-      '<p class="small muted">Tap a group to edit it. Placeholders fill in automatically: {name} {student} {left_text} {package} {unit} {units} {pay} {signature}. Clear a box to go back to the default.</p>' +
+      '<p class="small muted">Tap a group to edit it. Placeholders fill in automatically: {name} {student} {left_text} {package} {bought} {unit} {units} {pay} {signature}. Clear a box to go back to the default.</p>' +
       wording(false) + wording(true) +
 
       '<div class="section-label">Security</div><div class="panel">' +
@@ -908,7 +912,7 @@ details.wording>*:not(summary){margin-top:14px}
       api('deleteStudent', { id: x.id }).then(function () { go('home'); toast(x.student + ' removed.'); }, function () {});
     },
     samples: function () {
-      api('sendSamples').then(function (r) { toast('Four sample emails sent to ' + r.sentTo + ' (parent and student versions).'); }, function () {});
+      api('sendSamples').then(function (r) { toast('Six sample emails sent to ' + r.sentTo + ' (parent and student versions).'); }, function () {});
     },
     signout: function () {
       api('logout', {}, { quiet: true }).catch(function () {}).then(function () {
@@ -987,7 +991,7 @@ details.wording>*:not(summary){margin-top:14px}
     },
     setup3: function (f) {
       api('saveSettings', { settings: {
-        threshold: parseInt(val(f, 'threshold'), 10), finalOn: !!val(f, 'finalOn'), packages: val(f, 'packages'), setupDone: true
+        threshold: parseInt(val(f, 'threshold'), 10), finalOn: !!val(f, 'finalOn'), paidOn: !!val(f, 'paidOn'), packages: val(f, 'packages'), setupDone: true
       } }).then(function () { go('home'); toast('All set! Test mode is on, so emails come to you first.'); }, function () {});
     },
     add: function (f) {
@@ -1009,18 +1013,19 @@ details.wording>*:not(summary){margin-top:14px}
       api('markPaid', { id: id, pkg: pkg }).then(function (res) {
         var r = res.result || {};
         go('home');
-        toast('Payment recorded. ' + r.student + ' now has ' + plural(r.pkg - r.used) + (r.carried ? ' (including ' + r.carried + ' carried over)' : '') + '.');
+        var thanks = r.thanked ? (r.test ? ' Test mode: the thank-you email went to you.' : ' We emailed ' + (r.thankedGreet || 'them') + ' a thank-you.') : '';
+        toast('Payment recorded. ' + r.student + ' now has ' + plural(r.pkg - r.used) + (r.carried ? ' (including ' + r.carried + ' carried over)' : '') + '.' + thanks);
       }, function () {});
     },
     settings: function (f) {
       var defs = S.data.defaults || {};
       var out = payValues(f);
       ['business', 'coach', 'phone', 'coachEmail', 'unit', 'payer', 'packages', 'allowed'].forEach(function (k) { out[k] = val(f, k); });
-      ['test', 'copyMe', 'finalOn'].forEach(function (k) { out[k] = !!val(f, k); });
+      ['test', 'copyMe', 'finalOn', 'paidOn'].forEach(function (k) { out[k] = !!val(f, k); });
       out.threshold = parseInt(val(f, 'threshold'), 10);
       ['', 'Self'].forEach(function (x) {
         var d = (x ? defs.self : defs.parent) || {};
-        ['rSubj', 'rBody', 'fSubj', 'fBody'].forEach(function (k) {
+        ['rSubj', 'rBody', 'fSubj', 'fBody', 'pSubj', 'pBody'].forEach(function (k) {
           var v = f.elements[k + x].value.replace(/\r\n?/g, '\n').trim();
           out[k + x] = v === String(d[k] || '').trim() ? '' : v;
         });
