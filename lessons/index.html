@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-KkNhAz8gXiivebOBDakcfsvgf6B5jryC9FHjlO2lxds='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O6aKSdKbJsIAIVD1N00L4f5Y80+UtnrhZ5gNM7m8c68='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 
@@ -527,8 +527,8 @@ details.wording>*:not(summary){margin-top:14px}
       var payerWord = clients() ? 'clients' : 'parents';
       return '<form class="stack" data-s="flex1" data-form="setup2">' + head +
         '<div class="stack-s"><h1>How do ' + payerWord + ' pay you?</h1><p class="muted">Turn on everything you accept. We’ll list these in every reminder.</p></div>' +
-        payPanel('venmo', 'Venmo', 'Your Venmo handle', s.venmo, '@your-handle') +
-        payPanel('zelle', 'Zelle', 'Phone or email for Zelle', s.zelle, 'phone or email') +
+        payPanel('venmo', 'Venmo', 'Your Venmo link (or just your @handle)', s.venmo, 'https://venmo.com/u/your-handle') +
+        payPanel('zelle', 'Zelle', 'Your Zelle link, or the phone/email you use for Zelle', s.zelle, 'link, phone or email') +
         '<div class="panel">' + switchRow('cash', 'Cash or check', s.cash) + '</div>' +
         payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
         '<div class="spacer"></div><button class="btn btn-primary" type="submit">Continue' + I.next + '</button></form>';
@@ -551,18 +551,24 @@ details.wording>*:not(summary){margin-top:14px}
       '<div class="panel-row"><span class="panel-title">' + esc(title) + '</span>' +
       '<button type="button" class="switch" role="switch" aria-checked="' + on + '" aria-label="' + esc(title) + '" data-act="payToggle" data-field="' + name + '"></button></div>' +
       '<label class="field' + (on ? '' : ' hidden') + '" data-s="sublabel">' + esc(label) +
-      '<input class="input" name="' + name + '" maxlength="' + (name === 'cardLink' ? 300 : 80) + '" value="' + esc(value) + '" placeholder="' + esc(ph) + '"' +
+      '<input class="input" name="' + name + '" maxlength="' + (name === 'cardLink' ? 300 : 200) + '" value="' + esc(value) + '" placeholder="' + esc(ph) + '"' +
       (name === 'cardLink' ? ' inputmode="url"' : '') + '></label></div>';
   }
 
   /* Email preview built from the server's default wording. */
   function payLines(s) {
     var out = [];
-    if (s.venmo) out.push('Venmo: ' + (s.venmo.charAt(0) === '@' ? s.venmo : '@' + s.venmo));
-    if (s.zelle) out.push('Zelle: ' + s.zelle);
+    if (s.venmo) out.push('Venmo: ' + venmoLink(s.venmo));
+    if (s.zelle) out.push('Zelle: ' + String(s.zelle).trim());
     if (s.cardLink) out.push('Pay by card: ' + s.cardLink);
     if (s.cash) out.push('Cash or check at the next ' + unit());
     return out.length ? out.join('\n') : 'Just reply to this email and we’ll sort it out.';
+  }
+  function venmoLink(v) {
+    v = String(v || '').trim();
+    if (/^https:\/\//i.test(v)) return v;
+    var h = v.replace(/^@/, '').replace(/[^A-Za-z0-9_-]/g, '');
+    return h ? 'https://venmo.com/u/' + h : v;
   }
   function fillTemplate(t, d) {
     return String(t).replace(/\{(\w+)\}/g, function (m, k) { return Object.prototype.hasOwnProperty.call(d, k) ? String(d[k]) : m; });
@@ -804,8 +810,8 @@ details.wording>*:not(summary){margin-top:14px}
       '</div>' +
 
       '<div class="section-label">How you get paid</div>' +
-      payPanel('venmo', 'Venmo', 'Your Venmo handle', s.venmo, '@your-handle') +
-      payPanel('zelle', 'Zelle', 'Phone or email for Zelle', s.zelle, 'phone or email') +
+      payPanel('venmo', 'Venmo', 'Your Venmo link (or just your @handle)', s.venmo, 'https://venmo.com/u/your-handle') +
+      payPanel('zelle', 'Zelle', 'Your Zelle link, or the phone/email you use for Zelle', s.zelle, 'link, phone or email') +
       '<div class="panel">' + switchRow('cash', 'Cash or check', s.cash) + '</div>' +
       payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
 
