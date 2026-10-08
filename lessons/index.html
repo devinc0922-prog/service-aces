@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-3lYythicciQxY0WfXYSYLjCtHEjyebQxzqsM5DdQ44k='; style-src 'sha256-dVeshR32+vMIuxiW79dwtgDdyqn3ImDnA0YZNX7YLsg=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-KkNhAz8gXiivebOBDakcfsvgf6B5jryC9FHjlO2lxds='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 
@@ -179,6 +179,18 @@ textarea[data-s="h80"]{min-height:80px}
 textarea[data-s="h90"]{min-height:90px}
 [data-s="tc"]{text-align:center}
 [data-s="w100"]{width:100%}
+/* lesson-credit choices + collapsible email wording */
+.choice{align-self:stretch;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:4px;cursor:pointer;min-height:64px}
+.choice strong{font-size:17px}
+.choice span{font-size:14px;color:var(--muted)}
+.choice:disabled{opacity:.45;cursor:default}
+.wording summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:28px}
+.wording summary::-webkit-details-marker{display:none}
+.wording summary::after{content:"Edit";font-size:15px;color:var(--green);font-weight:600}
+.wording[open] summary::after{content:"Close"}
+.wording[open]{gap:14px}
+details.wording{display:block}
+details.wording>*:not(summary){margin-top:14px}
 </style>
 </head>
 <body>
@@ -239,8 +251,9 @@ textarea[data-s="h90"]{min-height:90px}
     for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
     return null;
   }
+  function selfPays(s) { return s && s.pays ? s.pays === 'Self' : clients(); }
   function payerName(s) {
-    if (clients()) return String(s.student || '').split(' ')[0] || 'they';
+    if (selfPays(s)) return String(s.student || '').split(' ')[0] || 'they';
     return s.parent || 'the parent';
   }
   function b64url(bytes) {
@@ -504,8 +517,9 @@ textarea[data-s="h90"]{min-height:90px}
         '<div class="field">What do you call each visit?' +
         chipGroup('unit', unitOpts.map(function (u) { return { v: u, t: u }; }).concat([{ v: '__other', t: 'Other' }]), custom ? '__other' : unitVal) +
         '<input class="input' + (custom ? '' : ' hidden') + '" name="unitOther" maxlength="20" placeholder="e.g. Training" value="' + (custom ? esc(unitVal) : '') + '"></div>' +
-        '<div class="field">Who pays for the packages?' +
-        chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'The clients themselves' }], s.payer || 'Parents') + '</div>' +
+        '<div class="field">Who usually pays for the packages?' +
+        chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'The students themselves' }], s.payer || 'Parents') +
+        '<span class="hint">You can change this for each student. Adults who pay for themselves get their own email wording.</span></div>' +
         '<div class="spacer"></div><button class="btn btn-primary" type="submit">Continue' + I.next + '</button></form>';
     }
 
@@ -525,9 +539,9 @@ textarea[data-s="h90"]{min-height:90px}
       '<h1>When should we remind ' + (clients() ? 'clients' : 'parents') + '?</h1>' +
       '<div class="panel"><div class="panel-title">Send a reminder when there are</div>' +
       stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
-      '<div class="divider"></div>' + switchRow('finalOn', 'Also send a thank-you note after the last ' + unit(), s.finalOn) + '</div>' +
+      '<div class="divider"></div>' + switchRow('finalOn', 'Also email when all ' + units() + ' are used', s.finalOn, 'A friendly note that payment is now due') + '</div>' +
       '<label class="field">Your usual package sizes<input class="input" name="packages" inputmode="numeric" value="' + esc(pk) + '"><span class="hint">Numbers separated by commas, like 4, 8, 10</span></label>' +
-      '<div class="stack-s"><div class="panel-title">Here’s what they’ll get</div>' + previewBox('reminder') + '</div>' +
+      '<div class="stack-s"><div class="panel-title">Here’s what they’ll get</div>' + previewBox('reminder', clients()) + '</div>' +
       '<div class="spacer"></div><button class="btn btn-primary" type="submit">Finish and add ' + people() + '</button></form>';
   }
 
@@ -553,22 +567,23 @@ textarea[data-s="h90"]{min-height:90px}
   function fillTemplate(t, d) {
     return String(t).replace(/\{(\w+)\}/g, function (m, k) { return Object.prototype.hasOwnProperty.call(d, k) ? String(d[k]) : m; });
   }
-  function emailFor(kind, sample) {
-    var s = set(), def = (S.data && S.data.defaults) || {};
+  function emailFor(kind, sample, self) {
+    var s = set(), all = (S.data && S.data.defaults) || {};
+    var def = (self ? all.self : all.parent) || {}, sfx = self ? 'Self' : '';
     var left = kind === 'final' ? 0 : (s.threshold || 2);
     var d = {
-      name: clients() ? sample.student.split(' ')[0] : sample.parent, parent: sample.parent,
+      name: self ? sample.student.split(' ')[0] : sample.parent, parent: sample.parent, units: units(),
       student: sample.student, left: left, left_text: plural(left), package: sample.pkg, unit: unit(),
       pay: payLines(s), coach: s.coach, business: s.business, phone: s.phone,
       signature: [s.coach, s.business, s.phone].filter(function (x) { return String(x || '').trim(); }).join('\n')
     };
-    var subj = kind === 'final' ? (s.fSubj || def.fSubj) : (s.rSubj || def.rSubj);
-    var body = kind === 'final' ? (s.fBody || def.fBody) : (s.rBody || def.rBody);
+    var subj = kind === 'final' ? (s['fSubj' + sfx] || def.fSubj) : (s['rSubj' + sfx] || def.rSubj);
+    var body = kind === 'final' ? (s['fBody' + sfx] || def.fBody) : (s['rBody' + sfx] || def.rBody);
     return { subject: fillTemplate(subj || '', d), body: fillTemplate(body || '', d) };
   }
-  function previewBox(kind) {
+  function previewBox(kind, self) {
     var pk = (set().packages || [10]);
-    var m = emailFor(kind, { student: 'Jake', parent: 'Sarah', pkg: pk[pk.length - 1] || 10 });
+    var m = emailFor(kind, { student: self ? 'Mark' : 'Jake', parent: 'Sarah', pkg: pk[pk.length - 1] || 10 }, self);
     return '<div class="preview"><div>From: <strong>' + esc(set().business || set().coach || 'Your business') + '</strong></div>' +
       '<strong>' + esc(m.subject) + '</strong><div>' + esc(m.body) + '</div></div>';
   }
@@ -590,7 +605,7 @@ textarea[data-s="h90"]{min-height:90px}
       '<button class="icon-btn" aria-label="Settings" data-act="settings">' + I.gear + '</button></div></div>' +
       '<div class="stack"><h1>Your ' + people() + '</h1>';
     if (s.test) {
-      out += '<button class="banner banner-info" data-act="settings">' + I.flask + '<div><strong>Test mode is on.</strong> Reminder emails go to you, not ' + (clients() ? 'clients' : 'parents') + '. Tap to turn it off when you’re ready.</div></button>';
+      out += '<button class="banner banner-info" data-act="settings">' + I.flask + '<div><strong>Test mode is on.</strong> Reminder emails go to you, not to parents or students. Tap to turn it off when you’re ready.</div></button>';
     }
     if (need.length) {
       out += '<div class="banner banner-warn">' + I.bell + '<div><strong>' + need.length + ' ' + (need.length === 1 ? person() + ' needs' : people() + ' need') + ' attention.</strong> Reminders go out automatically.</div></div>';
@@ -626,7 +641,7 @@ textarea[data-s="h90"]{min-height:90px}
   function card(x) {
     var pct = x.pkg ? Math.max(0, Math.min(100, Math.round(x.left / x.pkg * 100))) : 0;
     var cls = x.status === 'done' ? 'done' : x.status === 'low' ? 'low' : '';
-    var sub = !clients() && x.parent ? 'Parent: ' + x.parent : (x.lastVisit ? 'Last ' + unit() + ' ' + x.lastVisit : '');
+    var sub = !selfPays(x) && x.parent ? 'Parent: ' + x.parent : (selfPays(x) ? 'Pays for themselves' : (x.lastVisit ? 'Last ' + unit() + ' ' + x.lastVisit : ''));
     var btn = x.status === 'done'
       ? '<button class="tap tap-paid" data-act="open" data-id="' + esc(x.id) + '" data-focus="paid" aria-label="Record payment for ' + esc(x.student) + '">' + I.check + 'Paid</button>'
       : '<button class="tap tap-log" data-act="log" data-id="' + esc(x.id) + '" aria-label="Log a ' + esc(unit()) + ' for ' + esc(x.student) + '">' + I.plus + esc(cap(unit())) + '</button>';
@@ -638,6 +653,24 @@ textarea[data-s="h90"]{min-height:90px}
   }
 
   function vSheet() {
+    return S.sheet.kind === 'credit' ? vCreditSheet() : vLoggedSheet();
+  }
+
+  function vCreditSheet() {
+    var x = student(S.sheet.id) || {};
+    var canTakeBack = x.used > 0;
+    return '<div class="backdrop" data-act="closeSheet"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">' +
+      '<div class="grabber"></div>' +
+      '<div class="stack-s"><h2 id="sheet-title" data-s="f24">Add a ' + esc(unit()) + ' back for ' + esc(x.student) + '</h2>' +
+      '<div class="muted">Now: ' + esc(countText(x)) + '. No email is sent.</div></div>' +
+      '<button class="choice" data-act="credit" data-reason="mistake" data-id="' + esc(x.id) + '"' + (canTakeBack ? '' : ' disabled') + '>' +
+      '<strong>It was logged by mistake</strong><span>Takes back one ' + esc(unit()) + ' that was tapped by accident.</span></button>' +
+      '<button class="choice" data-act="credit" data-reason="credit" data-id="' + esc(x.id) + '">' +
+      '<strong>Give a free ' + esc(unit()) + '</strong><span>Adds one extra ' + esc(unit()) + ' to the package as a credit.</span></button>' +
+      '<button class="btn btn-ghost" data-act="closeSheet">Cancel</button></div>';
+  }
+
+  function vLoggedSheet() {
     var r = S.sheet.result || {}, x = student(S.sheet.id) || {};
     var left = r.left, pkg = r.pkg;
     var segs = '';
@@ -652,7 +685,7 @@ textarea[data-s="h90"]{min-height:90px}
       note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the payment reminder went to you.' : 'We emailed ' + esc(who) + ' a payment reminder.') + '</strong> ' +
         (r.test ? '' : (set().copyMe ? 'You’ll get a copy too. ' : '')) + 'Nothing else to do.</div></div>';
     } else if (r.emailed === 'final') {
-      note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the final note went to you.' : 'We emailed ' + esc(who) + ' a thank-you note with how to pay.') + '</strong></div></div>';
+      note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the payment-due email went to you.' : 'We emailed ' + esc(who) + ' that the package is used up and payment is due.') + '</strong></div></div>';
     } else if (r.missingEmail) {
       note = '<div class="banner banner-bad">' + I.info + '<div><strong>No email on file</strong>, so no reminder went out. Add one from ' + esc(x.student || 'their') + '’s page.</div></div>';
     } else if (left < 0) {
@@ -669,18 +702,21 @@ textarea[data-s="h90"]{min-height:90px}
 
   function vStudentForm(x) {
     var s = set(), isNew = !x;
-    x = x || { student: '', parent: '', email: '', pkg: '', used: 0, notes: '' };
+    x = x || { student: '', parent: '', email: '', pkg: '', used: 0, notes: '', pays: clients() ? 'Self' : 'Parent' };
+    var self = (x.pays || (clients() ? 'Self' : 'Parent')) === 'Self';
     var presets = (s.packages && s.packages.length ? s.packages : [4, 8, 10]).slice(0, 3);
     var pkgVal = x.pkg ? (presets.indexOf(x.pkg) !== -1 ? x.pkg : '__other') : (presets[presets.length - 1] || '');
     var opts = presets.map(function (n) { return { v: n, t: String(n) }; }).concat([{ v: '__other', t: 'Other' }]);
-    var nameLabel = clients() ? 'Client’s name' : 'Student’s name';
-    var emailLabel = clients() ? 'Email for reminders' : 'Parent’s email';
+    var nameLabel = cap(person()) + '’s name';
+    var emailLabel = self ? cap(person()) + '’s email' : 'Parent’s email';
     return '<div class="topbar"><button class="link-btn" data-act="' + (isNew ? 'home' : 'backStudent') + '">' + I.back + 'Cancel</button></div>' +
       '<form class="stack" data-s="flex1" data-form="' + (isNew ? 'add' : 'edit') + '">' +
       '<h1>' + (isNew ? 'Add a ' + person() : 'Edit ' + esc(x.student)) + '</h1>' +
       '<label class="field">' + nameLabel + '<input class="input" name="student" maxlength="80" required autocomplete="off" value="' + esc(x.student) + '"></label>' +
-      (clients() ? '' : '<label class="field">Parent’s first name<input class="input" name="parent" maxlength="80" autocomplete="off" placeholder="e.g. Karen" value="' + esc(x.parent) + '"></label>') +
-      '<label class="field">' + emailLabel + '<input class="input" name="email" type="email" maxlength="120" autocomplete="off" inputmode="email" placeholder="name@email.com" value="' + esc(x.email) + '"><span class="hint">Reminders go here. You can add it later.</span></label>' +
+      '<div class="field">Who pays for the ' + esc(units()) + '?' +
+      chipGroup('pays', [{ v: 'Parent', t: 'A parent' }, { v: 'Self', t: 'They pay themselves' }], self ? 'Self' : 'Parent') + '</div>' +
+      '<label class="field' + (self ? ' hidden' : '') + '" data-parent-only>Parent’s first name<input class="input" name="parent" maxlength="80" autocomplete="off" placeholder="e.g. Karen" value="' + esc(x.parent) + '"></label>' +
+      '<label class="field"><span data-email-label>' + emailLabel + '</span><input class="input" name="email" type="email" maxlength="120" autocomplete="off" inputmode="email" placeholder="name@email.com" value="' + esc(x.email) + '"><span class="hint">Reminders go here. You can add it later.</span></label>' +
       '<div class="field">How many ' + units() + ' in the package?' + chipGroup('pkg', opts, pkgVal, 'grid4') +
       '<input class="input' + (pkgVal === '__other' ? '' : ' hidden') + '" name="pkgOther" inputmode="numeric" pattern="[0-9]*" placeholder="Number of ' + esc(units()) + '" value="' + (pkgVal === '__other' ? esc(x.pkg) : '') + '"></div>' +
       '<label class="field">' + (isNew ? 'Already used any? ' : cap(units()) + ' used so far') + '<input class="input" name="used" inputmode="numeric" pattern="[0-9]*" value="' + esc(x.used || 0) + '"></label>' +
@@ -704,7 +740,7 @@ textarea[data-s="h90"]{min-height:90px}
     else if (x.left === 0) title = 'Package finished';
     else title = plural(x.left) + ' left of ' + x.pkg;
     if (x.reminderSent) sub.push('Reminder sent ' + x.reminderSent.replace(/^TEST\s*/i, '(test) '));
-    if (x.finalSent) sub.push('Final note sent ' + x.finalSent.replace(/^TEST\s*/i, '(test) '));
+    if (x.finalSent) sub.push('Payment-due email sent ' + x.finalSent.replace(/^TEST\s*/i, '(test) '));
     if (!x.email) sub.push('No email on file, so reminders can’t go out.');
     if (x.status === 'ok') sub.push('Reminder goes out at ' + plural(s.threshold || 2) + ' left.');
 
@@ -722,9 +758,10 @@ textarea[data-s="h90"]{min-height:90px}
     return '<div class="topbar"><button class="link-btn" data-act="home">' + I.back + cap(people()) + '</button>' +
       '<button class="link-btn" data-act="edit" data-id="' + esc(x.id) + '">Edit</button></div>' +
       '<div class="stack"><div class="stack-s" data-s="gap4"><h1>' + esc(x.student) + '</h1>' +
-      '<div class="muted" data-s="f15">' + esc([!clients() && x.parent ? 'Parent: ' + x.parent : '', x.email].filter(Boolean).join(' · ') || 'No contact info yet') + '</div></div>' +
+      '<div class="muted" data-s="f15">' + esc([!selfPays(x) && x.parent ? 'Parent: ' + x.parent : (selfPays(x) ? 'Pays for themselves' : ''), x.email].filter(Boolean).join(' · ') || 'No contact info yet') + '</div></div>' +
       '<div class="status ' + x.status + '"><h2>' + esc(title) + '</h2>' + (sub.length ? '<div data-s="f15">' + esc(sub.join(' ')) + '</div>' : '') + '</div>' +
       (x.status !== 'done' && x.status !== 'nopkg' ? '<button class="btn btn-primary" data-act="log" data-id="' + esc(x.id) + '">' + I.plusS + 'Log a ' + esc(unit()) + '</button>' : '') +
+      (x.status !== 'nopkg' ? '<button class="btn btn-ghost" data-act="creditOpen" data-id="' + esc(x.id) + '">' + I.refresh + 'Add a ' + esc(unit()) + ' back</button>' : '') +
       '<form class="panel" id="paid" data-form="paid" data-id="' + esc(x.id) + '"><div class="panel-title">' + paidQ + '</div>' + carry +
       chipGroup('pkg', opts, defPkg, 'grid4') +
       '<input class="input hidden" name="pkgOther" inputmode="numeric" pattern="[0-9]*" placeholder="Number of ' + esc(units()) + '">' +
@@ -733,7 +770,15 @@ textarea[data-s="h90"]{min-height:90px}
   }
 
   function vSettings() {
-    var s = set(), def = S.data.defaults || {};
+    var s = set(), defs = S.data.defaults || {};
+    function wording(self) {
+      var d = (self ? defs.self : defs.parent) || {}, x = self ? 'Self' : '';
+      return '<details class="panel wording"><summary class="panel-title">' + (self ? 'When the student pays for themselves' : 'When a parent pays') + '</summary>' +
+        text('rSubj' + x, 'Reminder subject', s['rSubj' + x] || d.rSubj, 'maxlength="200"') +
+        '<label class="field">Reminder message<textarea class="input" name="rBody' + x + '" maxlength="3000">' + esc(s['rBody' + x] || d.rBody) + '</textarea></label>' +
+        text('fSubj' + x, 'Payment-due subject', s['fSubj' + x] || d.fSubj, 'maxlength="200"') +
+        '<label class="field">Payment-due message<textarea class="input" name="fBody' + x + '" maxlength="3000">' + esc(s['fBody' + x] || d.fBody) + '</textarea></label></details>';
+    }
     function text(name, label, val, extra) {
       return '<label class="field">' + label + '<input class="input" name="' + name + '" value="' + esc(val) + '" ' + (extra || '') + '></label>';
     }
@@ -742,10 +787,10 @@ textarea[data-s="h90"]{min-height:90px}
       '<div class="section-label">Emails</div><div class="panel">' +
       switchRow('test', 'Test mode', s.test, 'Every email goes to you instead of ' + (clients() ? 'clients' : 'parents')) +
       '<div class="divider"></div>' + switchRow('copyMe', 'Copy me on every email', s.copyMe) +
-      '<div class="divider"></div>' + switchRow('finalOn', 'Thank-you note after the last ' + unit(), s.finalOn) +
+      '<div class="divider"></div>' + switchRow('finalOn', 'Payment-due email when all ' + units() + ' are used', s.finalOn) +
       '<div class="divider"></div><div class="panel-title">Send a reminder when there are</div>' + stepper('threshold', s.threshold || 2, 1, 10, units() + ' left') +
       '</div>' +
-      '<button class="btn btn-ghost" type="button" data-act="samples">' + I.mail + 'Email me a sample of both</button>' +
+      '<button class="btn btn-ghost" type="button" data-act="samples">' + I.mail + 'Email me samples of every email</button>' +
 
       '<div class="section-label">Your business</div><div class="panel">' +
       text('business', 'Business name', s.business, 'maxlength="80" required') +
@@ -753,7 +798,8 @@ textarea[data-s="h90"]{min-height:90px}
       text('phone', 'Phone (optional)', s.phone, 'maxlength="40" inputmode="tel"') +
       text('coachEmail', 'Your email (copies and replies)', s.coachEmail, 'type="email" maxlength="120"') +
       text('unit', 'What you call each visit', cap(s.unit), 'maxlength="20"') +
-      '<div class="field">Who pays' + chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'Clients' }], s.payer) + '</div>' +
+      '<div class="field">Who usually pays' + chipGroup('payer', [{ v: 'Parents', t: 'Parents' }, { v: 'Clients', t: 'Students themselves' }], s.payer) +
+      '<span class="hint">Used as the starting choice for new students.</span></div>' +
       text('packages', 'Package sizes', (s.packages || []).join(', '), 'inputmode="numeric"') +
       '</div>' +
 
@@ -764,11 +810,8 @@ textarea[data-s="h90"]{min-height:90px}
       payPanel('cardLink', 'Card payment link', 'Square, Stripe or PayPal link', s.cardLink, 'https://…') +
 
       '<div class="section-label">Email wording</div>' +
-      '<p class="small muted">Placeholders fill in automatically: {name} {student} {left_text} {package} {unit} {pay} {signature}. Clear a box to go back to the default.</p>' +
-      text('rSubj', 'Reminder subject', s.rSubj || def.rSubj, 'maxlength="200"') +
-      '<label class="field">Reminder message<textarea class="input" name="rBody" maxlength="3000">' + esc(s.rBody || def.rBody) + '</textarea></label>' +
-      text('fSubj', 'Final note subject', s.fSubj || def.fSubj, 'maxlength="200"') +
-      '<label class="field">Final note message<textarea class="input" name="fBody" maxlength="3000">' + esc(s.fBody || def.fBody) + '</textarea></label>' +
+      '<p class="small muted">Tap a group to edit it. Placeholders fill in automatically: {name} {student} {left_text} {package} {unit} {units} {pay} {signature}. Clear a box to go back to the default.</p>' +
+      wording(false) + wording(true) +
 
       '<div class="section-label">Security</div><div class="panel">' +
       '<label class="field">Who can sign in<textarea class="input" name="allowed" data-s="h80">' + esc((s.allowed || []).join(', ')) + '</textarea>' +
@@ -830,6 +873,18 @@ textarea[data-s="h90"]{min-height:90px}
       }, function () {});
     },
     closeSheet: function () { S.sheet = null; render(); },
+    creditOpen: function (el) { S.sheet = { kind: 'credit', id: el.getAttribute('data-id') }; S.toast = null; render(); },
+    credit: function (el) {
+      var id = el.getAttribute('data-id'), reason = el.getAttribute('data-reason');
+      api('creditLesson', { id: id, reason: reason }).then(function (res) {
+        var r = res.result || {};
+        S.sheet = null;
+        if (S.screen === 'student') S.history = null;
+        render();
+        toast((reason === 'mistake' ? 'Taken back. ' : 'Free ' + unit() + ' added. ') + r.student + ' now has ' + plural(r.left) + ' left.');
+        if (S.screen === 'student') loadHistory(id);
+      }, function () {});
+    },
     open: function (el) {
       S.history = null;
       go('student', { id: el.getAttribute('data-id') });
@@ -847,7 +902,7 @@ textarea[data-s="h90"]{min-height:90px}
       api('deleteStudent', { id: x.id }).then(function () { go('home'); toast(x.student + ' removed.'); }, function () {});
     },
     samples: function () {
-      api('sendSamples').then(function (r) { toast('Two sample emails sent to ' + r.sentTo + '.'); }, function () {});
+      api('sendSamples').then(function (r) { toast('Four sample emails sent to ' + r.sentTo + ' (parent and student versions).'); }, function () {});
     },
     signout: function () {
       api('logout', {}, { quiet: true }).catch(function () {}).then(function () {
@@ -878,6 +933,12 @@ textarea[data-s="h90"]{min-height:90px}
       if (other && (field === 'unit' || field === 'pkg')) {
         other.classList.toggle('hidden', v !== '__other');
         if (v === '__other') other.focus();
+      }
+      if (field === 'pays') {
+        var po = form.querySelector('[data-parent-only]');
+        if (po) po.classList.toggle('hidden', v === 'Self');
+        var el2 = form.querySelector('[data-email-label]');
+        if (el2) el2.textContent = v === 'Self' ? cap(person()) + '\u2019s email' : 'Parent\u2019s email';
       }
       var label = form.querySelector('[data-paid-label]');
       if (label && field === 'pkg') label.textContent = v === '__other' ? 'Paid · start new package' : 'Paid · start ' + v + ' new ' + units();
@@ -924,7 +985,7 @@ textarea[data-s="h90"]{min-height:90px}
       } }).then(function () { go('home'); toast('All set! Test mode is on, so emails come to you first.'); }, function () {});
     },
     add: function (f) {
-      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes') };
+      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes'), pays: val(f, 'pays') };
       if (!body.pkg) return toast('Choose a package size.', true);
       api('addStudent', { student: body }).then(function (res) {
         go('home');
@@ -932,7 +993,7 @@ textarea[data-s="h90"]{min-height:90px}
       }, function () {});
     },
     edit: function (f) {
-      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes') };
+      var body = { student: val(f, 'student'), parent: val(f, 'parent'), email: val(f, 'email'), pkg: pkgFrom(f), used: parseInt(val(f, 'used') || '0', 10), notes: val(f, 'notes'), pays: val(f, 'pays') };
       if (!body.pkg) return toast('Choose a package size.', true);
       api('updateStudent', { id: S.id, student: body }).then(function () { go('student'); loadHistory(S.id); toast('Saved.'); }, function () {});
     },
@@ -946,19 +1007,22 @@ textarea[data-s="h90"]{min-height:90px}
       }, function () {});
     },
     settings: function (f) {
-      var def = S.data.defaults || {};
+      var defs = S.data.defaults || {};
       var out = payValues(f);
       ['business', 'coach', 'phone', 'coachEmail', 'unit', 'payer', 'packages', 'allowed'].forEach(function (k) { out[k] = val(f, k); });
       ['test', 'copyMe', 'finalOn'].forEach(function (k) { out[k] = !!val(f, k); });
       out.threshold = parseInt(val(f, 'threshold'), 10);
-      ['rSubj', 'rBody', 'fSubj', 'fBody'].forEach(function (k) {
-        var v = f.elements[k].value.replace(/\r\n?/g, '\n').trim();
-        out[k] = v === String(def[k] || '').trim() ? '' : v;
+      ['', 'Self'].forEach(function (x) {
+        var d = (x ? defs.self : defs.parent) || {};
+        ['rSubj', 'rBody', 'fSubj', 'fBody'].forEach(function (k) {
+          var v = f.elements[k + x].value.replace(/\r\n?/g, '\n').trim();
+          out[k + x] = v === String(d[k] || '').trim() ? '' : v;
+        });
       });
       var wasTest = !!set().test;
       api('saveSettings', { settings: out }).then(function () {
         go('home');
-        toast(wasTest && !out.test ? 'Saved. Test mode is off: reminders now go to ' + (clients() ? 'clients' : 'parents') + '.' : 'Settings saved.');
+        toast(wasTest && !out.test ? 'Saved. Test mode is off: reminders now go to parents and students.' : 'Settings saved.');
       }, function () {});
     }
   };
