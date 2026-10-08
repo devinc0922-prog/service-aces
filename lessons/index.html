@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-6ljDe8uwVK26AabZOp6aXH6ZBNimz8q7uYOdKqS6kcg='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-68kkfhEOW+LXsuoc9aYgWbAcw9Z9TIRPGlS/YM1YJV0='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 
@@ -215,6 +215,7 @@ details.wording>*:not(summary){margin-top:14px}
   var BACKEND = meta('tracker-backend') || store.get('pt_backend') || '';
   if (!BACKEND_RE.test(BACKEND)) BACKEND = '';
   var REDIRECT = new URL('./', location.href).href;
+  var NEEDS_SCRIPT = 4; // minimum Sheet script version this app expects
 
   var S = {
     session: store.get('pt_session'),
@@ -611,6 +612,10 @@ details.wording>*:not(summary){margin-top:14px}
       '<div class="row"><button class="icon-btn" aria-label="Refresh" data-act="refresh">' + I.refresh + '</button>' +
       '<button class="icon-btn" aria-label="Settings" data-act="settings">' + I.gear + '</button></div></div>' +
       '<div class="stack"><h1>Your ' + people() + '</h1>';
+    if ((S.data.scriptVersion || 0) < NEEDS_SCRIPT) {
+      out += '<div class="banner banner-bad" role="alert">' + I.info + '<div><strong>Your Google Sheet\u2019s script is out of date</strong> (version ' + (S.data.scriptVersion || 'unknown') +
+        ', needs ' + NEEDS_SCRIPT + '). Some emails won\u2019t send until it\u2019s updated: paste the latest Code.gs, then Deploy \u2192 Manage deployments \u2192 pencil \u2192 New version.</div></div>';
+    }
     if (s.test) {
       out += '<button class="banner banner-info" data-act="settings">' + I.flask + '<div><strong>Test mode is on.</strong> Reminder emails go to you, not to parents or students. Tap to turn it off when you’re ready.</div></button>';
     }
@@ -826,7 +831,7 @@ details.wording>*:not(summary){margin-top:14px}
       '<div class="section-label">Security</div><div class="panel">' +
       '<label class="field">Who can sign in<textarea class="input" name="allowed" data-s="h80">' + esc((s.allowed || []).join(', ')) + '</textarea>' +
       '<span class="hint">Google accounts, separated by commas. Remove someone and they’re signed out right away.</span></label>' +
-      '<div class="small muted">Signed in as ' + esc(S.data.me) + '</div></div>' +
+      '<div class="small muted">Signed in as ' + esc(S.data.me) + ' · Sheet script version ' + esc(S.data.scriptVersion || 'unknown') + '</div></div>' +
 
       '<div class="sticky-bottom"><button class="btn btn-primary" type="submit">Save settings</button></div>' +
       '<button class="btn btn-ghost" type="button" data-act="signout">Sign out of this phone</button>' +
