@@ -1,0 +1,236 @@
+/* ================================================
+   Serving Aces — Ace the mascot
+   Shared brand pieces: nav, footer, animations, tip boxes.
+   Loaded last on every page so it wins over page styles.
+   ================================================ */
+
+/* ── NAV (same on every page) ── */
+nav.sa-nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+  height: 70px; box-sizing: border-box; padding: 0 5%;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  background: rgba(15,28,16,0.96); backdrop-filter: blur(8px);
+  font-family: 'DM Sans', sans-serif;
+}
+.sa-nav .nav-logo {
+  display: flex; align-items: center; gap: .65rem;
+  text-decoration: none; flex-shrink: 0;
+}
+.sa-nav .nav-logo img {
+  width: 46px; height: 46px; display: block;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,.35));
+  transition: transform .3s;
+}
+.sa-nav .nav-logo:hover img { animation: ace-waggle .6s ease-in-out 2; }
+.sa-nav .nav-logo span {
+  font-family: 'Saira Condensed', 'DM Sans', sans-serif;
+  font-style: italic; font-weight: 800; font-size: 1.55rem;
+  letter-spacing: .02em; text-transform: uppercase; color: #fff; line-height: 1;
+}
+.sa-nav .nav-logo span em { color: #b5e45c; font-style: italic; }
+.sa-nav .nav-links { display: flex; gap: 0; list-style: none; align-items: center; margin: 0; padding: 0; }
+.sa-nav .nav-links a {
+  color: rgba(255,255,255,0.78); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500; letter-spacing: .06em;
+  text-transform: uppercase; padding: .5rem .9rem; transition: color .2s;
+}
+.sa-nav .nav-links a:hover, .sa-nav .nav-links a.active { color: #b5e45c; }
+.sa-nav .nav-links a.nav-cta {
+  background: #d4540a; color: #fff; padding: .55rem 1.25rem;
+  border-radius: 2rem; margin-left: .5rem;
+}
+.sa-nav .nav-links a.nav-cta:hover { background: #b84808; color: #fff; }
+.sa-nav .nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 44px; height: 44px; align-items: center;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.sa-nav .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+.sa-mobile-menu {
+  display: none; position: fixed; top: 70px; left: 0; right: 0;
+  background: rgba(15,28,16,0.98); padding: 1rem 0;
+  z-index: 199; flex-direction: column; font-family: 'DM Sans', sans-serif;
+}
+.sa-mobile-menu.open { display: flex; }
+.sa-mobile-menu a {
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  padding: .9rem 5%; font-size: 1rem; font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sa-mobile-menu a:hover { color: #b5e45c; }
+.sa-mobile-menu a.mob-cta {
+  background: #d4540a; color: #fff; margin: 1rem 5% 0;
+  border-radius: 2rem; text-align: center; border: none;
+}
+@media (max-width: 1000px) {
+  .sa-nav .nav-links { display: none; }
+  .sa-nav .nav-toggle { display: flex; }
+}
+@media (max-width: 380px) {
+  .sa-nav .nav-logo span { font-size: 1.3rem; }
+  .sa-nav .nav-logo img { width: 40px; height: 40px; }
+}
+
+/* ── FOOTER BRAND ── */
+.sa-footer-logo img { height: 74px; width: auto; display: block; }
+.sa-backtop {
+  display: inline-flex; align-items: center; gap: .55rem;
+  color: #fff !important; text-decoration: none; font-weight: 600; font-size: .85rem;
+  border: 1px solid rgba(181,228,92,.35); border-radius: 2rem;
+  padding: .3rem 1rem .3rem .3rem; transition: border-color .2s, color .2s;
+}
+.sa-backtop img { width: 30px; height: 30px; display: block; }
+.sa-backtop:hover { border-color: #b5e45c; color: #b5e45c !important; }
+.sa-backtop:hover img { animation: ace-waggle .6s ease-in-out 2; }
+
+/* ── ANIMATIONS ── */
+@keyframes ace-float {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50%      { transform: translateY(-14px) rotate(-3deg); }
+}
+@keyframes ace-waggle {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(5deg); }
+}
+@keyframes ace-pop {
+  0%   { transform: scale(.55) rotate(-24deg); opacity: 0; }
+  60%  { transform: scale(1.07) rotate(-3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-6deg); }
+}
+@keyframes ace-streak {
+  0%, 100% { opacity: .2; transform: scaleX(.85); }
+  50%      { opacity: .7; transform: scaleX(1); }
+}
+.ace-float  { animation: ace-float 4s ease-in-out infinite; }
+.ace-waggle { animation: ace-waggle 3s ease-in-out infinite; transform-origin: 40% 70%; }
+.ace-pop    { animation: ace-pop .9s cubic-bezier(.2,.9,.3,1.2) both; }
+
+/* ── HOMEPAGE: hero mascot ── */
+.hero-ace {
+  position: relative; z-index: 2; grid-column: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+  padding: 5rem 5% 2rem 0; pointer-events: none;
+}
+.hero-ace img {
+  width: min(100%, 600px); height: auto; display: block;
+  filter: drop-shadow(0 24px 40px rgba(0,0,0,.55));
+}
+.hero-ace .streak {
+  position: absolute; right: 0; height: 5px; border-radius: 5px;
+  transform-origin: right center; animation: ace-streak 2.4s ease-in-out infinite;
+}
+.hero-ace .streak.s1 { top: 34%; width: 45%; background: linear-gradient(90deg, rgba(181,228,92,0), #b5e45c); }
+.hero-ace .streak.s2 { top: 46%; width: 30%; height: 4px; background: linear-gradient(90deg, rgba(212,84,10,0), #d4540a); animation-delay: .5s; }
+.hero-ace .streak.s3 { top: 66%; width: 38%; background: linear-gradient(90deg, rgba(181,228,92,0), #b5e45c); animation-delay: 1s; }
+.hero-ace .motto {
+  position: relative;
+  font-family: 'Saira Condensed', sans-serif; font-style: italic; font-weight: 800;
+  font-size: 1.35rem; letter-spacing: .14em; text-transform: uppercase; color: #b5e45c;
+}
+@media (max-width: 900px) {
+  .hero-ace { grid-column: 1; grid-row: 1; padding: 6rem 5% 0; }
+  .hero-ace img { width: min(78vw, 360px); }
+  .hero-ace .motto { display: none; }
+  .hero .hero-content { padding-top: 1rem; }
+}
+
+/* ── HOMEPAGE: book-a-lesson band ── */
+.cta-ace {
+  width: 300px; height: auto; flex-shrink: 0; margin: -2.5rem 0 -2.5rem -1rem;
+  filter: drop-shadow(0 20px 30px rgba(60,20,0,.45));
+}
+@media (max-width: 900px) { .cta-ace { width: 230px; margin: -1rem auto 0; } }
+
+/* ── Section divider: Ace streaking along a court line ── */
+.ace-divider {
+  position: relative; height: 130px; background: #f8f3ec; overflow: hidden;
+}
+.ace-divider::before {
+  content: ''; position: absolute; left: 5%; right: 5%; top: 50%; height: 3px;
+  background: linear-gradient(90deg, rgba(26,92,58,.15) 0%, rgba(26,92,58,.15) 50%, #d4540a 72%, rgba(212,84,10,0) 92%);
+}
+.ace-divider img {
+  position: absolute; left: 38%; top: 50%; width: 170px; height: auto;
+  transform: translateY(-50%) rotate(-4deg);
+  transition: left 1.6s cubic-bezier(.2,.8,.2,1);
+}
+.ace-divider.in img { left: 46%; }
+@media (max-width: 640px) {
+  .ace-divider { height: 100px; }
+  .ace-divider img { width: 120px; left: 30%; }
+  .ace-divider.in img { left: 36%; }
+}
+
+/* ── TOMMY'S CORNER: tip boxes presented by Ace ── */
+article .tip-box, .post-body .tip-box, .tip-box {
+  position: relative;
+  background: #0f1c10; color: #fff;
+  border: none; border-radius: 20px;
+  padding: 1.4rem 1.6rem 1.4rem 6.6rem;
+  min-height: 6rem;
+  box-shadow: 0 14px 30px rgba(15,28,16,.18);
+}
+.tip-box::before {
+  content: ''; position: absolute; left: 1.2rem; top: 50%;
+  width: 4.4rem; height: 4.4rem; margin-top: -2.2rem;
+  background: url('../images/mascot/ace-face.webp') center/contain no-repeat;
+  animation: ace-waggle 3s ease-in-out infinite;
+}
+.tip-box strong, article .tip-box strong {
+  font-family: 'Saira Condensed', 'DM Sans', sans-serif;
+  font-style: italic; font-weight: 800; color: #b5e45c !important;
+  font-size: 1.05rem !important; letter-spacing: .12em;
+}
+.tip-box p, article .tip-box p { color: rgba(255,255,255,.9) !important; }
+.tip-box a { color: #b5e45c; }
+@media (max-width: 560px) {
+  .tip-box, article .tip-box { padding: 5.4rem 1.3rem 1.3rem; }
+  .tip-box::before { top: 1.1rem; margin-top: 0; }
+}
+
+/* ── Small ball face used as an inline icon ── */
+.ace-dot { width: 1.25em; height: 1.25em; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ace-float, .ace-waggle, .ace-pop, .hero-ace .streak, .tip-box::before,
+  .sa-nav .nav-logo:hover img, .sa-backtop:hover img { animation: none !important; }
+  .ace-divider img { transition: none; }
+}
+
+/* ── TOMMY'S CORNER: hero mascot + small faces ── */
+.corner-ace {
+  position: absolute; top: -50px; right: -4%; width: 280px; height: auto; z-index: 4;
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,.45)); pointer-events: none;
+}
+.hero-tag .ace-dot { width: 22px; height: 22px; margin-left: -.55rem; }
+.topic-name .ace-dot { width: 18px; height: 18px; }
+@media (max-width: 900px) { .corner-ace { width: 200px; top: -40px; right: 0; } }
+
+/* ── 404: Ace is the zero ── */
+.ace-404 {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  font-family: 'Saira Condensed', 'Playfair Display', sans-serif !important;
+  font-style: italic; font-weight: 800; line-height: 1;
+  font-size: clamp(6rem, 18vw, 12rem) !important; margin-bottom: .5rem;
+}
+.ace-404 img {
+  width: clamp(170px, 30vw, 300px); height: auto; display: block;
+  margin: 0 -1.2rem 0 -.4rem; filter: drop-shadow(0 18px 28px rgba(0,0,0,.5));
+}
+.error-page { padding-top: 7rem !important; }
+
+/* ── THANK-YOU: Ace pops in, faces number the steps ── */
+.sa-ty__ace {
+  display: block; width: min(80vw, 380px); height: auto; margin: 0 auto 18px;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.4));
+}
+.sa-ty__num {
+  width: auto !important; height: auto !important; background: none !important;
+  display: flex !important; align-items: center; gap: .6rem;
+  font-family: 'Saira Condensed', sans-serif !important; font-style: italic;
+  font-weight: 800 !important; font-size: 26px !important; color: #d4540a !important;
+}
+.sa-ty__num img { width: 40px; height: 40px; display: block; }
+@media (prefers-reduced-motion: reduce) { .corner-ace { animation: none !important; } }
+@media (min-width: 901px) { .cta-band h2 { flex: 1 1 380px; } }
+@media (max-width: 900px) { .cta-band > div { justify-content: center; } }

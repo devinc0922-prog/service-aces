@@ -435,26 +435,38 @@
   }
 }
 </style>
+  <link rel="icon" href="/assets/images/favicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/mascot.css"/>
+  <link rel="apple-touch-icon" href="/assets/images/mascot/apple-touch-icon.png"/>
 </head>
 <body style="margin:0">
 
-<div class="sa-ty">
+<div class="sa-ty" style="padding-top:70px">
 
-  <!-- ===================== HEADER =====================
-       Placeholder nav. Replace with the header markup from your
-       existing index.html so it matches the rest of the site.
-       ================================================== -->
-  <header class="sa-ty__nav">
-    <div class="sa-ty__nav-in">
-      <a class="sa-ty__nav-mark" href="/">Serving <span>Aces</span></a>
-      <nav class="sa-ty__nav-links">
-        <a href="/">Home</a>
-        <a href="/#programs">Programs</a>
-        <a href="/#about">About</a>
-        <a href="/#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<nav class="sa-nav">
+  <a href="/index.html" class="nav-logo" aria-label="Serving Aces home">
+    <img src="/assets/images/mascot/ace-face.webp" alt="" width="46" height="46"/>
+    <span>Serving <em>Aces</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/gallery.html">Gallery</a></li>
+    <li><a href="/about.html">About Coach Tommy</a></li>
+    <li><a href="/tommys-corner/index.html">Tommy's Corner</a></li>
+    <li><a href="/contact.html" class="nav-cta">Book a Lesson</a></li>
+  </ul>
+  <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="mob" aria-expanded="false" onclick="var m=document.getElementById('mob');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu sa-mobile-menu" id="mob">
+  <a href="/index.html">Home</a>
+  <a href="/gallery.html">Gallery</a>
+  <a href="/about.html">About Coach Tommy</a>
+  <a href="/tommys-corner/index.html">Tommy's Corner</a>
+  <a href="/contact.html" class="mob-cta">Book a Lesson</a>
+</div>
 
   <!-- ===================== HERO ===================== -->
   <section class="sa-ty__hero">
@@ -470,9 +482,7 @@
 
     <div class="sa-ty__wrap">
 
-      <div class="sa-ty__seal" aria-hidden="true">
-        <svg viewBox="0 0 52 52"><path d="M14 27l8.5 8.5L38 18"/></svg>
-      </div>
+      <img class="sa-ty__ace ace-pop" src="/assets/images/mascot/ace-mascot.webp" alt="" width="647" height="438"/>
 
       <span class="sa-ty__eyebrow sa-ty__rise" data-d="1">Message received</span>
 
@@ -504,19 +514,19 @@
       <div class="sa-ty__grid">
 
         <article class="sa-ty__card sa-ty__rise" data-d="2">
-          <div class="sa-ty__num">1</div>
+          <div class="sa-ty__num"><img src="/assets/images/mascot/ace-face-64.webp" alt="" width="40" height="40"/>01</div>
           <h3>Tommy reads it</h3>
           <p>Your message goes straight to Coach Tommy. Every inquiry gets a real reply from the person who&rsquo;ll actually be on court with you.</p>
         </article>
 
         <article class="sa-ty__card sa-ty__rise" data-d="3">
-          <div class="sa-ty__num">2</div>
+          <div class="sa-ty__num"><img src="/assets/images/mascot/ace-face-64.webp" alt="" width="40" height="40"/>02</div>
           <h3>A quick conversation</h3>
           <p>He&rsquo;ll get in touch to talk through your goals, your experience level, and which courts around Clermont work best for your schedule.</p>
         </article>
 
         <article class="sa-ty__card sa-ty__rise" data-d="4">
-          <div class="sa-ty__num">3</div>
+          <div class="sa-ty__num"><img src="/assets/images/mascot/ace-face-64.webp" alt="" width="40" height="40"/>03</div>
           <h3>You&rsquo;re on the court</h3>
           <p>Bring a racquet, water, and court shoes &mdash; that&rsquo;s it. The first lesson is about finding the one or two things that will change your game fastest.</p>
         </article>
@@ -571,7 +581,7 @@
   <!-- ===================== FOOTER ===================== -->
   <footer class="sa-ty__foot">
     <div class="sa-ty__wrap">
-      <div class="sa-ty__mark">Serving <span>Aces</span> Tennis Academy</div>
+      <a href="/" class="sa-footer-logo" style="display:inline-block;margin-bottom:10px"><img src="/assets/images/mascot/logo-full-dark.webp" alt="Serving Aces Tennis Academy" style="height:84px;width:auto;margin:0 auto"/></a>
       <p class="sa-ty__areas">Clermont &middot; Winter Garden &middot; Windermere &middot; Minneola &middot; Central Florida</p>
       <p style="margin-top:14px"><a href="tel:+14072590774">(407) 259-0774</a></p>
     </div>
