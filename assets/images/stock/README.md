@@ -19,7 +19,9 @@ Stock photos saved for upcoming blog posts. Tommy's own photos come first. Use t
 | `scoreboard-5-0.jpg` | Tough match post, inside the article |
 | `clay-court-picking-up-ball.jpg` | US Open post, inside the article |
 | `racquet-and-balls-on-court.jpg` | First lesson post, inside the article |
+| `balls-on-racquet-clay.jpg` | Volley post, inside the article |
+| `../conditions.jpg` (Tommy's photo) | Volley post header |
 
-Still unused: `balls-on-racquet-clay.jpg`. Reusing the others in a new post is fine, just not as the header of two different posts.
+All five stock photos are now in use. Reusing one inside a new post is fine, just not as the header of two different posts.
 
 Some of these show brand logos (Wilson, Adidas, Babolat). That's fine for a blog photo. Just don't use them in a way that suggests the brand sponsors Serving Aces.

@@ -167,7 +167,7 @@
     .result-count { font-size: .85rem; color: var(--muted); }
 
     /* POST GRID */
-    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
     .post-card {
       --c: var(--green);
       border-radius: 20px; overflow: hidden; background: #fff;
@@ -439,16 +439,29 @@
   <main>
     <div class="section-head">
       <h2 id="gridTitle">Latest <em>from the court</em></h2>
-      <span class="result-count" id="resultCount">4 posts</span>
+      <span class="result-count" id="resultCount">5 posts</span>
     </div>
 
     <div class="posts-grid" id="postsGrid">
 
-      <!-- POST 4 — FEATURED (newest) -->
-      <a href="./post-first-lesson.html" class="post-card featured reveal" data-cat="beginners">
+      <!-- NEWEST POST — FEATURED -->
+      <a href="./post-volley-feet.html" class="post-card featured reveal" data-cat="technique">
         <div class="card-img">
-          <img src="../assets/images/tennis-lesson.jpg" alt="Coach Tommy feeding easy balls to a young beginner"/>
+          <img src="../assets/images/conditions.jpg" alt="A junior player stepping low through a footwork drill while Coach Tommy watches" style="object-position:30% 60%"/>
           <span class="new-ribbon">NEW</span>
+          <span class="img-badge">Technique</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>Oct 13, 2026</span><span class="sep"></span><span>4 min read</span></div>
+          <h2 class="card-title">Great Volleyers Volley With Their Feet</h2>
+          <p class="card-excerpt">Most bad volleys aren't an arm problem. Great volleyers don't wait for the ball. They move in, stay low, and let their feet do the work.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <a href="./post-first-lesson.html" class="post-card reveal" data-cat="beginners">
+        <div class="card-img">
+          <img src="../assets/images/tennis-lesson.jpg" alt="Coach Tommy feeding easy balls to a young beginner" loading="lazy" style="object-position:center 40%"/>
           <span class="img-badge">Beginners</span>
         </div>
         <div class="card-body">
@@ -568,6 +581,7 @@
 
   // Keep counts in sync with the cards on the page.
   document.getElementById('postCount').textContent = cards.length;
+  countEl.textContent = cards.length + (cards.length === 1 ? ' post' : ' posts');
   document.querySelectorAll('[data-count]').forEach(function (el) {
     el.textContent = cards.filter(function (c) { return c.dataset.cat === el.dataset.count; }).length;
   });

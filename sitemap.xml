@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://servingaces.net/tommys-corner/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -45,6 +45,12 @@
   <url>
     <loc>https://servingaces.net/tommys-corner/post-tough-match.html</loc>
     <lastmod>2026-09-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://servingaces.net/tommys-corner/post-volley-feet.html</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
