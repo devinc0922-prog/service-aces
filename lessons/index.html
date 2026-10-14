@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-68kkfhEOW+LXsuoc9aYgWbAcw9Z9TIRPGlS/YM1YJV0='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nsnoetf/PYEa/RuS3oWUTuMs11l2TnGSrzPFmWwKmLY='; style-src 'sha256-5xcM0OTFRzbXs0712xVJfDQLeV4kkcHAx01kdTg6Kh4=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 
@@ -215,7 +215,7 @@ details.wording>*:not(summary){margin-top:14px}
   var BACKEND = meta('tracker-backend') || store.get('pt_backend') || '';
   if (!BACKEND_RE.test(BACKEND)) BACKEND = '';
   var REDIRECT = new URL('./', location.href).href;
-  var NEEDS_SCRIPT = 4; // minimum Sheet script version this app expects
+  var NEEDS_SCRIPT = 5; // minimum Sheet script version this app expects
 
   var S = {
     session: store.get('pt_session'),
@@ -603,6 +603,13 @@ details.wording>*:not(summary){margin-top:14px}
     });
   }
 
+  function statusOf(x) {
+    if (!x.pkg) return 'nopkg';
+    if (x.left <= 0) return 'done';
+    if (x.left <= (set().threshold || 2)) return 'low';
+    return 'ok';
+  }
+
   function isTestStamp(x) { return /^TEST/i.test(String(x || '')); }
 
   function vHome() {
@@ -693,6 +700,9 @@ details.wording>*:not(summary){margin-top:14px}
     }
     var note = '';
     var who = r.test ? 'you' : (r.greet || payerName(x));
+    if (S.sheet.pending) {
+      note = '<div class="banner banner-info" role="status">' + I.refresh + '<div>Saving to your sheet\u2026 You can close this; it finishes on its own.</div></div>';
+    } else
     if (r.emailed === 'reminder') {
       note = '<div class="banner banner-warn">' + I.mail + '<div><strong>' + (r.test ? 'Test mode: the payment reminder went to you.' : 'We emailed ' + esc(who) + ' a payment reminder.') + '</strong> ' +
         (r.test ? '' : (set().copyMe ? 'You’ll get a copy too. ' : '')) + 'Nothing else to do.</div></div>';
@@ -708,7 +718,7 @@ details.wording>*:not(summary){margin-top:14px}
       '<div class="grabber"></div><div class="check">' + I.checkL + '</div>' +
       '<div class="stack-s"><h2 id="sheet-title" data-s="f24">' + esc(cap(unit())) + ' logged for ' + esc(r.student || x.student) + '</h2>' +
       '<div class="muted" data-s="f17">' + line + '</div></div>' + segs + note +
-      '<div class="row"><button class="btn btn-ghost grow" data-act="undo" data-id="' + esc(S.sheet.id) + '">Undo</button>' +
+      '<div class="row"><button class="btn btn-ghost grow" data-act="undo" data-id="' + esc(S.sheet.id) + '"' + (S.sheet.pending ? ' disabled' : '') + '>Undo</button>' +
       '<button class="btn btn-primary" data-s="flex2" data-act="closeSheet">Done</button></div></div>';
   }
 
@@ -868,14 +878,26 @@ details.wording>*:not(summary){margin-top:14px}
     refresh: function () { api('state').then(function () { render(); toast('Up to date.'); }, function () {}); },
     log: function (el) {
       var id = el.getAttribute('data-id');
-      api('logLesson', { id: id }).then(function (res) {
+      var x = student(id);
+      if (!x) return;
+      // Show the result right away; the Sheet catches up in the background.
+      x.used += 1;
+      x.left = x.pkg - x.used;
+      x.status = statusOf(x);
+      S.sheet = { id: id, pending: true, result: { student: x.student, used: x.used, pkg: x.pkg, left: x.left } };
+      S.toast = null;
+      render();
+      api('logLesson', { id: id }, { quiet: true }).then(function (res) {
+        if (S.sheet && S.sheet.id === id && S.sheet.pending) { S.sheet.result = res.result; S.sheet.pending = false; }
         if (S.screen === 'student') S.history = null;
-        S.screen = S.screen === 'student' ? 'student' : 'home';
-        S.sheet = { id: id, result: res.result };
-        S.toast = null;
         render();
         if (S.screen === 'student') loadHistory(id);
-      }, function () {});
+      }, function () {
+        // Not saved: close the sheet and reload the real numbers.
+        if (S.sheet && S.sheet.id === id) S.sheet = null;
+        render();
+        api('state', {}, { quiet: true }).then(function () { render(); }, function () {});
+      });
     },
     undo: function (el) {
       var id = el.getAttribute('data-id');
