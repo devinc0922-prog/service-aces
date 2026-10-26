@@ -301,6 +301,16 @@
     @media (max-width: 900px) { .blog-strip-grid { grid-template-columns: 1fr; max-width: 520px; } }
     a.area-pill { text-decoration: none; transition: transform .2s, background .2s, color .2s; }
     a.area-pill:hover { transform: translateY(-2px); background: var(--clay, #d4540a); color: #fff; }
+    .reg-courts { margin: 2.4rem auto 0; max-width: 900px; background: #fff; border-radius: 20px; padding: 1.6rem 1.6rem 1.2rem; box-shadow: 0 6px 24px rgba(0,0,0,.07); border-top: 6px solid var(--lime, #b5e45c); }
+    .reg-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--dark, #0f1c10); margin-bottom: 1rem; }
+    .reg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; text-align: left; }
+    .reg-court { background: #f8f3ec; border-radius: 12px; padding: .85rem .9rem; border-left: 4px solid var(--clay, #d4540a); }
+    .reg-court:nth-child(2) { border-left-color: #1a4a7a; } .reg-court:nth-child(3) { border-left-color: #1a5c3a; } .reg-court:nth-child(4) { border-left-color: #5c9a1e; }
+    .reg-court strong { display: block; color: #0f1c10; font-size: .95rem; margin-bottom: .2rem; }
+    .reg-court span { font-size: .82rem; color: #5a6e5c; }
+    .reg-note { margin-top: .9rem; font-size: .88rem; color: #5a6e5c; }
+    @media (max-width: 860px) { .reg-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .reg-grid { grid-template-columns: 1fr; } }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/mascot.css"/>
@@ -461,6 +471,16 @@
         <a class="area-pill" href="tennis-lessons-minneola-fl.html">Minneola →</a>
         <div class="area-pill">Horizon West</div>
         <div class="area-pill">Central Florida</div>
+      </div>
+      <div class="reg-courts">
+        <div class="reg-title">🎾 A few of Tommy's regular courts</div>
+        <div class="reg-grid">
+          <div class="reg-court"><strong>Hancock Park</strong><span>3301 Hancock Rd, Clermont</span></div>
+          <div class="reg-court"><strong>Lake Felter Park</strong><span>1750 Johns Lake Rd, Clermont</span></div>
+          <div class="reg-court"><strong>Minneola Athletic Complex</strong><span>1300 Fosgate Rd, Minneola</span></div>
+          <div class="reg-court"><strong>Northeast Regional Park</strong><span>50901 US-27, Davenport</span></div>
+        </div>
+        <p class="reg-note">Or he'll come to your neighborhood or HOA court.</p>
       </div>
     </div>
   </section>
