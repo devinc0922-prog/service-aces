@@ -121,5 +121,25 @@
   </div>
 </div>
 
+<script>
+  // Old WordPress addresses: send visitors to the matching page on the new site.
+  (function () {
+    var p = location.pathname.toLowerCase();
+    var map = [
+      ['how-to-watch-us-open', '/tommys-corner/post-us-open.html'],
+      ['one-serve-fix', '/tommys-corner/post-serve-fix.html'],
+      ['what-to-say-to-your-kid', '/tommys-corner/post-tough-match.html'],
+      ['first-lesson', '/tommys-corner/post-first-lesson.html'],
+      ['tommys-corner', '/tommys-corner/'],
+      ['contact', '/contact.html'], ['book', '/contact.html'],
+      ['about', '/about.html'], ['coach', '/about.html'],
+      ['gallery', '/gallery.html'], ['photo', '/gallery.html'],
+      ['privacy', '/privacy-policy.html']
+    ];
+    for (var i = 0; i < map.length; i++) {
+      if (p.indexOf(map[i][0]) !== -1 && p !== map[i][1]) { location.replace(map[i][1]); return; }
+    }
+  })();
+</script>
 </body>
 </html>

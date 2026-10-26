@@ -179,6 +179,9 @@
     }
     .post-card:hover { transform: translateY(-8px) rotate(-.4deg); box-shadow: 0 22px 44px rgba(0,0,0,0.14); }
     .post-card.featured { grid-column: 1 / -1; flex-direction: row; }
+    /* A card left alone on the last row stretches across like a mini featured card */
+    .posts-grid > .post-card:not(.featured):nth-last-child(2):nth-child(even) { grid-column: 1 / -1; flex-direction: row; }
+    .posts-grid > .post-card:not(.featured):nth-last-child(2):nth-child(even) .card-img { width: 42%; height: auto; min-height: 240px; }
     .post-card.hidden { display: none; }
     .post-card[data-cat="beginners"] { --c: #5c9a1e; }
     .post-card[data-cat="pro-game"]  { --c: var(--blue); }
@@ -346,6 +349,8 @@
       .content-layout { grid-template-columns: 1fr; }
       .sidebar { position: static; }
       .post-card.featured { flex-direction: column; }
+      .posts-grid > .post-card:not(.featured):nth-last-child(2):nth-child(even) { flex-direction: column; }
+      .posts-grid > .post-card:not(.featured):nth-last-child(2):nth-child(even) .card-img { width: 100%; min-height: 210px; }
       .post-card.featured .card-img { width: 100%; min-height: 240px; }
       .post-card.featured .card-body { padding: 1.8rem; }
       .ask-band { grid-template-columns: 1fr; padding: 2rem; }
@@ -439,16 +444,29 @@
   <main>
     <div class="section-head">
       <h2 id="gridTitle">Latest <em>from the court</em></h2>
-      <span class="result-count" id="resultCount">5 posts</span>
+      <span class="result-count" id="resultCount">6 posts</span>
     </div>
 
     <div class="posts-grid" id="postsGrid">
 
       <!-- NEWEST POST — FEATURED -->
-      <a href="./post-volley-feet.html" class="post-card featured reveal" data-cat="technique">
+      <a href="./post-fall-tennis-florida.html" class="post-card featured reveal" data-cat="beginners">
         <div class="card-img">
-          <img src="../assets/images/conditions.jpg" alt="A junior player stepping low through a footwork drill while Coach Tommy watches" style="object-position:30% 60%"/>
+          <img src="../assets/images/tennis-smiles.jpg" alt="A young player smiling with his racquet on a sunny Florida court" style="object-position:center 15%"/>
           <span class="new-ribbon">NEW</span>
+          <span class="img-badge">Beginners</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>Oct 26, 2026</span><span class="sep"></span><span>5 min read</span></div>
+          <h2 class="card-title">Why Fall Is the Best Time to Start Tennis in Florida</h2>
+          <p class="card-excerpt">Summer here is a fight with the heat. Fall is when tennis gets good again. Why now is the time to start, or come back, and what changes on court.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <a href="./post-volley-feet.html" class="post-card reveal" data-cat="technique">
+        <div class="card-img">
+          <img src="../assets/images/conditions.jpg" alt="A junior player stepping low through a footwork drill while Coach Tommy watches" loading="lazy" style="object-position:30% 60%"/>
           <span class="img-badge">Technique</span>
         </div>
         <div class="card-body">
