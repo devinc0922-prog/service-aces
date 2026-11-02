@@ -187,6 +187,7 @@
     .post-card[data-cat="pro-game"]  { --c: var(--blue); }
     .post-card[data-cat="technique"] { --c: var(--clay); }
     .post-card[data-cat="parents"]   { --c: var(--green); }
+    .post-card[data-cat="gear"]      { --c: #0f7b7b; }
 
     .card-img { position: relative; overflow: hidden; flex-shrink: 0; height: 210px; background: var(--c); }
     .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
@@ -437,6 +438,7 @@
   <button class="cat-pill" data-filter="technique" style="--c:#d4540a"><span class="swatch"></span>Technique</button>
   <button class="cat-pill" data-filter="parents" style="--c:#1a5c3a;"><span class="swatch" style="background:#2d8a57"></span>For Parents</button>
   <button class="cat-pill" data-filter="pro-game" style="--c:#1a4a7a"><span class="swatch" style="background:#4a8ad0"></span>Pro Game</button>
+  <button class="cat-pill" data-filter="gear" style="--c:#0f7b7b"><span class="swatch" style="background:#3fb8b8"></span>Gear</button>
   <button class="cat-pill" data-filter="drills" style="--c:#7a3a9a"><span class="swatch" style="background:#b07ad0"></span>Drills</button>
 </div>
 
@@ -444,16 +446,29 @@
   <main>
     <div class="section-head">
       <h2 id="gridTitle">Latest <em>from the court</em></h2>
-      <span class="result-count" id="resultCount">6 posts</span>
+      <span class="result-count" id="resultCount">7 posts</span>
     </div>
 
     <div class="posts-grid" id="postsGrid">
 
       <!-- NEWEST POST — FEATURED -->
-      <a href="./post-fall-tennis-florida.html" class="post-card featured reveal" data-cat="beginners">
+      <a href="./post-tennis-gift-guide.html" class="post-card featured reveal" data-cat="gear">
         <div class="card-img">
-          <img src="../assets/images/tennis-smiles.jpg" alt="A young player smiling with his racquet on a sunny Florida court" style="object-position:center 15%"/>
+          <img src="../assets/images/tennis-smile-balls.jpg" alt="A pile of smiley-face tennis balls on a racquet" style="object-position:center 45%"/>
           <span class="new-ribbon">NEW</span>
+          <span class="img-badge">Gear</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta"><span>Nov 2, 2026</span><span class="sep"></span><span>5 min read</span></div>
+          <h2 class="card-title">Holiday Gifts for Tennis Players: What a Coach Would Actually Buy</h2>
+          <p class="card-excerpt">A lot of tennis gifts in stores never get used. Here's what players actually want, from stocking stuffers to bigger gifts, plus what to skip.</p>
+          <span class="read-more">Read the post <span class="arrow">→</span></span>
+        </div>
+      </a>
+
+      <a href="./post-fall-tennis-florida.html" class="post-card reveal" data-cat="beginners">
+        <div class="card-img">
+          <img src="../assets/images/tennis-smiles.jpg" alt="A young player smiling with his racquet on a sunny Florida court" loading="lazy" style="object-position:center 15%"/>
           <span class="img-badge">Beginners</span>
         </div>
         <div class="card-body">
@@ -569,6 +584,7 @@
         <li><button data-filter="technique" style="--c:#d4540a"><span class="topic-name"><img class="ace-dot" src="../assets/images/mascot/ace-face-64.webp" alt=""/>Technique</span><span class="topic-count" data-count="technique">1</span></button></li>
         <li><button data-filter="parents" style="--c:#1a5c3a"><span class="topic-name"><img class="ace-dot" src="../assets/images/mascot/ace-face-64.webp" alt=""/>For Parents</span><span class="topic-count" data-count="parents">1</span></button></li>
         <li><button data-filter="pro-game" style="--c:#1a4a7a"><span class="topic-name"><img class="ace-dot" src="../assets/images/mascot/ace-face-64.webp" alt=""/>Pro Game</span><span class="topic-count" data-count="pro-game">1</span></button></li>
+        <li><button data-filter="gear" style="--c:#0f7b7b"><span class="topic-name"><img class="ace-dot" src="../assets/images/mascot/ace-face-64.webp" alt=""/>Gear</span><span class="topic-count" data-count="gear">0</span></button></li>
         <li><button data-filter="drills" style="--c:#7a3a9a"><span class="topic-name"><img class="ace-dot" src="../assets/images/mascot/ace-face-64.webp" alt=""/>Drills</span><span class="topic-count" data-count="drills">0</span></button></li>
       </ul>
     </div>
@@ -595,7 +611,7 @@
   var countEl = document.getElementById('resultCount');
   var titleEl = document.getElementById('gridTitle');
   var names = { all: 'Latest <em>from the court</em>', beginners: '<em>Beginners</em>', technique: '<em>Technique</em>',
-                parents: 'For <em>Parents</em>', 'pro-game': '<em>Pro Game</em>', drills: '<em>Drills</em>' };
+                parents: 'For <em>Parents</em>', 'pro-game': '<em>Pro Game</em>', drills: '<em>Drills</em>', gear: '<em>Gear</em>' };
 
   // Keep counts in sync with the cards on the page.
   document.getElementById('postCount').textContent = cards.length;
