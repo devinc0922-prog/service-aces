@@ -252,22 +252,8 @@
     .step p { font-size: .88rem !important; line-height: 1.55 !important; color: rgba(255,255,255,0.85) !important; margin: 0 !important; position: relative; }
     @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
 
-    /* Gift cards */
-    .tier { display: inline-flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #fff; background: var(--tc); padding: .35rem .95rem; border-radius: 2rem; margin: 2.6rem 0 .2rem; }
-    .gifts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 1.6rem; }
-    .gift { background: #fff; border-radius: 16px; padding: 1.3rem 1.3rem 1.2rem; box-shadow: 0 6px 22px rgba(0,0,0,.07); border-top: 5px solid var(--tc); position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s; }
-    .gift:hover { transform: translateY(-4px) rotate(-.3deg); box-shadow: 0 14px 32px rgba(0,0,0,.12); }
-    .gift .gi { font-size: 2rem; line-height: 1; margin-bottom: .55rem; }
-    .gift h4 { font-family: 'Playfair Display', serif; font-size: 1.12rem; color: var(--dark); margin-bottom: .4rem; }
-    .gift p { font-size: .93rem !important; line-height: 1.65 !important; color: #3a4a3d !important; margin: 0 !important; }
-    .gift.wide { grid-column: 1 / -1; }
-    .skip { background: linear-gradient(135deg, #2a1414, #401d1d); border-radius: 18px; padding: 1.6rem 1.6rem 1.3rem; color: #fff; margin: 1.6rem 0 2rem; }
-    .skip h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #ffb27a; margin-bottom: .7rem; }
-    .skip p { color: rgba(255,255,255,.85) !important; font-size: .95rem !important; line-height: 1.65 !important; margin-bottom: .6rem !important; }
-    .skip p:last-child { margin-bottom: 0 !important; }
-    .skip strong { color: #fff; }
-    .post-photo { width: 100%; border-radius: 16px; margin: 1rem 0 .5rem; display: block; box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
-    @media (max-width: 640px) { .gifts { grid-template-columns: 1fr; } }
+    .post-photo { width: 100%; border-radius: 12px; margin: 1.6rem 0 2rem; display: block; }
+    article h4 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--dark); margin: 1.8rem 0 .5rem; }
   </style>
   <link rel="icon" href="../assets/images/favicon.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
@@ -330,44 +316,31 @@
     <p>Here's the thing. A lot of the tennis gifts in stores never get used. Gadgets, fancy gear, a racquet picked off the wall because it looked good.</p>
     <p>What players actually want is cheaper and a lot more boring. So here's my list, from stocking stuffers up to the bigger stuff.</p>
 
-    <div class="tier" style="--tc:#5c9a1e">🧦 Stocking stuffers</div>
-    <div class="gifts" style="--tc:#5c9a1e">
-      <div class="gift"><div class="gi">🎾</div><h4>Fresh balls</h4><p>Every player goes through balls. Once a can is open, the balls start losing their bounce, and in Florida heat they go flat fast. A few cans never go to waste.</p></div>
-      <div class="gift"><div class="gi">🩹</div><h4>Overgrips</h4><p>A thin wrap that goes over the racquet handle. A fresh one makes an old racquet feel new again. Most players should change theirs a lot more often than they do.</p></div>
-      <div class="gift"><div class="gi">🔇</div><h4>A dampener</h4><p>The little rubber piece on the strings. It quiets the "ping." It won't fix anyone's game. It just feels nicer, and kids love picking the colors.</p></div>
-      <div class="gift"><div class="gi">💦</div><h4>Wristbands and a hat</h4><p>Simple, cheap, and in Florida you use them every single time you play. A light-colored hat is better than a dark one out here.</p></div>
-    </div>
+    <h3>Stocking stuffers</h3>
+    <p><strong>Fresh balls.</strong> Every player goes through balls. Once a can is open, the balls start losing their bounce, and in Florida heat they go flat fast. A few cans never go to waste.</p>
+    <p><strong>Overgrips.</strong> A thin wrap that goes over the racquet handle. A fresh one makes an old racquet feel new again. Most players should change theirs a lot more often than they do. If their grip looks dark, shiny, or slippery, this is the easiest win on the whole list.</p>
+    <p><strong>A dampener.</strong> The little rubber piece on the strings. It quiets the "ping." It won't fix anyone's game. It just feels nicer, and kids love picking the colors.</p>
+    <p><strong>Wristbands and a hat.</strong> Simple and cheap, and in Florida you use them every time you play. A light-colored hat is better than a dark one out here.</p>
 
-    <div class="tier" style="--tc:#d4540a">🎁 Small gifts</div>
-    <div class="gifts" style="--tc:#d4540a">
-      <div class="gift"><div class="gi">🧵</div><h4>A restring</h4><p>Strings lose tension over time, even if they never break. A lot of players are hitting with dead strings and don't know it. A good rule of thumb: restring as many times a year as you play each week. A gift card to a shop that strings racquets is a great gift.</p></div>
-      <div class="gift"><div class="gi">🧺</div><h4>A ball hopper</h4><p>A basket that picks balls up off the court, so you're not bending over a hundred times. And a player with a full hopper practices serves a lot more. That's just how it works.</p></div>
-      <div class="gift"><div class="gi">🧊</div><h4>A big insulated water jug</h4><p>Not a little bottle. A jug that keeps water cold for a full match in the Florida sun. Players use it every time.</p></div>
-      <div class="gift"><div class="gi">🔴</div><h4>The right balls for a kid</h4><p>Kids 10 and under learn faster with slower, lower-bouncing balls. They're color-coded: red, then orange, then green, before regular yellow balls. Ask me which color your kid is on.</p></div>
-    </div>
+    <h3>Small gifts</h3>
+    <p><strong>A restring.</strong> Strings lose tension over time, even if they never break. A lot of players are hitting with dead strings and don't know it. A good rule of thumb is to restring as many times a year as you play each week. A gift card to a shop that strings racquets is a great gift.</p>
+    <p><strong>A ball hopper.</strong> A basket that picks balls up off the court, so you're not bending over a hundred times. And a player with a full hopper practices serves a lot more. That's just how it works.</p>
+    <p><strong>A big insulated water jug.</strong> Not a little bottle. A jug that keeps water cold through a full match in the Florida sun.</p>
+    <p><strong>The right balls for a kid.</strong> Kids 10 and under learn faster with slower, lower-bouncing balls. They're color-coded: red, then orange, then green, before regular yellow balls. Ask me which color your kid is on.</p>
 
-    <img class="post-photo" src="../assets/images/stock/court-shoes-racquet-ball.jpg" alt="Court shoes, a racquet, and a tennis ball on a clay court" loading="lazy" style="height:360px;object-fit:cover;object-position:center 40%"/>
+    <img class="post-photo" src="../assets/images/stock/court-shoes-racquet-ball.jpg" alt="Court shoes, a racquet, and a tennis ball on a clay court" loading="lazy" style="height:380px;object-fit:cover;object-position:center 40%"/>
 
-    <div class="tier" style="--tc:#1a4a7a">⭐ Bigger gifts</div>
-    <div class="gifts" style="--tc:#1a4a7a">
-      <div class="gift"><div class="gi">👟</div><h4>Court shoes</h4><p>If they play in running shoes, this is the gift. Running shoes are built for moving forward. Tennis is side to side, and court shoes are made for that. They also last longer on hard courts. Get them fitted, or give a gift card so they can try some on.</p></div>
-      <div class="gift"><div class="gi">📏</div><h4>A kid's racquet (ask first)</h4><p>For kids, the right racquet size matters a lot, and it mostly comes down to height. Too long or too heavy makes the game harder. Ask me before you buy and I'll tell you what size to get.</p></div>
-      <div class="gift wide"><div class="gi">🙋</div><h4>Lessons</h4><p>Yes, I'm biased. But lessons make a good gift, especially for someone who keeps saying they want to get better, or a kid who wants to try. Call or text me and I'll set up a lesson package as a gift.</p></div>
-    </div>
+    <h3>Bigger gifts</h3>
+    <p><strong>Court shoes.</strong> If they play in running shoes, this is the gift. Running shoes are built for moving forward. Tennis is side to side, and court shoes are made for that. They also last longer on hard courts. Get them fitted, or give a gift card so they can try some on.</p>
+    <p><strong>A kid's racquet, but ask first.</strong> For kids, the right racquet size matters a lot, and it mostly comes down to height. Too long or too heavy makes the game harder. Ask me before you buy and I'll tell you what size to get.</p>
+    <p><strong>Lessons.</strong> Yes, I'm biased. But lessons make a good gift, especially for someone who keeps saying they want to get better, or a kid who wants to try. Call or text me and I'll set up a lesson package as a gift.</p>
 
-    <img class="post-photo" src="../assets/images/stock/three-racquets-by-net.jpg" alt="Three different tennis racquets with balls on a blue court by the net" loading="lazy" style="height:360px;object-fit:cover;object-position:center 45%"/>
+    <img class="post-photo" src="../assets/images/stock/three-racquets-by-net.jpg" alt="Three different tennis racquets with balls on a blue court by the net" loading="lazy" style="height:380px;object-fit:cover;object-position:center 45%"/>
 
-    <div class="skip">
-      <h4>What I'd skip</h4>
-      <p><strong>Surprising an adult with a racquet.</strong> Grip size, weight, and feel are personal. The wrong one usually ends up in a closet. If you want to give a racquet, give a gift card and let them try a few first.</p>
-      <p><strong>Gadgets.</strong> Swing sensors and fancy training gizmos are fun to unwrap. Most of them end up in a drawer by February.</p>
-      <p><strong>A pro-level racquet for a beginner.</strong> The racquets the pros use are usually heavier and less forgiving. A newer player is better off with something lighter and easier to swing.</p>
-    </div>
-
-    <div class="tip-box">
-      <strong>Ace&rsquo;s Tip</strong>
-      <p>Not sure what they need? Look at their grip. If it's dark, shiny, or slippery, a pack of overgrips is the easiest win on this list.</p>
-    </div>
+    <h3>What I'd skip</h3>
+    <p><strong>Surprising an adult with a racquet.</strong> Grip size, weight, and feel are personal. The wrong one usually ends up in a closet. If you want to give a racquet, give a gift card and let them try a few first.</p>
+    <p><strong>Gadgets.</strong> Swing sensors and training gizmos are fun to unwrap. Most of them end up in a drawer by February.</p>
+    <p><strong>A pro-level racquet for a beginner.</strong> The racquets the pros use are usually heavier and less forgiving. A newer player is better off with something lighter and easier to swing.</p>
 
     <h3>The best gift is more tennis</h3>
     <p>Nothing on this list is magic. A new grip won't fix a forehand, and new shoes won't win a match.</p>
