@@ -9,6 +9,8 @@ Stock photos saved for upcoming blog posts. Tommy's own photos come first. Use t
 | `clay-court-picking-up-ball.jpg` | Player scooping a ball on clay | Between-point routines, practice habits, drills |
 | `balls-on-racquet-clay.jpg` | Two balls balanced on a racquet face | Beginner drills, juniors, hand-eye coordination |
 | `scoreboard-5-0.jpg` | Flip scoreboard by the net | How to keep score, match play, tournaments, tough losses |
+| `court-shoes-racquet-ball.jpg` | Court shoes, a racquet, and a ball on clay | Shoes, gear, footwork |
+| `three-racquets-by-net.jpg` | Three different racquets with balls by the net | Choosing a racquet, gear, racquet size for kids |
 
 ## Already in use
 
@@ -20,8 +22,10 @@ Stock photos saved for upcoming blog posts. Tommy's own photos come first. Use t
 | `clay-court-picking-up-ball.jpg` | US Open post, inside the article |
 | `racquet-and-balls-on-court.jpg` | First lesson post, inside the article |
 | `balls-on-racquet-clay.jpg` | Volley post, inside the article |
+| `court-shoes-racquet-ball.jpg` | Gift guide, inside the article (before Bigger gifts) |
+| `three-racquets-by-net.jpg` | Gift guide, inside the article (before "What I'd skip") |
 | `../conditions.jpg` (Tommy's photo) | Volley post header |
 
-All five stock photos are now in use. Reusing one inside a new post is fine, just not as the header of two different posts.
+All the stock photos are now in use. Reusing one inside a new post is fine, just not as the header of two different posts.
 
 Some of these show brand logos (Wilson, Adidas, Babolat). That's fine for a blog photo. Just don't use them in a way that suggests the brand sponsors Serving Aces.
